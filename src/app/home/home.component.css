@@ -1,0 +1,8 @@
+h1 {
+  color: white;
+  text-align: center;
+  margin: 30px;
+}
+h1 span {
+  font-size: 40px;
+}
