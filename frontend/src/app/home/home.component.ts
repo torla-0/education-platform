@@ -25,8 +25,8 @@ export class HomeComponent {
 
   constructor(private api: ApiService) {
     this.api.getTestMessage().subscribe({
-      next: (res) => (this.message = res),
-      error: (err) => console.error('Greška sa backendom:', err),
+      next: (res: any) => (this.message = res),
+      error: (err: any) => console.error('Greška sa backendom:', err),
     });
   }
 }

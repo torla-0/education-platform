@@ -1,1 +1,14 @@
-<p>quiz works!</p>
+<div class="quiz-container">
+  <h2>Choose quiz theme</h2>
+
+  <div class="topic-buttons">
+    <button
+      *ngFor="let topic of topics"
+      (click)="startQuiz(topic.id)"
+      class="cta-button"
+      mat-raised-button
+    >
+      {{ topic.name }}
+    </button>
+  </div>
+</div>

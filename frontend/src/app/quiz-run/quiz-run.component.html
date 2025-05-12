@@ -1,0 +1,71 @@
+<div class="quiz-container" *ngIf="!quizCompleted && currentQuestion">
+  <div class="timer-bar-container">
+    <div
+      class="timer-bar"
+      [style.width.%]="timerPercent"
+      [ngClass]="{ danger: timer <= 5 }"
+    ></div>
+  </div>
+  <p>⏱️ Time left: {{ timer }} sec</p>
+
+  <div class="progress-bar">
+    Question {{ currentIndex + 1 }} of {{ questions.length }}
+  </div>
+
+  <p>{{ currentQuestion.text }}</p>
+
+  <div class="options">
+    <button
+      *ngFor="let option of currentQuestion.options"
+      (click)="selectAnswer(option)"
+      [ngClass]="{ selected: option === selectedAnswer }"
+    >
+      {{ option }}
+    </button>
+  </div>
+
+  <button
+    [disabled]="!selectedAnswer"
+    (click)="nextQuestion()"
+    class="cta-button next-button"
+  >
+    {{ isLastQuestion() ? "Finish Quiz" : "Next Question" }}
+  </button>
+</div>
+
+<!-- Results -->
+<div *ngIf="quizFinished" class="result-summary">
+  <h2>Quiz Summary</h2>
+
+  <p>
+    You answered {{ correctAnswers }} out of {{ questions.length }} questions
+    correctly.
+  </p>
+  <p>
+    Your score:
+    {{ (correctAnswers / questions.length) * 100 | number : "1.0-0" }}%
+  </p>
+
+  <div class="answer-review">
+    <div *ngFor="let q of questions; let i = index" class="review-card">
+      <p>
+        <strong>Q{{ i + 1 }}:</strong> {{ q.text }}
+      </p>
+      <p>
+        Your answer:
+        <span
+          [class.correct]="q.selectedAnswer === q.correctAnswer"
+          [class.incorrect]="q.selectedAnswer !== q.correctAnswer"
+          >{{ q.selectedAnswer }}</span
+        >
+      </p>
+      <p>
+        Correct answer: <strong>{{ q.correctAnswer }}</strong>
+      </p>
+    </div>
+  </div>
+</div>
+<div *ngIf="quizFinished" class="action-buttons">
+  <button class="cta-button" (click)="restartQuiz()">🔁 Try Again</button>
+  <button class="cta-button" (click)="backToTopics()">🏠 Back to Topics</button>
+</div>

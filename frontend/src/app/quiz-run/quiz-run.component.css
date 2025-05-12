@@ -1,0 +1,164 @@
+.quiz-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.options button {
+  display: block;
+  margin: 0.5rem auto;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  max-width: 300px;
+  font-size: 16px;
+}
+
+.selected {
+  background-color: #1976d2;
+  color: white;
+}
+
+.results {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+  text-align: left;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}
+
+.timer-bar-container {
+  width: 100%;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.timer-bar {
+  height: 100%;
+  background-color: #1976d2;
+  transition: width 1s linear;
+}
+
+.timer-bar.danger {
+  background-color: #e53935;
+}
+
+.progress-bar {
+  margin-bottom: 1rem;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.next-button {
+  margin-top: 1.5rem;
+  background-color: #00bcd4 !important; /* Baby blue */
+  color: white !important;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.next-button:hover {
+  background-color: #0097a7 !important;
+  transform: translateY(-2px);
+}
+
+.result-summary {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  padding: 2rem;
+  margin-top: 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.answer-review {
+  margin-top: 2rem;
+}
+
+.review-card {
+  background-color: #333;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  text-align: left;
+}
+
+.review-card p {
+  margin: 0.3rem 0;
+}
+
+.correct {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.incorrect {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.result-summary {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  padding: 2rem;
+  margin-top: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cta-button.outline {
+  background-color: transparent !important;
+  color: #00bcd4 !important;
+  border: 2px solid #00bcd4;
+}
+
+.cta-button.outline:hover {
+  background-color: #0097a7 !important;
+  color: white !important;
+}
+
+.action-buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.cta-button {
+  font-size: 16px;
+  padding: 0.75rem 1.5rem;
+}
