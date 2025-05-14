@@ -21,3 +21,7 @@ INSERT INTO question_options (question_id, options) VALUES
 (2, 'Definisanje klase'),
 (2, 'Zauzimanje memorije'),
 (2, 'Deklaracija varijable');
+
+-- data.sql
+INSERT INTO users (email, password, role) VALUES ('test@test.com', 'test123', 'USER');
+
