@@ -12,14 +12,25 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 nav a {
   color: white;
   text-decoration: none;
   margin-left: 1rem;
+  cursor: poiter;
 }
 
 nav a.active-link {
   border-bottom: 2px solid white;
+}
+
+nav a,
+nav a[mat-button] {
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+  cursor: pointer;
 }

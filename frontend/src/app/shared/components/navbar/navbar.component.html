@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="navbar">
-  <span class="logo">LearnX</span>
+  <a class="logo" routerLink="/home">LearnX</a>
 
   <span class="spacer"></span>
 
@@ -16,6 +16,14 @@
     <a mat-button routerLink="/blog" routerLinkActive="active-link">Blog</a>
     <a mat-button routerLink="/login" *ngIf="!auth.isLoggedIn()">Login</a>
     <a mat-button routerLink="/signup" *ngIf="!auth.isLoggedIn()">Sign Up</a>
+    <a
+      mat-button
+      routerLink="/dashboard"
+      routerLinkActive="active-link"
+      *ngIf="auth.isLoggedIn()"
+      >Dashboard</a
+    >
+
     <a mat-button (click)="logout()" *ngIf="auth.isLoggedIn()">Logout</a>
   </nav>
 </mat-toolbar>

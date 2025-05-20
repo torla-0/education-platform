@@ -2,6 +2,7 @@ import {
   AsyncAction,
   AsyncScheduler,
   BehaviorSubject,
+  EMPTY,
   Observable,
   Subject,
   Subscription,
@@ -14,13 +15,17 @@ import {
   argsArgArrayOrObject,
   createObject,
   createOperatorSubscriber,
+  from,
   innerFrom,
   isFunction,
   map,
   mapOneOrManyArgs,
+  mergeAll,
   noop,
-  popResultSelector
-} from "./chunk-XVP7PFHH.js";
+  popNumber,
+  popResultSelector,
+  popScheduler
+} from "./chunk-FKZYUQQV.js";
 
 // node_modules/@angular/core/fesm2022/weak_ref-DrMdAIDh.mjs
 function setAlternateWeakRefImpl(impl) {
@@ -967,6 +972,18 @@ function forkJoin() {
     }
   });
   return resultSelector ? result.pipe(mapOneOrManyArgs(resultSelector)) : result;
+}
+
+// node_modules/rxjs/dist/esm5/internal/observable/merge.js
+function merge() {
+  var args = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    args[_i] = arguments[_i];
+  }
+  var scheduler = popScheduler(args);
+  var concurrent = popNumber(args, Infinity);
+  var sources = args;
+  return !sources.length ? EMPTY : sources.length === 1 ? innerFrom(sources[0]) : mergeAll(concurrent)(from(sources, scheduler));
 }
 
 // node_modules/rxjs/dist/esm5/internal/observable/never.js
@@ -26923,9 +26940,12 @@ export {
   setAlternateWeakRefImpl,
   SIGNAL,
   setCurrentInjector,
+  asapScheduler,
+  animationFrameScheduler,
   isObservable,
   defer,
   forkJoin,
+  merge,
   XSS_SECURITY_URL,
   RuntimeError,
   formatRuntimeError,
@@ -27473,4 +27493,4 @@ export {
    * found in the LICENSE file at https://angular.dev/license
    *)
 */
-//# sourceMappingURL=chunk-IQQORNKR.js.map
+//# sourceMappingURL=chunk-SI2MPDB7.js.map
