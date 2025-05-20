@@ -1,9 +1,9 @@
 import {
   MatCommonModule
-} from "./chunk-BY3Q5O4L.js";
-import "./chunk-KI5K4WLF.js";
-import "./chunk-EMN63JVU.js";
-import "./chunk-PIMMCME6.js";
+} from "./chunk-UN6QN7KD.js";
+import "./chunk-FGNUZ7ZV.js";
+import "./chunk-UFZ4PI3K.js";
+import "./chunk-T3VFYENI.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -23,8 +23,7 @@ import {
   ɵɵelementStart,
   ɵɵprojection,
   ɵɵprojectionDef
-} from "./chunk-SI2MPDB7.js";
-import "./chunk-FKZYUQQV.js";
+} from "./chunk-IOAFDB3I.js";
 
 // node_modules/@angular/material/fesm2022/card.mjs
 var _c0 = ["*"];

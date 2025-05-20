@@ -1,8 +1,8 @@
 package com.eduapp.backend.dto;
 
 public class QuizTopicDto {
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
 
     public QuizTopicDto(Long id, String name) {
         this.id = id;

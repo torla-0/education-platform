@@ -3,7 +3,7 @@ import {
   setClassMetadata,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-SI2MPDB7.js";
+} from "./chunk-IOAFDB3I.js";
 
 // node_modules/@angular/cdk/fesm2022/scrolling-61955dd1.mjs
 var RtlScrollAxisType;
@@ -141,4 +141,4 @@ export {
   _isTestEnvironment,
   getSupportedInputTypes
 };
-//# sourceMappingURL=chunk-PBXMUDX7.js.map
+//# sourceMappingURL=chunk-YJKECE2A.js.map

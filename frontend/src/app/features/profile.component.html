@@ -1,0 +1,122 @@
+<div class="profile-page">
+  <div class="profile-wrapper">
+    <!-- Headline -->
+    <div class="hero">
+      <h2>👤 My Profile</h2>
+      <p>View and manage your account details.</p>
+    </div>
+
+    <!-- Account Information Section -->
+    <div class="profile-card">
+      <h3>📝 Account Information</h3>
+
+      <form (submit)="onProfileSubmit()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            [class.editable]="editMode"
+            [(ngModel)]="user.username"
+            name="username"
+            [disabled]="!editMode"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            [class.editable]="editMode"
+            [(ngModel)]="user.email"
+            name="email"
+            [disabled]="!editMode"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            [class.editable]="editMode"
+            [(ngModel)]="user.firstName"
+            name="firstName"
+            [disabled]="!editMode"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            [class.editable]="editMode"
+            [(ngModel)]="user.lastName"
+            name="lastName"
+            [disabled]="!editMode"
+            class="form-control"
+          />
+        </div>
+
+        <button
+          class="cta-button full-width"
+          type="button"
+          (click)="toggleEditMode()"
+        >
+          {{ editMode ? "Save Changes" : "Edit Profile" }}
+        </button>
+      </form>
+    </div>
+
+    <!-- Password Section -->
+
+    <div class="profile-card">
+      <h3>🔐 Change Password</h3>
+      <p>
+        We recommend updating your password regularly to keep your account
+        secure.
+      </p>
+
+      <form class="password-form" (submit)="onPasswordSubmit()">
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input
+            type="password"
+            id="newPassword"
+            [(ngModel)]="password.new"
+            name="newPassword"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            [(ngModel)]="password.confirm"
+            name="confirmPassword"
+            required
+          />
+        </div>
+
+        <button class="cta-button" type="submit">Change Password</button>
+      </form>
+    </div>
+
+    <!-- Delete Account Section -->
+    <div class="profile-card danger-zone">
+      <h3>🗑️ Delete Account</h3>
+      <p>
+        This action is irreversible. Once you request deletion, your data may be
+        permanently removed.
+      </p>
+      <button class="delete-button">Request Account Deletion</button>
+    </div>
+  </div>
+</div>

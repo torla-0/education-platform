@@ -3,27 +3,30 @@
 
   <span class="spacer"></span>
 
-  <nav>
+  <!-- Main nav (hidden on small screen if logged in) -->
+  <nav class="desktop-menu" *ngIf="!menuOpen || !auth.isLoggedIn()">
     <a mat-button routerLink="/home" routerLinkActive="active-link">Home</a>
     <a
       mat-button
       routerLink="/learning-resources"
       routerLinkActive="active-link"
-    >
-      Learning Resources
-    </a>
-    <a mat-button routerLink="/quiz" routerLinkActive="active-link">Quiz</a>
-    <a mat-button routerLink="/blog" routerLinkActive="active-link">Blog</a>
-    <a mat-button routerLink="/login" *ngIf="!auth.isLoggedIn()">Login</a>
-    <a mat-button routerLink="/signup" *ngIf="!auth.isLoggedIn()">Sign Up</a>
-    <a
-      mat-button
-      routerLink="/dashboard"
-      routerLinkActive="active-link"
-      *ngIf="auth.isLoggedIn()"
-      >Dashboard</a
+      >Learning Resources</a
     >
 
-    <a mat-button (click)="logout()" *ngIf="auth.isLoggedIn()">Logout</a>
+    <a mat-button routerLink="/quiz" routerLinkActive="active-link">Quiz</a>
+    <a mat-button routerLink="/blog" routerLinkActive="active-link">Blog</a>
+
+    <a mat-button routerLink="/login" *ngIf="!auth.isLoggedIn()">Login</a>
+    <a mat-button routerLink="/signup" *ngIf="!auth.isLoggedIn()">Sign Up</a>
+    <!-- Hamburger icon only when logged in -->
   </nav>
+  <button mat-icon-button (click)="toggleMenu()" class="burger">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <!-- Dropdown menu for profile/logout -->
+  <div class="dropdown-menu" *ngIf="menuOpen && auth.isLoggedIn()">
+    <a mat-menu-item routerLink="/profile">👤 Profile</a>
+    <a mat-menu-item (click)="logout()">🚪 Logout</a>
+  </div>
 </mat-toolbar>

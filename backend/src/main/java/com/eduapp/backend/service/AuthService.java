@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.eduapp.backend.dto.AuthResponse;
 import com.eduapp.backend.dto.LoginRequest;
@@ -14,6 +15,8 @@ import com.eduapp.backend.model.User;
 import com.eduapp.backend.model.enums.Role;
 import com.eduapp.backend.repository.UserRepository;
 import com.eduapp.backend.security.JwtService;
+
+import jakarta.persistence.EntityManager;
 
 @Service
 public class AuthService {
@@ -30,22 +33,32 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private EntityManager entityManager;
+    
+    @Transactional
     public String registerUser(UserRegisterRequest request) {
     if (userRepository.findByEmail(request.getEmail()).isPresent()) {
         return "Email already in use";
     }
+ 
+    if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+        return "Username already in use";
+    }
 
     User user = new User();
-    user.setUsername(request.getUsername()); // <-- THIS was missing
     user.setEmail(request.getEmail());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setFirstName(request.getFirstName());
     user.setLastName(request.getLastName());
+    user.setUsername(request.getUsername());
     user.setRole(Role.USER);
 
     userRepository.save(user);
+    entityManager.flush();  
+
     return "User registered successfully";
-    }
+}
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(

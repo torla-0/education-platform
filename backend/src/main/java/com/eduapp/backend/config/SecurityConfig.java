@@ -35,7 +35,9 @@ public class SecurityConfig {
                     "/api/topics/**",
                     "/api/questions/**",
                     "/h2-console/**"
+                    
                 ).permitAll()
+                .requestMatchers("/api/users/me").authenticated()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // ⬅️ Important line

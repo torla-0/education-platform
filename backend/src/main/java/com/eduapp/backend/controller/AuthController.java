@@ -1,5 +1,8 @@
 package com.eduapp.backend.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +23,14 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserRegisterRequest request) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody UserRegisterRequest request) {
         String response = authService.registerUser(request);
-        return ResponseEntity.ok(response);
+        Map<String, String> body = new HashMap<>();
+        body.put("message", response);
+        return ResponseEntity.ok(body); // ✅ now always 200 + JSON body
     }
+
+
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
