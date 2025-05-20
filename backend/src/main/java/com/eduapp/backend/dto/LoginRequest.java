@@ -5,8 +5,8 @@ public class LoginRequest {
     private String password;
     // Getteri i setteri
     public String getEmail() {
-    return email;
-}
+        return email;
+    }
 
     public void setEmail(String email) {
         this.email = email;

@@ -10,18 +10,13 @@ import com.eduapp.backend.repository.QuestionRepository;
 @Service
 public class QuestionService {
 
-    private final QuestionRepository questionRepository;
+    private final QuestionRepository repository;
 
-    public QuestionService(QuestionRepository questionRepository) {
-        this.questionRepository = questionRepository;
+    public QuestionService(QuestionRepository repository) {
+        this.repository = repository;
     }
 
     public List<Question> findByTopicId(Long topicId) {
-        return questionRepository.findByTopicId(topicId);
+        return repository.findByTopicId(topicId);
     }
-
-    public List<Question> findAll() {
-    return questionRepository.findAll();
-}
-
 }

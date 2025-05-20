@@ -58,6 +58,7 @@ export class QuizRunComponent implements OnInit {
   loadQuestions() {
     this.quizService.getQuestionsByTopicId(this.topicId).subscribe({
       next: (data) => {
+        console.log('Primljena pitanja: ', data); // test <------
         // shuffle options for each question
         this.questions = data.map((q) => ({
           ...q,
