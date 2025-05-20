@@ -1,5 +1,7 @@
 package com.eduapp.backend.security;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -10,7 +12,8 @@ import com.eduapp.backend.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
 
 @Service
 public class JwtService {
@@ -27,19 +30,23 @@ public class JwtService {
             .claim("role", user.getRole().name())
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-            .signWith(SignatureAlgorithm.HS256, secret)
+            .signWith(getSigningKey())  // koristi Key umjesto raw secret stringa
             .compact();
     }
+
 
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        Claims claims = Jwts.parser()
-            .setSigningKey(secret)
-            .parseClaimsJws(token)
-            .getBody();
+        Claims claims = Jwts
+        .parserBuilder()
+        .setSigningKey(getSigningKey())
+        .build()
+        .parseClaimsJws(token)
+        .getBody();
+
         return claimsResolver.apply(claims);
     }
 
@@ -47,4 +54,9 @@ public class JwtService {
         final String email = extractEmail(token);
         return email.equals(user.getEmail());
     }
+
+    private Key getSigningKey() {
+    return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+}
+
 }

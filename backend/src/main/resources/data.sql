@@ -27,7 +27,7 @@ INSERT INTO users (username, email, password, first_name, last_name, role)
 VALUES (
   'mujo123',
   'mujo@test.com',
-  '$2a$10$ZrV/EhMKURu1C2vEniEOdu6mfd3.Z2j7XvVK8k9oBuDrYF/RcV7ZK',
+  '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey',
   'Mujo',
   'Mujic',
   'USER'
