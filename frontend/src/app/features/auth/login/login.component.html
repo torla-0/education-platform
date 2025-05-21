@@ -33,6 +33,12 @@
       >
         Login
       </button>
+      <mat-progress-spinner
+        *ngIf="loading"
+        mode="indeterminate"
+        diameter="40"
+        style="display: block; margin: 20px auto"
+      ></mat-progress-spinner>
 
       <p class="error-msg" *ngIf="error">{{ error }}</p>
     </form>

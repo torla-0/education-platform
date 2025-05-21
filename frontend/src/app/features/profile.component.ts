@@ -63,27 +63,23 @@ export class ProfileComponent implements OnInit {
   onProfileSubmit(): void {
     if (this.profileForm.valid) {
       this.loading = true;
-      console.log(
-        '🔄 Sending update request...',
-        this.profileForm.getRawValue()
-      );
 
       this.userService.updateProfile(this.profileForm.getRawValue()).subscribe({
         next: () => {
-          console.log('✅ Profile updated');
           this.loading = false;
           this.editMode = false;
           Object.values(this.profileForm.controls).forEach((control) =>
             control.disable()
           );
           this.snackBar.open('✅ Profile updated successfully', 'Close', {
+            panelClass: ['snackbar-success'],
             duration: 3000,
           });
         },
         error: (err) => {
-          console.error('❌ Update failed:', err);
           this.loading = false;
           this.snackBar.open('❌ Failed to update profile', 'Close', {
+            panelClass: ['snackbar-error'],
             duration: 3000,
           });
         },
