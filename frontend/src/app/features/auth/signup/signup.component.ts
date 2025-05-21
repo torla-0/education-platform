@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -41,6 +41,7 @@ export class SignupComponent {
   constructor(
     private auth: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
     private toast: ToastService
   ) {}
 
@@ -66,13 +67,16 @@ export class SignupComponent {
           return;
         }
 
-        // User created successfully → proceed to auto-login
-
+        // User created, now login
         this.auth.login(this.email, this.password).subscribe({
           next: (loginRes) => {
             localStorage.setItem('token', loginRes.token);
+
             this.toast.showSuccess('🎉 Welcome to LearnX!');
-            this.router.navigate(['/home']);
+
+            const returnUrl =
+              this.route.snapshot.queryParamMap.get('returnUrl') || '/home';
+            this.router.navigateByUrl(returnUrl);
           },
           error: () => {
             this.toast.showError('User registered, but auto-login failed.');
@@ -81,7 +85,7 @@ export class SignupComponent {
         });
       },
       error: (err) => {
-        console.error('Signup error:', err);
+        //console.error('Signup error:', err);
         this.toast.showError('Unexpected error occurred. Please try again.');
         this.isLoading = false;
       },

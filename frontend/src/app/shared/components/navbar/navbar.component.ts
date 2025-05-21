@@ -6,6 +6,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-navbar',
@@ -25,15 +26,22 @@ import { MatMenuModule } from '@angular/material/menu';
 export class NavbarComponent {
   menuOpen = false;
 
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
 
   logout() {
-    this.auth.logout();
-    this.menuOpen = false;
+    this.authService.logout();
+    this.snackBar.open('✅ Logged out successfully', 'Close', {
+      duration: 3000,
+      panelClass: ['snackbar-success'],
+    });
     this.router.navigate(['/login']);
   }
 }

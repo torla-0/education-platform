@@ -36,7 +36,7 @@ export class AuthService {
     return this.http.post<SignupResponse>(`${this.apiUrl}/register`, data);
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
   }
 

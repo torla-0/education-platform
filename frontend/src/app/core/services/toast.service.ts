@@ -24,4 +24,11 @@ export class ToastService {
       panelClass: ['snackbar-error'],
     });
   }
+
+  showInfo(message: string, duration: number = 3000) {
+    this.snackBar.open(message, 'Close', {
+      duration,
+      panelClass: ['snackbar-info'],
+    });
+  }
 }

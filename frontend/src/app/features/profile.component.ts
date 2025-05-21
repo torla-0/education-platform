@@ -10,6 +10,7 @@ import { User } from '../core/models/User';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ToastService } from '../core/services/toast.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -71,17 +72,11 @@ export class ProfileComponent implements OnInit {
           Object.values(this.profileForm.controls).forEach((control) =>
             control.disable()
           );
-          this.snackBar.open('✅ Profile updated successfully', 'Close', {
-            panelClass: ['snackbar-success'],
-            duration: 3000,
-          });
+          this.toast.showSuccess('✅ Profile updated successfully');
         },
         error: (err) => {
           this.loading = false;
-          this.snackBar.open('❌ Failed to update profile', 'Close', {
-            panelClass: ['snackbar-error'],
-            duration: 3000,
-          });
+          this.toast.showError('❌ Failed to update profile');
         },
       });
     }
@@ -95,9 +90,7 @@ export class ProfileComponent implements OnInit {
       console.log('Send new password to backend...');
       // implement password update logic here
     } else {
-      this.snackBar.open('❌ Passwords do not match', 'Close', {
-        duration: 3000,
-      });
+      this.toast.showError('❌ Passwords do not match');
     }
   }
 }

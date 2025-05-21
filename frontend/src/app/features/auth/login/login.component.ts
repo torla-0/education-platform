@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthService } from '../../../core/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MessageService } from '../../../core/services/message.service';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -35,14 +37,21 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private messageService: MessageService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     if (token) {
       this.router.navigate(['/']);
+      return;
+    }
+
+    const guardMessage = this.messageService.consumeMessage();
+    if (guardMessage) {
+      this.toast.showError(guardMessage);
     }
   }
 
@@ -56,19 +65,13 @@ export class LoginComponent implements OnInit {
         this.loading = false;
 
         if (!res.token) {
-          this.snackBar.open('❌ Invalid token received', 'Close', {
-            duration: 3000,
-            panelClass: ['snackbar-error'],
-          });
+          this.toast.showError('❌ Invalid token received');
           return;
         }
 
         localStorage.setItem('token', res.token);
 
-        this.snackBar.open('✅ Login successful', 'Close', {
-          duration: 2000,
-          panelClass: ['snackbar-success'],
-        });
+        this.toast.showSuccess('✅ Login successful');
 
         const returnUrl =
           this.route.snapshot.queryParamMap.get('returnUrl') || '/';
@@ -76,14 +79,7 @@ export class LoginComponent implements OnInit {
       },
       error: () => {
         this.loading = false;
-        this.snackBar.open(
-          '❌ Login failed. Check your credentials.',
-          'Close',
-          {
-            duration: 3000,
-            panelClass: ['snackbar-error'],
-          }
-        );
+        this.toast.showError('❌ Login failed. Check your credentials.');
       },
     });
   }
