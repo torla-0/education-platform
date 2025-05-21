@@ -1,26 +1,22 @@
 <div class="profile-page">
   <div class="profile-wrapper">
-    <!-- Headline -->
+    <!-- Header Section -->
     <div class="hero">
       <h2>👤 My Profile</h2>
       <p>View and manage your account details.</p>
     </div>
 
-    <!-- Account Information Section -->
+    <!-- Profile Info -->
     <div class="profile-card">
       <h3>📝 Account Information</h3>
-
-      <form (submit)="onProfileSubmit()">
+      <form [formGroup]="profileForm">
         <div class="form-group">
           <label for="username">Username</label>
           <input
             type="text"
             id="username"
-            [class.editable]="editMode"
-            [(ngModel)]="user.username"
-            name="username"
-            [disabled]="!editMode"
             class="form-control"
+            formControlName="username"
           />
         </div>
 
@@ -29,11 +25,8 @@
           <input
             type="email"
             id="email"
-            [class.editable]="editMode"
-            [(ngModel)]="user.email"
-            name="email"
-            [disabled]="!editMode"
             class="form-control"
+            formControlName="email"
           />
         </div>
 
@@ -42,11 +35,8 @@
           <input
             type="text"
             id="firstName"
-            [class.editable]="editMode"
-            [(ngModel)]="user.firstName"
-            name="firstName"
-            [disabled]="!editMode"
             class="form-control"
+            formControlName="firstName"
           />
         </div>
 
@@ -55,41 +45,65 @@
           <input
             type="text"
             id="lastName"
-            [class.editable]="editMode"
-            [(ngModel)]="user.lastName"
-            name="lastName"
-            [disabled]="!editMode"
             class="form-control"
+            formControlName="lastName"
           />
         </div>
 
+        <!-- Edit mode toggle -->
         <button
           class="cta-button full-width"
+          *ngIf="!editMode"
           type="button"
           (click)="toggleEditMode()"
+          [disabled]="loading"
         >
-          {{ editMode ? "Save Changes" : "Edit Profile" }}
+          ✏️ Edit Profile
         </button>
+
+        <!-- Save changes -->
+        <button
+          class="cta-button full-width"
+          *ngIf="editMode"
+          type="button"
+          (click)="onProfileSubmit()"
+          [disabled]="loading"
+        >
+          💾 Save Changes
+        </button>
+        <mat-progress-spinner
+          *ngIf="loading"
+          mode="indeterminate"
+          diameter="20"
+          style="
+            margin-top: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        ></mat-progress-spinner>
       </form>
     </div>
 
     <!-- Password Section -->
-
     <div class="profile-card">
       <h3>🔐 Change Password</h3>
       <p>
         We recommend updating your password regularly to keep your account
         secure.
       </p>
-
-      <form class="password-form" (submit)="onPasswordSubmit()">
+      <form
+        [formGroup]="passwordForm"
+        (ngSubmit)="onPasswordSubmit()"
+        class="password-form"
+      >
         <div class="form-group">
           <label for="newPassword">New Password</label>
           <input
             type="password"
             id="newPassword"
-            [(ngModel)]="password.new"
-            name="newPassword"
+            class="form-control"
+            formControlName="new"
             required
           />
         </div>
@@ -99,8 +113,8 @@
           <input
             type="password"
             id="confirmPassword"
-            [(ngModel)]="password.confirm"
-            name="confirmPassword"
+            class="form-control"
+            formControlName="confirm"
             required
           />
         </div>
@@ -109,7 +123,7 @@
       </form>
     </div>
 
-    <!-- Delete Account Section -->
+    <!-- Delete Section -->
     <div class="profile-card danger-zone">
       <h3>🗑️ Delete Account</h3>
       <p>

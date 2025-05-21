@@ -19,14 +19,20 @@
     <a mat-button routerLink="/login" *ngIf="!auth.isLoggedIn()">Login</a>
     <a mat-button routerLink="/signup" *ngIf="!auth.isLoggedIn()">Sign Up</a>
     <!-- Hamburger icon only when logged in -->
-  </nav>
-  <button mat-icon-button (click)="toggleMenu()" class="burger">
-    <mat-icon>menu</mat-icon>
-  </button>
 
-  <!-- Dropdown menu for profile/logout -->
-  <div class="dropdown-menu" *ngIf="menuOpen && auth.isLoggedIn()">
-    <a mat-menu-item routerLink="/profile">👤 Profile</a>
-    <a mat-menu-item (click)="logout()">🚪 Logout</a>
-  </div>
+    <div class="dropdown-menu" *ngIf="auth.isLoggedIn()">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/profile">👤 Profile</button>
+
+        <button mat-menu-item (click)="logout()">🚪 Logout</button>
+      </mat-menu>
+    </div>
+  </nav>
 </mat-toolbar>

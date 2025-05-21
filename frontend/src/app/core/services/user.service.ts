@@ -14,4 +14,8 @@ export class UserService {
   getProfile(): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/me`);
   }
+
+  updateProfile(data: any) {
+    return this.http.put('/api/users/me', data);
+  }
 }

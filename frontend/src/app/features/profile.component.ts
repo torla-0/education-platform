@@ -1,51 +1,107 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../core/models/User';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { UserService } from '../core/services/user.service';
+import { User } from '../core/models/User';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
+  imports: [ReactiveFormsModule, CommonModule, MatProgressSpinnerModule],
 })
 export class ProfileComponent implements OnInit {
-  user: User = {
-    id: 0,
-    username: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-  };
+  profileForm!: FormGroup;
+  passwordForm!: FormGroup;
+  editMode = false;
+  loading = false;
 
-  password = {
-    new: '',
-    confirm: '',
-  };
-  editMode: boolean = false;
-
-  constructor(private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
+    this.profileForm = this.fb.group({
+      username: [{ value: '', disabled: true }],
+      email: [
+        { value: '', disabled: true },
+        [Validators.required, Validators.email],
+      ],
+      firstName: [{ value: '', disabled: true }, Validators.required],
+      lastName: [{ value: '', disabled: true }, Validators.required],
+    });
+
+    this.passwordForm = this.fb.group({
+      new: ['', Validators.required],
+      confirm: ['', Validators.required],
+    });
+
     this.userService.getProfile().subscribe({
-      next: (data) => {
-        console.log(data);
-        this.user = data;
+      next: (data: User) => {
+        this.profileForm.patchValue(data);
       },
       error: (err) => console.error(err),
     });
   }
 
-  toggleEditMode() {
-    this.editMode = !this.editMode;
-    if (!this.editMode) {
-      this.onProfileSubmit();
+  toggleEditMode(): void {
+    this.editMode = true;
+    Object.values(this.profileForm.controls).forEach((control) =>
+      control.enable()
+    );
+  }
+
+  onProfileSubmit(): void {
+    if (this.profileForm.valid) {
+      this.loading = true;
+      console.log(
+        '🔄 Sending update request...',
+        this.profileForm.getRawValue()
+      );
+
+      this.userService.updateProfile(this.profileForm.getRawValue()).subscribe({
+        next: () => {
+          console.log('✅ Profile updated');
+          this.loading = false;
+          this.editMode = false;
+          Object.values(this.profileForm.controls).forEach((control) =>
+            control.disable()
+          );
+          this.snackBar.open('✅ Profile updated successfully', 'Close', {
+            duration: 3000,
+          });
+        },
+        error: (err) => {
+          console.error('❌ Update failed:', err);
+          this.loading = false;
+          this.snackBar.open('❌ Failed to update profile', 'Close', {
+            duration: 3000,
+          });
+        },
+      });
     }
   }
 
-  onProfileSubmit() {}
-
-  onPasswordSubmit() {}
+  onPasswordSubmit(): void {
+    if (
+      this.passwordForm.valid &&
+      this.passwordForm.value.new === this.passwordForm.value.confirm
+    ) {
+      console.log('Send new password to backend...');
+      // implement password update logic here
+    } else {
+      this.snackBar.open('❌ Passwords do not match', 'Close', {
+        duration: 3000,
+      });
+    }
+  }
 }

@@ -1,3 +1,4 @@
+/* Navbar container */
 .navbar {
   position: sticky;
   top: 0;
@@ -6,8 +7,10 @@
   align-items: center;
   padding: 0 1rem;
   font-weight: 500;
+  height: 64px;
 }
 
+/* Logo link */
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -16,65 +19,43 @@
   text-decoration: none;
 }
 
+/* Spacer to push menu to right */
 .spacer {
   flex: 1;
 }
 
-/* Navigation links */
+/* Desktop nav container */
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Menu links */
 nav a,
 nav a[mat-button] {
   color: white;
   text-decoration: none;
-  margin-left: 1rem;
   cursor: pointer;
+  font-weight: 500;
 }
 
+/* Active link style */
 nav a.active-link {
   border-bottom: 2px solid white;
 }
 
-/* Hide menu on small screens */
-.desktop-menu {
-  display: flex;
-}
-
-.burger {
-  display: none;
-  color: white;
-}
-
+/* Dropdown menu button container */
 .dropdown-menu {
-  position: absolute;
-  top: 64px;
-  right: 1rem;
-  background-color: #2e2e2e;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  padding: 0.5rem 0;
   display: flex;
-  flex-direction: column;
-  min-width: 160px;
-  z-index: 9999;
+  align-items: center;
+  height: 100%;
 }
 
-.dropdown-menu a {
-  padding: 0.75rem 1rem;
+.dropdown-menu button[mat-icon-button] {
   color: white;
-  text-decoration: none;
-  cursor: pointer;
 }
 
-.dropdown-menu a:hover {
-  background-color: #3f3f3f;
-}
-
-/* Responsive logic */
-@media (max-width: 768px) {
-  .desktop-menu {
-    display: none;
-  }
-
-  .burger {
-    display: block;
-  }
+.cdk-overlay-container {
+  z-index: 1100; /* Above toolbar */
 }
