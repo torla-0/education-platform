@@ -85,18 +85,40 @@
       </form>
     </div>
 
-    <!-- Password Section -->
     <div class="profile-card">
       <h3>🔐 Change Password</h3>
       <p>
         We recommend updating your password regularly to keep your account
         secure.
       </p>
+
       <form
         [formGroup]="passwordForm"
         (ngSubmit)="onPasswordSubmit()"
         class="password-form"
       >
+        <!-- Current Password -->
+        <div class="form-group">
+          <label for="currentPassword">Current Password</label>
+          <input
+            type="password"
+            id="currentPassword"
+            class="form-control"
+            formControlName="current"
+            [disabled]="isChangingPassword"
+            required
+          />
+          <small
+            *ngIf="
+              passwordForm.get('current')?.invalid &&
+              passwordForm.get('current')?.touched
+            "
+          >
+            Current password is required
+          </small>
+        </div>
+
+        <!-- New Password -->
         <div class="form-group">
           <label for="newPassword">New Password</label>
           <input
@@ -104,22 +126,56 @@
             id="newPassword"
             class="form-control"
             formControlName="new"
+            [disabled]="isChangingPassword"
             required
           />
+          <small
+            *ngIf="
+              passwordForm.get('new')?.invalid &&
+              passwordForm.get('new')?.touched
+            "
+          >
+            New password must be at least 6 characters
+          </small>
         </div>
 
+        <!-- Confirm New Password -->
         <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
+          <label for="confirmPassword">Confirm New Password</label>
           <input
             type="password"
             id="confirmPassword"
             class="form-control"
             formControlName="confirm"
+            [disabled]="isChangingPassword"
             required
           />
+          <small
+            *ngIf="
+              passwordForm.get('confirm')?.invalid &&
+              passwordForm.get('confirm')?.touched
+            "
+          >
+            Please confirm your new password
+          </small>
         </div>
 
-        <button class="cta-button" type="submit">Change Password</button>
+        <!-- Submit Button -->
+        <button
+          class="cta-button"
+          type="submit"
+          [disabled]="isChangingPassword || passwordForm.invalid"
+        >
+          <ng-container *ngIf="!isChangingPassword"
+            >Change Password</ng-container
+          >
+          <mat-progress-spinner
+            *ngIf="isChangingPassword"
+            diameter="20"
+            mode="indeterminate"
+            style="display: inline-block; vertical-align: middle"
+          ></mat-progress-spinner>
+        </button>
       </form>
     </div>
 

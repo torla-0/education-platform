@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eduapp.backend.dto.ChangePasswordRequest;
 import com.eduapp.backend.dto.UpdateProfileRequest;
 import com.eduapp.backend.dto.UserDto;
 import com.eduapp.backend.model.User;
 import com.eduapp.backend.service.UserService;
+
 
 
 @RestController
@@ -40,6 +43,20 @@ public class UserController {
         Map<String, String> response = new HashMap<>();
         response.put("message", "Profile updated successfully");
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("me/password")
+    public ResponseEntity<?> changePassword(
+        @AuthenticationPrincipal User user,
+        @RequestBody ChangePasswordRequest request    
+    ) {
+        boolean success = userService.changePassword(user, request.getCurrentPassword(), request.getNewPassword());
+        
+        if(!success){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("message", "Current password is incorrect"));
+        }
+        return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
     }
 
 }

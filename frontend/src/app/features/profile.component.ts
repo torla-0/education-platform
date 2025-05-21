@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -11,23 +12,35 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastService } from '../core/services/toast.service';
+import { AuthService } from '../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  imports: [ReactiveFormsModule, CommonModule, MatProgressSpinnerModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatProgressSpinnerModule,
+    FormsModule,
+  ],
+  standalone: true,
 })
 export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
   passwordForm!: FormGroup;
+
   editMode = false;
   loading = false;
+  isChangingPassword = false;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private toast: ToastService
+    private toast: ToastService,
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +55,7 @@ export class ProfileComponent implements OnInit {
     });
 
     this.passwordForm = this.fb.group({
+      current: ['', Validators.required],
       new: ['', Validators.required],
       confirm: ['', Validators.required],
     });
@@ -83,14 +97,32 @@ export class ProfileComponent implements OnInit {
   }
 
   onPasswordSubmit(): void {
-    if (
-      this.passwordForm.valid &&
-      this.passwordForm.value.new === this.passwordForm.value.confirm
-    ) {
-      console.log('Send new password to backend...');
-      // implement password update logic here
-    } else {
+    if (this.passwordForm.invalid) return;
+
+    const { current, new: newPassword, confirm } = this.passwordForm.value;
+
+    if (newPassword !== confirm) {
       this.toast.showError('❌ Passwords do not match');
+      return;
     }
+
+    this.isChangingPassword = true;
+
+    this.userService
+      .changePassword({ currentPassword: current, newPassword })
+      .subscribe({
+        next: () => {
+          this.toast.showSuccess('✅ Password changed successfully');
+          this.passwordForm.reset();
+          // Auto logout - make user re-login with new password
+          this.authService.logout(); // Clear token
+          this.router.navigate(['/login']); // Redirect after logout
+        },
+        error: (err) => {
+          const msg = err.error?.message || 'Failed to change password';
+          this.toast.showError(`❌ ${msg}`);
+          this.isChangingPassword = false;
+        },
+      });
   }
 }

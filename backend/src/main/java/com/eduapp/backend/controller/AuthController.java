@@ -27,7 +27,7 @@ public class AuthController {
         String response = authService.registerUser(request);
         Map<String, String> body = new HashMap<>();
         body.put("message", response);
-        return ResponseEntity.ok(body); // ✅ now always 200 + JSON body
+        return ResponseEntity.ok(body); 
     }
 
 

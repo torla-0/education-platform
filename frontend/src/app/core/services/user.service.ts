@@ -18,4 +18,8 @@ export class UserService {
   updateProfile(data: any) {
     return this.http.put('/api/users/me', data);
   }
+
+  changePassword(payload: { currentPassword: string; newPassword: string }) {
+    return this.http.put('/api/users/me/password', payload);
+  }
 }
