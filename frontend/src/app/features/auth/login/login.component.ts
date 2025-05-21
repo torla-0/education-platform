@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -23,11 +23,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCardModule,
     MatProgressSpinnerModule,
   ],
-
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email = '';
   password = '';
   error = '';
@@ -36,16 +35,10 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {}
 
-  /*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Initializes the component by checking if a token exists in local storage.
-   * If a token is found, it navigates the user to the home page.
-   */
-
-  /*******  b35fa45d-8fa0-4a6e-8add-72a65c1ccf7a  *******/
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     if (token) {
@@ -53,25 +46,20 @@ export class LoginComponent {
     }
   }
 
-  /**
-   * Handles the login form submission.
-   * Validates the input fields for email and password.
-   * Initiates the login process via AuthService.
-   * Displays appropriate snack bar messages based on login success or failure.
-   * On successful login, stores the token in local storage and navigates to the home page.
-   */
-
   onSubmit() {
     if (!this.email || !this.password) return;
 
     this.loading = true;
+
     this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
+        this.loading = false;
+
         if (!res.token) {
           this.snackBar.open('❌ Invalid token received', 'Close', {
             duration: 3000,
+            panelClass: ['snackbar-error'],
           });
-          this.loading = false;
           return;
         }
 
@@ -82,9 +70,9 @@ export class LoginComponent {
           panelClass: ['snackbar-success'],
         });
 
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 1000);
+        const returnUrl =
+          this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+        this.router.navigateByUrl(returnUrl);
       },
       error: () => {
         this.loading = false;
