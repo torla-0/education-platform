@@ -2,17 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  ReactiveFormsModule,
   Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClient } from '@angular/common/http';
 import { ToastService } from '../../../../core/services/toast.service';
-import { AuthService } from '../../../../core/services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
@@ -41,8 +40,7 @@ export class ReauthDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ReauthDialogComponent>,
     private fb: FormBuilder,
     private http: HttpClient,
-    private toast: ToastService,
-    private authService: AuthService
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -51,24 +49,29 @@ export class ReauthDialogComponent implements OnInit {
     });
   }
 
+  get passwordField() {
+    return this.reauthForm.get('password')!;
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
   onConfirm(): void {
     if (this.reauthForm.invalid) return;
-
     this.loading = true;
 
-    this.http
-      .post('/api/auth/re-authenticate', {
-        password: this.reauthForm.value.password,
-      })
-      .subscribe({
-        next: () => {
-          this.dialogRef.close({ success: true });
-        },
-        error: () => {
-          this.loading = false;
-          this.reauthForm.get('password')?.setErrors({ invalid: true });
-          this.toast.showError('❌ Password incorrect');
-        },
-      });
+    const password = this.passwordField.value;
+
+    this.http.post('/api/auth/re-authenticate', { password }).subscribe({
+      next: () => {
+        this.dialogRef.close({ success: true, password });
+      },
+      error: () => {
+        this.loading = false;
+        this.passwordField.setErrors({ invalid: true });
+        this.toast.showError('❌ Password incorrect');
+      },
+    });
   }
 }

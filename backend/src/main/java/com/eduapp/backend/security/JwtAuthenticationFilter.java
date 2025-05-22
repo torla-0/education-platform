@@ -1,10 +1,12 @@
 package com.eduapp.backend.security;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -42,12 +44,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = authHeader.substring(7);
         String email = jwtService.extractEmail(token);
+        System.out.println("🛡 SecurityContextHolder BEFORE: " + SecurityContextHolder.getContext().getAuthentication());
+
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             User user = userRepository.findByEmail(email).orElse(null);
             if (user != null && jwtService.isTokenValid(token, user)) {
+                // ✅ Proper authority assignment
+                List<SimpleGrantedAuthority> authorities =
+                    List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
+
+                // ✅ Log assigned authorities
+                System.out.println("🔐 Logged in as: " + email);
+                System.out.println("🔑 Assigned authorities: " + authorities);
+
+    
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                    user, null, null
+                    user, null,  List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
                 );
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);

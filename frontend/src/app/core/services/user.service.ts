@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { User } from '../models/User';
 export class UserService {
   private baseUrl = '/api/users';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getProfile(): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/me`);
@@ -21,5 +22,11 @@ export class UserService {
 
   changePassword(payload: { currentPassword: string; newPassword: string }) {
     return this.http.put('/api/users/me/password', payload);
+  }
+
+  requestAccountDeletion(password: string) {
+    return this.http.post<{ message: string }>('/api/users/request-deletion', {
+      password,
+    });
   }
 }

@@ -10,24 +10,26 @@
         matInput
         [type]="showPassword ? 'text' : 'password'"
         formControlName="password"
+        autocomplete="current-password"
       />
       <button
         mat-icon-button
         matSuffix
         type="button"
-        (click)="showPassword = !showPassword"
+        (click)="togglePasswordVisibility()"
+        [attr.aria-label]="'Toggle password visibility'"
       >
         <mat-icon>{{
           showPassword ? "visibility_off" : "visibility"
         }}</mat-icon>
       </button>
-      <mat-error *ngIf="reauthForm.get('password')?.hasError('required')">
+      <mat-error *ngIf="passwordField.hasError('required')">
         Password is required
       </mat-error>
-      <mat-error *ngIf="reauthForm.get('password')?.hasError('minlength')">
+      <mat-error *ngIf="passwordField.hasError('minlength')">
         Must be at least 6 characters
       </mat-error>
-      <mat-error *ngIf="reauthForm.get('password')?.hasError('invalid')">
+      <mat-error *ngIf="passwordField.hasError('invalid')">
         Incorrect password
       </mat-error>
     </mat-form-field>
@@ -35,19 +37,20 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
   <button
     mat-flat-button
     color="primary"
-    (click)="onConfirm()"
+    type="submit"
     [disabled]="reauthForm.invalid || loading"
+    (click)="onConfirm()"
   >
     Confirm
     <mat-progress-spinner
       *ngIf="loading"
-      mode="indeterminate"
       diameter="20"
-      style="margin-left: 8px"
+      mode="indeterminate"
+      class="spinner"
     ></mat-progress-spinner>
   </button>
 </mat-dialog-actions>

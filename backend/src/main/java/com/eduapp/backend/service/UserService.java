@@ -1,5 +1,7 @@
 package com.eduapp.backend.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,4 +42,17 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
+
+    public boolean handleDeletionRequest(String email, String password) {
+        User user = userRepository.findByEmail(email).orElse(null);
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
+            return false;
+        }
+
+        user.setDeletionRequested(true);
+        user.setScheduledDeletionAt(LocalDateTime.now().plusDays(30)); 
+        userRepository.save(user);
+        return true;
+    }
+
 }

@@ -8,16 +8,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eduapp.backend.dto.ChangePasswordRequest;
+import com.eduapp.backend.dto.DeletionRequestDto;
 import com.eduapp.backend.dto.UpdateProfileRequest;
 import com.eduapp.backend.dto.UserDto;
 import com.eduapp.backend.model.User;
 import com.eduapp.backend.service.UserService;
+
 
 
 
@@ -45,7 +48,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("me/password")
+    @PutMapping("/me/password")
     public ResponseEntity<?> changePassword(
         @AuthenticationPrincipal User user,
         @RequestBody ChangePasswordRequest request    
@@ -58,5 +61,20 @@ public class UserController {
         }
         return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
     }
+
+    
+    @PostMapping("/request-deletion")
+    public ResponseEntity<?> requestAccountDeletion(@RequestBody DeletionRequestDto request,
+                                                    @AuthenticationPrincipal User user) {
+        boolean success = userService.handleDeletionRequest(user.getEmail(), request.getPassword());
+
+        if (success) {
+            return ResponseEntity.ok(Map.of("message", "Deletion request received"));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "Invalid password"));
+        }
+    }
+
+    
 
 }

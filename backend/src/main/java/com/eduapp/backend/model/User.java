@@ -1,5 +1,7 @@
 package com.eduapp.backend.model;
 
+import java.time.LocalDateTime;
+
 import com.eduapp.backend.model.enums.Role;
 
 import jakarta.persistence.Column;
@@ -37,6 +39,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @Column(name = "deletion_requested")
+    private boolean deletionRequested = false;
+
+    @Column(name = "scheduled_deletion_at")
+    private LocalDateTime scheduledDeletionAt;
+
 
     
     // Constructors
@@ -105,5 +114,20 @@ public class User {
         this.role = role;
     }
 
+    public boolean isDeletionRequested() {
+        return deletionRequested;
+    }
+
+    public void setDeletionRequested(boolean deletionRequested) {
+        this.deletionRequested = deletionRequested;
+    }
+
+    public LocalDateTime getScheduledDeletionAt() {
+        return scheduledDeletionAt;
+    }
+
+    public void setScheduledDeletionAt(LocalDateTime scheduledDeletionAt) {
+        this.scheduledDeletionAt = scheduledDeletionAt;
+    }
     
 }

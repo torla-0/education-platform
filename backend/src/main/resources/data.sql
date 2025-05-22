@@ -23,12 +23,17 @@ INSERT INTO question_option (id, text, question_id) VALUES
 (8, 'Deklaracija varijable', 2);
 
 -- Dummy korisnik
-INSERT INTO users (username, email, password, first_name, last_name, role)
+INSERT INTO users (
+  username, email, password, first_name, last_name, role,
+  deletion_requested, scheduled_deletion_at
+)
 VALUES (
   'mujo123',
   'mujo@test.com',
   '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey',
   'Mujo',
   'Mujic',
-  'USER'
+  'USER',
+  false,
+  NULL
 );

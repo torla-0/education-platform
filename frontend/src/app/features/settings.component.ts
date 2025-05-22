@@ -17,6 +17,11 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ReauthDialogComponent } from './settings/components/reauth-dialog/reauth-dialog.component';
 
+interface ReauthDialogResult {
+  success: boolean;
+  password: string;
+}
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -156,5 +161,29 @@ export class SettingsComponent implements OnInit {
     )
       return 'strong';
     return 'medium';
+  }
+
+  requestAccountDeletion(): void {
+    const dialogRef = this.dialog.open(ReauthDialogComponent, {
+      width: '400px',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result: ReauthDialogResult) => {
+      if (result?.success && result.password) {
+        this.userService.requestAccountDeletion(result.password).subscribe({
+          next: () => {
+            this.toast.showSuccess('✅ Deletion request submitted');
+          },
+          error: (err) => {
+            const msg =
+              err.error?.message || '❌ Failed to submit deletion request';
+            this.toast.showError(msg);
+          },
+        });
+      } else {
+        this.toast.showError('❌ Account deletion cancelled');
+      }
+    });
   }
 }
