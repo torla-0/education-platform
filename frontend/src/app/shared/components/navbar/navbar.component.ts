@@ -31,7 +31,12 @@ export class NavbarComponent {
     private router: Router,
     private snackBar: MatSnackBar
   ) {}
-
+  /*************  ✨ Windsurf Command ⭐  *************/
+  /**
+   * Toggles the hamburger menu on or off.
+   *
+   * Should be called when the user clicks on the hamburger menu icon.
+/*******  1ab86eda-73c9-4368-b4b9-0fad61de71ea  *******/
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }

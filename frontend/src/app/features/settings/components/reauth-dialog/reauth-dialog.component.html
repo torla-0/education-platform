@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>🔐 Confirm Your Identity</h2>
+
+<mat-dialog-content>
+  <p>To continue, please enter your password.</p>
+
+  <form [formGroup]="reauthForm" class="password-form" (ngSubmit)="onConfirm()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="showPassword ? 'text' : 'password'"
+        formControlName="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="showPassword = !showPassword"
+      >
+        <mat-icon>{{
+          showPassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      <mat-error *ngIf="reauthForm.get('password')?.hasError('required')">
+        Password is required
+      </mat-error>
+      <mat-error *ngIf="reauthForm.get('password')?.hasError('minlength')">
+        Must be at least 6 characters
+      </mat-error>
+      <mat-error *ngIf="reauthForm.get('password')?.hasError('invalid')">
+        Incorrect password
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="onConfirm()"
+    [disabled]="reauthForm.invalid || loading"
+  >
+    Confirm
+    <mat-progress-spinner
+      *ngIf="loading"
+      mode="indeterminate"
+      diameter="20"
+      style="margin-left: 8px"
+    ></mat-progress-spinner>
+  </button>
+</mat-dialog-actions>

@@ -84,7 +84,7 @@
         ></mat-progress-spinner>
       </form>
     </div>
-
+    <!-- Password section -->
     <div class="profile-card">
       <h3>🔐 Change Password</h3>
       <p>
@@ -100,14 +100,23 @@
         <!-- Current Password -->
         <div class="form-group">
           <label for="currentPassword">Current Password</label>
-          <input
-            type="password"
-            id="currentPassword"
-            class="form-control"
-            formControlName="current"
-            [disabled]="isChangingPassword"
-            required
-          />
+          <div class="password-wrapper">
+            <input
+              [type]="showCurrentPassword ? 'text' : 'password'"
+              id="currentPassword"
+              class="form-control full-width-input"
+              formControlName="current"
+              [disabled]="isChangingPassword"
+              required
+            />
+            <button
+              type="button"
+              class="eye-button"
+              (click)="showCurrentPassword = !showCurrentPassword"
+            >
+              {{ showCurrentPassword ? "🙈" : "👁️" }}
+            </button>
+          </div>
           <small
             *ngIf="
               passwordForm.get('current')?.invalid &&
@@ -121,35 +130,58 @@
         <!-- New Password -->
         <div class="form-group">
           <label for="newPassword">New Password</label>
-          <input
-            type="password"
-            id="newPassword"
-            class="form-control"
-            formControlName="new"
-            [disabled]="isChangingPassword"
-            required
-          />
+          <div class="password-wrapper">
+            <input
+              [type]="showNewPassword ? 'text' : 'password'"
+              id="newPassword"
+              class="form-control full-width-input"
+              formControlName="new"
+              [disabled]="isChangingPassword"
+              required
+            />
+            <button
+              type="button"
+              class="eye-button"
+              (click)="showNewPassword = !showNewPassword"
+            >
+              {{ showNewPassword ? "🙈" : "👁️" }}
+            </button>
+          </div>
           <small
             *ngIf="
-              passwordForm.get('new')?.invalid &&
-              passwordForm.get('new')?.touched
+              passwordForm.get('new')?.touched &&
+              passwordForm.get('new')?.value?.length < 6
             "
           >
             New password must be at least 6 characters
           </small>
+
+          <div *ngIf="passwordForm.get('new')?.value" class="strength-meter">
+            Strength:
+            <span [ngClass]="passwordStrength">{{ passwordStrength }}</span>
+          </div>
         </div>
 
         <!-- Confirm New Password -->
         <div class="form-group">
           <label for="confirmPassword">Confirm New Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            class="form-control"
-            formControlName="confirm"
-            [disabled]="isChangingPassword"
-            required
-          />
+          <div class="password-wrapper">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              id="confirmPassword"
+              class="form-control full-width-input"
+              formControlName="confirm"
+              [disabled]="isChangingPassword"
+              required
+            />
+            <button
+              type="button"
+              class="eye-button"
+              (click)="showConfirmPassword = !showConfirmPassword"
+            >
+              {{ showConfirmPassword ? "🙈" : "👁️" }}
+            </button>
+          </div>
           <small
             *ngIf="
               passwordForm.get('confirm')?.invalid &&

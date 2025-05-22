@@ -125,6 +125,47 @@
   background-color: #cc0000;
 }
 
+.password-wrapper {
+  position: relative;
+}
+
+.full-width-input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.eye-button {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 1.2rem;
+}
+
+.strength-meter {
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.strength-meter span.weak {
+  color: #ff4444;
+  font-weight: bold;
+}
+
+.strength-meter span.medium {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.strength-meter span.strong {
+  color: #4caf50;
+  font-weight: bold;
+}
+
 @media (max-width: 600px) {
   .profile-page {
     padding-top: 2rem;

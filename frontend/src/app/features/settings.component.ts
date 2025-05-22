@@ -14,11 +14,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastService } from '../core/services/toast.service';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ReauthDialogComponent } from './settings/components/reauth-dialog/reauth-dialog.component';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css'],
   imports: [
     ReactiveFormsModule,
     CommonModule,
@@ -27,20 +29,24 @@ import { Router } from '@angular/router';
   ],
   standalone: true,
 })
-export class ProfileComponent implements OnInit {
+export class SettingsComponent implements OnInit {
   profileForm!: FormGroup;
   passwordForm!: FormGroup;
 
   editMode = false;
   loading = false;
   isChangingPassword = false;
+  showCurrentPassword = false;
+  showNewPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private toast: ToastService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -99,30 +105,56 @@ export class ProfileComponent implements OnInit {
   onPasswordSubmit(): void {
     if (this.passwordForm.invalid) return;
 
-    const { current, new: newPassword, confirm } = this.passwordForm.value;
+    const { new: newPassword, confirm } = this.passwordForm.value;
 
     if (newPassword !== confirm) {
-      this.toast.showError('❌ Passwords do not match');
+      this.toast.showError('❌ New passwords do not match');
       return;
     }
 
-    this.isChangingPassword = true;
+    // Open re-auth dialog first
+    const dialogRef = this.dialog.open(ReauthDialogComponent, {
+      width: '400px',
+      disableClose: true,
+    });
 
-    this.userService
-      .changePassword({ currentPassword: current, newPassword })
-      .subscribe({
-        next: () => {
-          this.toast.showSuccess('✅ Password changed successfully');
-          this.passwordForm.reset();
-          // Auto logout - make user re-login with new password
-          this.authService.logout(); // Clear token
-          this.router.navigate(['/login']); // Redirect after logout
-        },
-        error: (err) => {
-          const msg = err.error?.message || 'Failed to change password';
-          this.toast.showError(`❌ ${msg}`);
-          this.isChangingPassword = false;
-        },
-      });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.success) {
+        // Proceed with password change
+        this.isChangingPassword = true;
+
+        this.userService
+          .changePassword({
+            currentPassword: this.passwordForm.get('current')?.value,
+            newPassword,
+          })
+          .subscribe({
+            next: () => {
+              this.toast.showSuccess('✅ Password changed successfully');
+              this.passwordForm.reset();
+              this.isChangingPassword = false;
+            },
+            error: (err) => {
+              const msg = err.error?.message || '❌ Failed to change password';
+              this.toast.showError(msg);
+              this.isChangingPassword = false;
+            },
+          });
+      } else {
+        this.toast.showError('❌ Password change cancelled');
+      }
+    });
+  }
+
+  get passwordStrength(): string {
+    const value = this.passwordForm?.get('new')?.value || '';
+    if (value.length < 6) return 'weak';
+    if (
+      /[A-Z]/.test(value) &&
+      /[0-9]/.test(value) &&
+      /[^A-Za-z0-9]/.test(value)
+    )
+      return 'strong';
+    return 'medium';
   }
 }

@@ -1,0 +1,61 @@
+:host {
+  display: block;
+  color: #e0e0e0 !important;
+  background-color: #1e1e1e;
+}
+
+/* Dialog body */
+mat-dialog-content {
+  background-color: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  color: #e0e0e0 !important;
+}
+
+/* Title */
+::ng-deep h2[mat-dialog-title] {
+  color: #e0e0e0 !important;
+}
+
+/* Full width inputs */
+mat-form-field {
+  width: 100%;
+  color: #e0e0e0 !important;
+}
+
+/* Ensure input text and label color are light */
+mat-label,
+input.mat-input-element,
+.mat-form-field-label,
+.mat-input-element::placeholder {
+  color: #e0e0e0 !important;
+  caret-color: #00bcd4;
+}
+
+/* Underline and focus border color */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #00bcd4;
+  border-color: #00bcd4;
+}
+
+.mat-form-field-ripple {
+  background-color: #00bcd4 !important;
+}
+
+/* Dialog action bar */
+mat-dialog-actions {
+  padding: 1rem;
+  background-color: #2a2a2a;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Buttons */
+mat-dialog-actions button {
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+mat-progress-spinner {
+  margin-left: 8px;
+}

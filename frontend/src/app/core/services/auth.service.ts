@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { SessionService } from './session.service';
 
 interface LoginResponse {
   token: string;
@@ -23,10 +25,14 @@ interface SignupRequest {
 export class AuthService {
   private apiUrl = '/api/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private session: SessionService,
+    private router: Router
+  ) {}
 
   login(email: string, password: string) {
-    return this.http.post<{ token: string }>('/api/auth/login', {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, {
       email,
       password,
     });
@@ -38,6 +44,8 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    this.session.reset();
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {

@@ -8,8 +8,9 @@ import { BlogComponent } from './blog/blog.component';
 import { QuizRunComponent } from './features/quiz/components/quiz-run/quiz-run.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { SignupComponent } from './features/auth/signup/signup.component';
-import { ProfileComponent } from './features/profile.component';
+import { SettingsComponent } from './features/settings.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { SettingsAuthGuard } from './core/guards/settings-auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,9 +22,9 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [AuthGuard],
+    path: 'settings',
+    component: SettingsComponent,
+    canActivate: [AuthGuard, SettingsAuthGuard],
   },
   { path: '**', redirectTo: '/home' },
 ];
