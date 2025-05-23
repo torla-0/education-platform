@@ -11,6 +11,8 @@ import { SignupComponent } from './features/auth/signup/signup.component';
 import { SettingsComponent } from './features/settings.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { SettingsAuthGuard } from './core/guards/settings-auth.guard';
+import { AdminDashboardComponent } from './features/admin/admin-dashboard/admin-dashboard.component';
+import { AdminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +27,11 @@ export const routes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     canActivate: [AuthGuard, SettingsAuthGuard],
+  },
+  {
+    path: 'admin',
+    component: AdminDashboardComponent,
+    canActivate: [AdminGuard],
   },
   { path: '**', redirectTo: '/home' },
 ];

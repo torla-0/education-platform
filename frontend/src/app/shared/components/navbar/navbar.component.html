@@ -33,6 +33,10 @@
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
+        <button *ngIf="isAdmin" mat-menu-item routerLink="/admin">
+          🛠️ Dashboard
+        </button>
+
         <button mat-menu-item routerLink="/settings">👤 Settings</button>
 
         <button mat-menu-item (click)="logout()">🚪 Logout</button>

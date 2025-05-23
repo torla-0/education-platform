@@ -22,7 +22,7 @@ INSERT INTO question_option (id, text, question_id) VALUES
 (7, 'Zauzimanje memorije', 2),
 (8, 'Deklaracija varijable', 2);
 
--- Dummy korisnik
+-- Dummy user
 INSERT INTO users (
   username, email, password, first_name, last_name, role,
   deletion_requested, scheduled_deletion_at
@@ -34,6 +34,21 @@ VALUES (
   'Mujo',
   'Mujic',
   'USER',
+  false,
+  NULL
+);
+-- Dummy admin user
+INSERT INTO users (
+  username, email, password, first_name, last_name, role,
+  deletion_requested, scheduled_deletion_at
+)
+VALUES (
+  'admin123',
+  'admin@test.com',
+  '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey',
+  'Admin',
+  'Administrator',
+  'ADMIN',
   false,
   NULL
 );

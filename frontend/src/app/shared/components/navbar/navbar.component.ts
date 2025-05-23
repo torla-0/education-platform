@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SessionService } from '../../../core/services/session.service';
 
 @Component({
   selector: 'app-navbar',
@@ -25,18 +26,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class NavbarComponent {
   menuOpen = false;
+  isAdmin = false;
 
   constructor(
     public authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private sessionService: SessionService
   ) {}
-  /*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Toggles the hamburger menu on or off.
-   *
-   * Should be called when the user clicks on the hamburger menu icon.
-/*******  1ab86eda-73c9-4368-b4b9-0fad61de71ea  *******/
+
+  ngOnInit() {
+    const user = this.sessionService.getUser();
+    this.isAdmin = user?.role === 'ADMIN';
+  }
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
@@ -47,6 +49,5 @@ export class NavbarComponent {
       duration: 3000,
       panelClass: ['snackbar-success'],
     });
-    this.router.navigate(['/login']);
   }
 }

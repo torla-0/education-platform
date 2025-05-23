@@ -1,5 +1,7 @@
 package com.eduapp.backend.dto;
 
+import com.eduapp.backend.model.enums.Role;
+
 import com.eduapp.backend.model.User;
 
 public class UserDto {
@@ -9,6 +11,7 @@ public class UserDto {
     private final String lastName;
     private final String username;
     private boolean deletionRequested;
+    private Role role;
 
 
     public UserDto(User user) {
@@ -17,6 +20,7 @@ public class UserDto {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.username = user.getUsername();
+        this.role = user.getRole();
     }
 
     // Getters and Setters
@@ -46,5 +50,8 @@ public class UserDto {
 
     public void setDeletionRequested(boolean deletionRequested) {
         this.deletionRequested = deletionRequested;
+    }
+    public Role getRole() {
+        return role;
     }
 }
