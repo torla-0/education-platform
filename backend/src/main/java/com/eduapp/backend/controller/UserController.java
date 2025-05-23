@@ -35,8 +35,11 @@ public class UserController {
     }
     @GetMapping("/me")
     public ResponseEntity<UserDto> getCurrentUser(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(new UserDto(user));
+        UserDto dto = new UserDto(user);
+        dto.setDeletionRequested(user.isDeletionRequested()); // or getDeletionRequested()
+        return ResponseEntity.ok(dto);
     }
+
 
     @PutMapping("/me")
     public ResponseEntity<Map<String, String>> updateMyProfile(@RequestBody UpdateProfileRequest request, 
@@ -75,6 +78,13 @@ public class UserController {
         }
     }
 
-    
+    @PostMapping("/cancel-deletion")
+    public ResponseEntity<UserDto> cancelDeletion(@AuthenticationPrincipal User user) {
+        User updated = userService.cancelDeletion(user); 
+        return ResponseEntity.ok(new UserDto(updated));
+    }
+
+
+
 
 }

@@ -29,4 +29,8 @@ export class UserService {
       password,
     });
   }
+
+  cancelAccountDeletion(): Observable<User> {
+    return this.http.post<User>('/api/users/cancel-deletion', {});
+  }
 }

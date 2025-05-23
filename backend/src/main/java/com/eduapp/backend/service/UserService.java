@@ -55,4 +55,11 @@ public class UserService {
         return true;
     }
 
+    public User cancelDeletion(User user) {
+        user.setDeletionRequested(false);
+        user.setScheduledDeletionAt(null); 
+        return userRepository.save(user);
+    }
+
+
 }

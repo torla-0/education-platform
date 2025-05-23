@@ -8,6 +8,8 @@ public class UserDto {
     private final String firstName;
     private final String lastName;
     private final String username;
+    private boolean deletionRequested;
+
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -38,4 +40,11 @@ public class UserDto {
         return username;
     }
     
+    public boolean isDeletionRequested() {
+        return deletionRequested;
+    }
+
+    public void setDeletionRequested(boolean deletionRequested) {
+        this.deletionRequested = deletionRequested;
+    }
 }

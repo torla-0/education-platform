@@ -45,6 +45,8 @@ export class SettingsComponent implements OnInit {
   showNewPassword = false;
   showConfirmPassword = false;
 
+  user: User | null = null;
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -55,6 +57,7 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadUser();
     this.profileForm = this.fb.group({
       username: [{ value: '', disabled: true }],
       email: [
@@ -76,6 +79,12 @@ export class SettingsComponent implements OnInit {
         this.profileForm.patchValue(data);
       },
       error: (err) => console.error(err),
+    });
+  }
+
+  loadUser(): void {
+    this.userService.getProfile().subscribe((data) => {
+      this.user = data;
     });
   }
 
@@ -184,6 +193,19 @@ export class SettingsComponent implements OnInit {
       } else {
         this.toast.showError('❌ Account deletion cancelled');
       }
+    });
+  }
+
+  cancelDeletion(): void {
+    this.userService.cancelAccountDeletion().subscribe({
+      next: (updatedUser) => {
+        this.toast.showSuccess('✅ Deletion request cancelled');
+        this.user = updatedUser;
+      },
+      error: (err) => {
+        const msg = err.error?.message || '❌ Failed to cancel deletion';
+        this.toast.showError(msg);
+      },
     });
   }
 }

@@ -212,15 +212,40 @@
     </div>
 
     <!-- Delete Section -->
-    <div class="profile-card danger-zone">
-      <h3>🗑️ Delete Account</h3>
-      <p>
-        This action is irreversible. Once you request deletion, your data may be
-        permanently removed.
-      </p>
-      <button class="delete-button" (click)="requestAccountDeletion()">
-        Request Account Deletion
+    <h2 class="section-title">🗑️ Danger Zone</h2>
+
+    <!-- Section shown when deletion request is active -->
+    <div
+      class="danger-zone"
+      *ngIf="user?.deletionRequested; else deleteRequestSection"
+    >
+      <p>Your account is scheduled for deletion.</p>
+      <p>You can cancel the deletion before it's processed.</p>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="cancelDeletion()"
+        class="delete-button"
+      >
+        Cancel Deletion
       </button>
     </div>
+
+    <!-- Section shown if no deletion request is active -->
+    <ng-template #deleteRequestSection>
+      <div class="danger-zone">
+        <p>⚠️ Deleting your account is permanent and cannot be undone.</p>
+        <p>If you’re sure, request account deletion below.</p>
+        <p>Your data will be fully removed after 30 days.</p>
+        <button
+          mat-flat-button
+          color="warn"
+          (click)="requestAccountDeletion()"
+          class="delete-button"
+        >
+          Request Deletion
+        </button>
+      </div>
+    </ng-template>
   </div>
 </div>
