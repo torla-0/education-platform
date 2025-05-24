@@ -1,18 +1,18 @@
 import {
   BidiModule
-} from "./chunk-MC5VSEH4.js";
+} from "./chunk-P6GPAGBH.js";
 import {
   _CdkPrivateStyleLoader,
   _bindEventWithOptions
-} from "./chunk-PPSIK6RA.js";
+} from "./chunk-UUXWXLLI.js";
 import {
   Platform,
   coerceElement,
   coerceNumberProperty
-} from "./chunk-Q6IW4S6A.js";
+} from "./chunk-CQ6S2QGA.js";
 import {
   DOCUMENT
-} from "./chunk-PKERSDOH.js";
+} from "./chunk-6R4DJHMF.js";
 import {
   APP_ID,
   BehaviorSubject,
@@ -61,7 +61,7 @@ import {
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-NWOFUI35.js";
+} from "./chunk-S6TLDLCG.js";
 import {
   __spreadValues
 } from "./chunk-WDMUDEB6.js";
@@ -2398,6 +2398,19 @@ var FocusKeyManager = class extends ListKeyManager {
   }
 };
 
+// node_modules/@angular/cdk/fesm2022/activedescendant-key-manager-1351a9d3.mjs
+var ActiveDescendantKeyManager = class extends ListKeyManager {
+  setActiveItem(index) {
+    if (this.activeItem) {
+      this.activeItem.setInactiveStyles();
+    }
+    super.setActiveItem(index);
+    if (this.activeItem) {
+      this.activeItem.setActiveStyles();
+    }
+  }
+};
+
 // node_modules/@angular/cdk/fesm2022/observable-97c0792c.mjs
 function coerceObservable(data) {
   if (!isObservable(data)) {
@@ -3118,7 +3131,6 @@ var MatCommonModule = class _MatCommonModule {
 })();
 
 export {
-  coerceArray,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
   ENTER,
@@ -3128,10 +3140,13 @@ export {
   UP_ARROW,
   RIGHT_ARROW,
   DOWN_ARROW,
+  A,
   _getFocusedElementPierceShadowDom,
   _getEventTarget,
   normalizePassiveListenerOptions,
   FocusMonitor,
+  _VisuallyHiddenLoader,
+  coerceArray,
   BreakpointObserver,
   ObserversModule,
   InteractivityChecker,
@@ -3140,7 +3155,11 @@ export {
   A11yModule,
   _IdGenerator,
   hasModifierKey,
+  ActiveDescendantKeyManager,
   FocusKeyManager,
+  addAriaReferencedId,
+  removeAriaReferencedId,
+  AriaDescriber,
   MatCommonModule
 };
-//# sourceMappingURL=chunk-QI33IB36.js.map
+//# sourceMappingURL=chunk-OQPULU7X.js.map

@@ -1,0 +1,47 @@
+.admin-dashboard {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.user-table {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.empty-msg {
+  text-align: center;
+  margin-top: 2rem;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .mat-table {
+    font-size: 12px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .mat-header-cell,
+  .mat-cell {
+    padding: 6px 8px;
+  }
+}

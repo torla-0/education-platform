@@ -50,14 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             User user = userRepository.findByEmail(email).orElse(null);
             if (user != null && jwtService.isTokenValid(token, user)) {
-                // ✅ Proper authority assignment
-                List<SimpleGrantedAuthority> authorities =
-                    List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
-
-                // ✅ Log assigned authorities
-                System.out.println("🔐 Logged in as: " + email);
-                System.out.println("🔑 Assigned authorities: " + authorities);
-
+                
     
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     user, null,  List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
