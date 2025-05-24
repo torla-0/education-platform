@@ -1,44 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AdminService, UserDto } from '../../../core/services/admin.service';
-
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RouterOutlet } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
+import { AdminService, UserDto } from '../../../core/services/admin.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ViewChild } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatPaginator,
-    MatSort,
-    MatFormFieldModule,
-    MatInputModule,
-  ],
+  imports: [CommonModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
 })
 export class AdminDashboardComponent implements OnInit {
   users: UserDto[] = [];
-  dataSource = new MatTableDataSource<UserDto>();
-  displayedColumns: string[] = ['username', 'email', 'role', 'actions'];
+  filteredUsers: UserDto[] = [];
+  paginatedUsers: UserDto[] = [];
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  displayedColumns: string[] = ['email', 'role', 'action'];
+
+  currentSearch = '';
+  currentRoleFilter = 'ALL';
+
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalPages = 1;
 
   constructor(
     private adminService: AdminService,
@@ -47,27 +31,62 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.adminService.getAllUsers().subscribe({
-      next: (data) => (this.dataSource.data = data),
+      next: (data) => {
+        this.users = data;
+        this.applyFilters();
+      },
       error: () => this.toast.showError('Failed to load users'),
     });
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.currentSearch = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+    this.applyFilters();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  filterByRole(role: string) {
+    this.currentRoleFilter = role;
+    this.applyFilters();
+  }
 
-    // Filtering
-    this.dataSource.filterPredicate = (data: UserDto, filter: string) => {
-      return (
-        data.email.toLowerCase().includes(filter) ||
-        data.username.toLowerCase().includes(filter)
-      );
-    };
+  applyFilters() {
+    this.currentPage = 1;
+    this.filteredUsers = this.users.filter((user) => {
+      const matchesSearch =
+        user.email.toLowerCase().includes(this.currentSearch) ||
+        user.username.toLowerCase().includes(this.currentSearch);
+
+      const matchesRole =
+        this.currentRoleFilter === 'ALL' ||
+        user.role.toLowerCase() === this.currentRoleFilter.toLowerCase();
+
+      return matchesSearch && matchesRole;
+    });
+
+    this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
+    this.updatePagination();
+  }
+
+  updatePagination() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
   }
 
   promote(userId: number) {
@@ -75,7 +94,10 @@ export class AdminDashboardComponent implements OnInit {
       next: () => {
         this.toast.showSuccess('User promoted!');
         this.adminService.getAllUsers().subscribe({
-          next: (data) => (this.dataSource.data = data),
+          next: (data) => {
+            this.users = data;
+            this.applyFilters();
+          },
         });
       },
       error: () => this.toast.showError('Promotion failed'),

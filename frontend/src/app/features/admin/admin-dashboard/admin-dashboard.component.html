@@ -1,55 +1,70 @@
 <div class="admin-dashboard">
-  <h1 class="title">🛠️ Admin Panel</h1>
-  <p class="subtitle">Manage users and system roles</p>
+  <div class="header-section">
+    <h1 class="title">🛠️ Admin Panel</h1>
+    <p class="subtitle">Manage users and system roles</p>
+  </div>
 
-  <mat-form-field appearance="outline" class="search-bar">
-    <mat-label>Search by email or username</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Search users" />
-  </mat-form-field>
+  <div class="search-filter">
+    <input
+      type="text"
+      class="search-input"
+      (keyup)="applyFilter($event)"
+      placeholder="Search by email or username"
+    />
+
+    <div class="filter-buttons">
+      <button class="filter-button" (click)="filterByRole('ALL')">All</button>
+      <button class="filter-button" (click)="filterByRole('USER')">
+        Users
+      </button>
+      <button class="filter-button" (click)="filterByRole('MODERATOR')">
+        Moderators
+      </button>
+    </div>
+  </div>
 
   <div class="user-table">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
-      </ng-container>
-
-      <!-- Role Column -->
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef>Role</th>
-        <td mat-cell *matCellDef="let user">{{ user.role }}</td>
-      </ng-container>
-
-      <!-- Action Column -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
-        <td mat-cell *matCellDef="let user">
-          <button
-            mat-stroked-button
-            color="primary"
-            *ngIf="user.role === 'USER'"
-            (click)="promote(user.id)"
-          >
-            Promote to Moderator
-          </button>
-        </td>
-      </ng-container>
-
-      <!-- Header and Row Declarations -->
-      <tr mat-header-row *matHeaderRowDef="['email', 'role', 'action']"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: ['email', 'role', 'action']"
-      ></tr>
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers">
+          <td>{{ user.email }}</td>
+          <td>
+            <span class="role-badge" [ngClass]="user.role.toLowerCase()">
+              {{ user.role }}
+            </span>
+          </td>
+          <td>
+            <button
+              class="filter-button"
+              *ngIf="user.role === 'USER'"
+              (click)="promote(user.id)"
+            >
+              Promote to Moderator
+            </button>
+          </td>
+        </tr>
+      </tbody>
     </table>
-    <mat-paginator
-      [pageSizeOptions]="[5, 10, 25]"
-      showFirstLastButtons
-    ></mat-paginator>
 
-    <!-- Loading / No Data Message -->
-    <div class="empty-msg" *ngIf="dataSource.data.length === 0">
+    <!-- Manual Pagination Controls -->
+    <div class="pagination-controls">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">
+        ← Prev
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        Next →
+      </button>
+    </div>
+
+    <div class="empty-msg" *ngIf="paginatedUsers.length === 0">
       <p>No users found.</p>
     </div>
   </div>
