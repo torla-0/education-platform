@@ -34,6 +34,8 @@ export class AdminDashboardComponent implements OnInit {
   selectedUser: UserDto | null = null;
   actionType: 'promote' | 'demote' | null = null;
 
+  sidebarOpen = true;
+
   constructor(
     private adminService: AdminService,
     private toast: ToastService
@@ -52,6 +54,10 @@ export class AdminDashboardComponent implements OnInit {
       },
       error: () => this.toast.showError('Failed to load users'),
     });
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
   }
 
   applyFilter(event: Event) {

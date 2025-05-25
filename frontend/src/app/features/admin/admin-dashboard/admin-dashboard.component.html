@@ -1,92 +1,128 @@
-<div class="admin-dashboard">
-  <div class="header-section">
-    <h1 class="title">🛠️ Admin Panel</h1>
-    <p class="subtitle">Manage users and system roles</p>
-  </div>
+<div class="admin-container">
+  <!-- Sidebar -->
+  <nav class="sidebar" [class.closed]="!sidebarOpen">
+    <h3 *ngIf="sidebarOpen">Admin Panel</h3>
+    <ul class="nav-links">
+      <li>
+        <a routerLink="/admin/users" routerLinkActive="active-link">
+          👤 <span class="link-text">Users</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/quizzes" routerLinkActive="active-link">
+          🧠 <span class="link-text">Quizzes</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/resources" routerLinkActive="active-link">
+          📚 <span class="link-text">Resources</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/analytics" routerLinkActive="active-link">
+          📈 <span class="link-text">Analytics</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
-  <div class="search-filter">
-    <input
-      type="text"
-      class="search-input"
-      (keyup)="applyFilter($event)"
-      placeholder="Search by email or username"
-    />
+  <!-- Main Content -->
+  <div class="main-content">
+    <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
 
-    <div class="filter-buttons">
-      <button class="filter-button" (click)="filterByRole('ALL')">All</button>
-      <button class="filter-button" (click)="filterByRole('USER')">
-        Users
-      </button>
-      <button class="filter-button" (click)="filterByRole('MODERATOR')">
-        Moderators
-      </button>
-    </div>
-  </div>
+    <div class="admin-dashboard">
+      <div class="header-section">
+        <h1 class="title">🛠️ Admin Panel</h1>
+        <p class="subtitle">Manage users and system roles</p>
+      </div>
 
-  <div class="user-table">
-    <div class="pagination-settings">
-      <label for="rowsPerPage">Rows per page:</label>
-      <select
-        id="rowsPerPage"
-        [(ngModel)]="itemsPerPage"
-        (change)="updatePagination()"
-      >
-        <option *ngFor="let option of pageSizeOptions" [value]="option">
-          {{ option }}
-        </option>
-      </select>
-    </div>
+      <div class="search-filter">
+        <input
+          type="text"
+          class="search-input"
+          (keyup)="applyFilter($event)"
+          placeholder="Search by email or username"
+        />
 
-    <table>
-      <thead>
-        <tr>
-          <th>Email</th>
-          <th>Role</th>
-          <th colspan="2">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of paginatedUsers">
-          <td>{{ user.email }}</td>
-          <td>
-            <span class="role-badge" [ngClass]="user.role.toLowerCase()">
-              {{ user.role }}
-            </span>
-          </td>
-          <td>
-            <button
-              class="filter-button"
-              *ngIf="user.role === 'USER'"
-              (click)="confirmPromotion(user)"
-            >
-              Promote to Moderator
-            </button>
-          </td>
-          <td>
-            <button
-              class="filter-button"
-              *ngIf="user.role === 'MODERATOR' && !isCurrentUser(user)"
-              (click)="confirmDemotion(user)"
-            >
-              Demote to User
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <div class="filter-buttons">
+          <button class="filter-button" (click)="filterByRole('ALL')">
+            All
+          </button>
+          <button class="filter-button" (click)="filterByRole('USER')">
+            Users
+          </button>
+          <button class="filter-button" (click)="filterByRole('MODERATOR')">
+            Moderators
+          </button>
+        </div>
+      </div>
 
-    <div class="pagination-controls">
-      <button (click)="prevPage()" [disabled]="currentPage === 1">
-        ← Prev
-      </button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
-        Next →
-      </button>
-    </div>
+      <div class="user-table">
+        <div class="pagination-settings">
+          <label for="rowsPerPage">Rows per page:</label>
+          <select
+            id="rowsPerPage"
+            [(ngModel)]="itemsPerPage"
+            (change)="updatePagination()"
+          >
+            <option *ngFor="let option of pageSizeOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
 
-    <div class="empty-msg" *ngIf="paginatedUsers.length === 0">
-      <p>No users found.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Role</th>
+              <th colspan="2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of paginatedUsers">
+              <td>{{ user.email }}</td>
+              <td>
+                <span class="role-badge" [ngClass]="user.role.toLowerCase()">
+                  {{ user.role }}
+                </span>
+              </td>
+              <td>
+                <button
+                  class="filter-button"
+                  *ngIf="user.role === 'USER'"
+                  (click)="confirmPromotion(user)"
+                >
+                  Promote to Moderator
+                </button>
+              </td>
+              <td>
+                <button
+                  class="filter-button"
+                  *ngIf="user.role === 'MODERATOR' && !isCurrentUser(user)"
+                  (click)="confirmDemotion(user)"
+                >
+                  Demote to User
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pagination-controls">
+          <button (click)="prevPage()" [disabled]="currentPage === 1">
+            ← Prev
+          </button>
+          <span>Page {{ currentPage }} of {{ totalPages }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Next →
+          </button>
+        </div>
+
+        <div class="empty-msg" *ngIf="paginatedUsers.length === 0">
+          <p>No users found.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
