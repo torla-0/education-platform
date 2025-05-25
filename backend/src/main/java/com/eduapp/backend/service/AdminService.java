@@ -25,6 +25,17 @@ public class AdminService {
         user.setRole(Role.MODERATOR);
         userRepository.save(user);
     } 
+    
+    public void demoteUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        if (user.getRole() == Role.MODERATOR) {
+            user.setRole(Role.USER);
+            userRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("Cannot demote a user that is not a moderator");
+        }
+    }
+
 
     public List<UserDto> getAllUsers() {
         return userRepository.findAll()

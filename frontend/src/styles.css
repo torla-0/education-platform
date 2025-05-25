@@ -42,3 +42,21 @@ body {
     transform: translateY(0);
   }
 }
+
+.mat-dialog-container {
+  background: transparent !important;
+  box-shadow: none;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-dialog-container {
+  background-color: #1e1e2f !important;
+  color: #ddd !important;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+::ng-deep .mat-dialog-title,
+::ng-deep .mat-dialog-content {
+  color: #ccc !important;
+}

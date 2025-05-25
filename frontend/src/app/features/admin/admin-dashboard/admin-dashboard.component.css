@@ -143,6 +143,48 @@ tr:hover {
   background-color: #388e3c;
 }
 
+.pagination-settings {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #89cff0;
+  border-radius: 8px;
+  color: #ddd;
+  font-size: 0.95rem;
+  background-color: transparent;
+  width: fit-content;
+}
+
+.pagination-settings label {
+  font-weight: 500;
+  color: #89cff0;
+}
+
+.pagination-settings select {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #89cff0;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.pagination-settings select:hover,
+.pagination-settings select:focus {
+  border-color: #b3e5fc;
+}
+
+.pagination-settings select option {
+  background-color: #1e1e2f;
+  color: #fff;
+}
+
 .pagination-controls {
   display: flex;
   justify-content: center;

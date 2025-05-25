@@ -1,0 +1,10 @@
+<div class="dialog-backdrop">
+  <div class="dialog-content" @fadeIn>
+    <h2 class="dialog-title">⚠️ Confirm Action</h2>
+    <p class="dialog-message">{{ displayedMessage }}</p>
+    <div class="dialog-actions">
+      <button class="cancel-button" (click)="cancel()">Cancel</button>
+      <button class="confirm-button" (click)="confirm()">Confirm</button>
+    </div>
+  </div>
+</div>

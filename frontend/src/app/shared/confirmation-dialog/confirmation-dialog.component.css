@@ -1,0 +1,65 @@
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.dialog-content {
+  background-color: #1e1e2f;
+  color: #ddd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.dialog-title {
+  color: #89cff0;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.dialog-message {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.cancel-button,
+.confirm-button {
+  padding: 6px 16px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-button {
+  color: #89cff0;
+  border-color: #89cff0;
+}
+.cancel-button:hover {
+  background-color: rgba(137, 207, 240, 0.1);
+}
+
+.confirm-button {
+  color: #ff4c4c;
+  border-color: #ff4c4c;
+}
+.confirm-button:hover {
+  background-color: rgba(255, 76, 76, 0.1);
+}

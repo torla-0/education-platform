@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminService, UserDto } from '../../../core/services/admin.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { FormsModule } from '@angular/forms';
+import { ConfirmationDialogComponent } from '../../../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ConfirmationDialogComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
 })
@@ -19,10 +21,18 @@ export class AdminDashboardComponent implements OnInit {
 
   currentSearch = '';
   currentRoleFilter = 'ALL';
-
   currentPage = 1;
   itemsPerPage = 5;
   totalPages = 1;
+  pageSizeOptions = [5, 10, 25];
+
+  currentUserEmail: string = '';
+
+  // Dialog state
+  showDialog = false;
+  dialogMessage = '';
+  selectedUser: UserDto | null = null;
+  actionType: 'promote' | 'demote' | null = null;
 
   constructor(
     private adminService: AdminService,
@@ -30,6 +40,11 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.currentUserEmail = localStorage.getItem('email') || '';
+    this.loadUsers();
+  }
+
+  loadUsers() {
     this.adminService.getAllUsers().subscribe({
       next: (data) => {
         this.users = data;
@@ -89,18 +104,66 @@ export class AdminDashboardComponent implements OnInit {
     }
   }
 
-  promote(userId: number) {
-    this.adminService.promoteToModerator(userId).subscribe({
-      next: () => {
-        this.toast.showSuccess('User promoted!');
-        this.adminService.getAllUsers().subscribe({
-          next: (data) => {
-            this.users = data;
-            this.applyFilters();
-          },
-        });
-      },
-      error: () => this.toast.showError('Promotion failed'),
+  updatePageSize() {
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
+    this.updatePagination();
+  }
+
+  confirmPromotion(user: UserDto) {
+    this.dialogMessage = `Promote ${user.email} to MODERATOR?`;
+    this.selectedUser = user;
+    this.actionType = 'promote';
+
+    // Ensure message is bound before rendering
+    setTimeout(() => {
+      this.showDialog = true;
     });
+  }
+
+  confirmDemotion(user: UserDto) {
+    if (this.isCurrentUser(user)) {
+      this.toast.showError("You can't demote yourself!");
+      return;
+    }
+
+    this.dialogMessage = `Demote ${user.email} to USER?`;
+    this.selectedUser = user;
+    this.actionType = 'demote';
+
+    // Ensure message is bound before rendering
+    setTimeout(() => {
+      this.showDialog = true;
+    });
+  }
+
+  handleDialogResponse(confirmed: boolean) {
+    this.showDialog = false;
+    if (!confirmed || !this.selectedUser || !this.actionType) return;
+
+    if (this.actionType === 'promote') {
+      this.adminService.promoteToModerator(this.selectedUser.id).subscribe({
+        next: () => {
+          this.toast.showSuccess('User promoted!');
+          this.loadUsers();
+        },
+        error: () => this.toast.showError('Promotion failed'),
+      });
+    } else if (this.actionType === 'demote') {
+      this.adminService.demoteUser(this.selectedUser.id).subscribe({
+        next: () => {
+          this.toast.showSuccess('User demoted!');
+          this.loadUsers();
+        },
+        error: () => this.toast.showError('Demotion failed'),
+      });
+    }
+
+    this.selectedUser = null;
+    this.actionType = null;
+  }
+
+  isCurrentUser(user: UserDto): boolean {
+    return user.email === this.currentUserEmail;
   }
 }

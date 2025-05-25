@@ -26,4 +26,8 @@ export class AdminService {
   promoteToModerator(userId: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/promote/${userId}`, {});
   }
+
+  demoteUser(userId: number): Observable<any> {
+    return this.http.post('/api/admin/demote', { id: userId });
+  }
 }
