@@ -1,12 +1,14 @@
 package com.eduapp.backend.content.resource.dto;
 
 public class ResourceDto {
-    public Long id;
-    public String title;
-    public String url;
-    public String[] tags;
-    public String status;      
-    public String createdAt;
+    private Long id;
+    private String title;
+    private String url;
+    private String[] tags;
+    private String authorEmail;
+    private String status;
+    private String createdAt;
+    private String updatedAt;
 
     public Long getId() {
         return id;
@@ -15,6 +17,7 @@ public class ResourceDto {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getTitle() {
         return title;
     }
@@ -39,6 +42,14 @@ public class ResourceDto {
         this.tags = tags;
     }
 
+    public String getAuthorEmail() {
+        return authorEmail;
+    }
+
+    public void setAuthorEmail(String authorEmail) {
+        this.authorEmail = authorEmail;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -53,5 +64,13 @@ public class ResourceDto {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

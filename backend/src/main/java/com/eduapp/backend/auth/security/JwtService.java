@@ -3,6 +3,7 @@ package com.eduapp.backend.auth.security;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,7 @@ public class JwtService {
     public String generateToken(User user) {
         return Jwts.builder()
             .setSubject(user.getEmail())
-            .claim("role", user.getRole().name())
+             .claim("roles", List.of(user.getRole().name()))
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
             .signWith(getSigningKey())  // koristi Key umjesto raw secret stringa
