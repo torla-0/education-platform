@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eduapp.backend.dto.AuthResponse;
 import com.eduapp.backend.dto.LoginRequest;
 import com.eduapp.backend.dto.UserRegisterRequest;
-import com.eduapp.backend.model.User;
 import com.eduapp.backend.service.AuthService;
+import com.eduapp.backend.user.entity.User;
 
 @RestController
 @RequestMapping("/api/auth")

@@ -1,8 +1,7 @@
 package com.eduapp.backend.dto;
 
 import com.eduapp.backend.model.enums.Role;
-
-import com.eduapp.backend.model.User;
+import com.eduapp.backend.user.entity.User;
 
 public class UserDto {
     private final Long id;

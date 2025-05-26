@@ -39,6 +39,7 @@ public class SecurityConfig {
                     "/h2-console/**"
                     
                 ).permitAll()
+                .requestMatchers("/api/moderator/**").hasRole("MODERATOR")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/users/**").authenticated()                
                 .anyRequest().authenticated()

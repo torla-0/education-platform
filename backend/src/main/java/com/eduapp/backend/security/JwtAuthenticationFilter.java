@@ -12,8 +12,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.eduapp.backend.model.User;
-import com.eduapp.backend.repository.UserRepository;
+import com.eduapp.backend.user.entity.User;
+import com.eduapp.backend.user.repository.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.eduapp.backend.dto.UserDto;
-import com.eduapp.backend.model.User;
 import com.eduapp.backend.model.enums.Role;
-import com.eduapp.backend.repository.UserRepository;
+import com.eduapp.backend.user.entity.User;
+import com.eduapp.backend.user.repository.UserRepository;
 
 @Service
 public class AdminService {

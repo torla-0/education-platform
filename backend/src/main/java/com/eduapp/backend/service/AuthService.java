@@ -11,10 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eduapp.backend.dto.AuthResponse;
 import com.eduapp.backend.dto.LoginRequest;
 import com.eduapp.backend.dto.UserRegisterRequest;
-import com.eduapp.backend.model.User;
 import com.eduapp.backend.model.enums.Role;
-import com.eduapp.backend.repository.UserRepository;
 import com.eduapp.backend.security.JwtService;
+import com.eduapp.backend.user.entity.User;
+import com.eduapp.backend.user.repository.UserRepository;
 
 import jakarta.persistence.EntityManager;
 
