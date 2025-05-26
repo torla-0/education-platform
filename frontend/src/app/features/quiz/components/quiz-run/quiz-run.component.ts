@@ -1,17 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
 import { HttpClientModule } from '@angular/common/http';
 import { QuizService } from '../../../../core/services/quiz.service';
-
-interface Question {
-  id: number;
-  text: string;
-  correctAnswer: string;
-  options: string[];
-  selectedAnswer?: string;
-}
+import { Question, QuestionOption } from '../../../../core/models/quiz.model';
 
 @Component({
   selector: 'app-quiz-run',
@@ -24,7 +16,7 @@ export class QuizRunComponent implements OnInit {
   topicId!: number;
   questions: Question[] = [];
   currentIndex = 0;
-  selectedAnswer: string | null = null;
+  selectedAnswer: QuestionOption | null = null;
   quizCompleted = false;
   correctCount = 0;
 
@@ -34,10 +26,6 @@ export class QuizRunComponent implements OnInit {
 
   quizFinished = false;
   correctAnswers = 0;
-
-  isLastQuestion(): boolean {
-    return this.currentIndex === this.questions.length - 1;
-  }
 
   constructor(
     private route: ActivatedRoute,
@@ -58,15 +46,16 @@ export class QuizRunComponent implements OnInit {
   loadQuestions() {
     this.quizService.getQuestionsByTopicId(this.topicId).subscribe({
       next: (data) => {
-        console.log('Primljena pitanja: ', data); // test <------
-        // shuffle options for each question
-        this.questions = data.map((q) => ({
+        const shuffledQuestions = this.shuffleArray(data);
+
+        this.questions = shuffledQuestions.map((q) => ({
           ...q,
           options: this.shuffleArray(q.options),
         }));
       },
-      error: (err) => console.error('Ne mogu učitati pitanja:', err),
+      error: (err) => console.error('Failed to load questions:', err),
     });
+
     this.startTimer();
   }
 
@@ -74,7 +63,7 @@ export class QuizRunComponent implements OnInit {
     return this.questions[this.currentIndex] || null;
   }
 
-  selectAnswer(option: string) {
+  selectAnswer(option: QuestionOption) {
     this.selectedAnswer = option;
   }
 
@@ -82,14 +71,15 @@ export class QuizRunComponent implements OnInit {
     if (!this.currentQuestion) return;
 
     this.currentQuestion.selectedAnswer = this.selectedAnswer || undefined;
-    if (this.selectedAnswer === this.currentQuestion.correctAnswer) {
+
+    if (this.selectedAnswer?.correct) {
       this.correctCount++;
     }
 
     this.selectedAnswer = null;
     this.currentIndex++;
 
-    clearInterval(this.intervalId); // stop old timer
+    clearInterval(this.intervalId);
 
     if (this.currentIndex < this.questions.length) {
       this.startTimer();
@@ -101,16 +91,19 @@ export class QuizRunComponent implements OnInit {
 
   finishQuiz() {
     this.quizFinished = true;
-    this.correctAnswers = this.questions.filter(
-      (q) => q.selectedAnswer === q.correctAnswer
-    ).length;
+    this.correctAnswers = this.correctCount;
   }
 
   getAccuracy(): number {
     return Math.round((this.correctCount / this.questions.length) * 100);
   }
 
-  private shuffleArray(array: string[]): string[] {
+  getCorrectAnswerText(question: Question): string {
+    const correct = question.options.find((opt) => opt.correct);
+    return correct ? correct.text : 'N/A';
+  }
+
+  private shuffleArray<T>(array: T[]): T[] {
     return array
       .map((value) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
@@ -118,18 +111,22 @@ export class QuizRunComponent implements OnInit {
   }
 
   startTimer() {
-    this.timer = 15;
+    this.timer = this.totalTime;
     this.intervalId = setInterval(() => {
       this.timer--;
       if (this.timer === 0) {
         clearInterval(this.intervalId);
-        this.nextQuestion(); // automatski idemo dalje ako nije izabrano
+        this.nextQuestion();
       }
     }, 1000);
   }
 
   get timerPercent(): number {
     return (this.timer / this.totalTime) * 100;
+  }
+
+  isLastQuestion(): boolean {
+    return this.currentIndex === this.questions.length - 1;
   }
 
   restartQuiz() {
@@ -142,7 +139,7 @@ export class QuizRunComponent implements OnInit {
 
     clearInterval(this.intervalId);
 
-    this.loadQuestions(); // ⬅ reloads questions AND starts timer
+    this.loadQuestions();
   }
 
   backToTopics() {

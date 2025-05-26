@@ -1,18 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface QuizTopic {
-  id: number;
-  name: string;
-}
-
-export interface Question {
-  id: number;
-  text: string;
-  correctAnswer: string;
-  options: string[];
-}
+import { Question, QuizTopic } from '../models/quiz.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +16,6 @@ export class QuizService {
   }
 
   getQuestionsByTopicId(topicId: number): Observable<Question[]> {
-    return this.http.get<Question[]>(
-      `${this.baseUrl}/topics/${topicId}/questions`
-    );
+    return this.http.get<Question[]>(`/api/topics/${topicId}/questions`);
   }
 }

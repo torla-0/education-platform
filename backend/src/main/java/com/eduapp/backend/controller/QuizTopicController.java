@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eduapp.backend.dto.QuestionDto;
 import com.eduapp.backend.dto.QuizTopicDto;
 import com.eduapp.backend.model.Question;
 import com.eduapp.backend.model.QuizTopic;
@@ -37,7 +38,12 @@ public class QuizTopicController {
 
 
     @GetMapping("/{id}/questions")
-    public ResponseEntity<List<Question>> getQuestionsByTopic(@PathVariable Long id) {
-        return ResponseEntity.ok(questionService.findByTopicId(id));
+    public ResponseEntity<List<QuestionDto>> getQuestionsByTopic(@PathVariable Long id) {
+        List<Question> questions = questionService.findByTopicId(id);
+        List<QuestionDto> dtoList = questions.stream()
+            .map(q -> com.eduapp.backend.util.DtoMapper.toDto(q))
+            .toList();
+        return ResponseEntity.ok(dtoList);
     }
+
 }

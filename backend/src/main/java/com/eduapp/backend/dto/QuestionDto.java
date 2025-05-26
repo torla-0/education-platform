@@ -5,13 +5,11 @@ import java.util.List;
 public class QuestionDto {
     private final Long id;
     private final String text;
-    private final String correctAnswer;
-    private final List<String> options;
+    private final List<QuestionOptionDto> options;
 
-    public QuestionDto(Long id, String text, String correctAnswer, List<String> options) {
+    public QuestionDto(Long id, String text, List<QuestionOptionDto> options) {
         this.id = id;
         this.text = text;
-        this.correctAnswer = correctAnswer;
         this.options = options;
     }
 
@@ -23,11 +21,7 @@ public class QuestionDto {
         return text;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public List<String> getOptions() {
+    public List<QuestionOptionDto> getOptions() {
         return options;
     }
 }

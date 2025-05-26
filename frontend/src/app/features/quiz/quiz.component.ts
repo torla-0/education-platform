@@ -19,7 +19,6 @@ export class QuizComponent implements OnInit {
   topics: Topic[] = [];
 
   constructor(private quizService: QuizService, private router: Router) {}
-
   ngOnInit() {
     this.quizService.getAllTopics().subscribe({
       next: (data) => (this.topics = data),

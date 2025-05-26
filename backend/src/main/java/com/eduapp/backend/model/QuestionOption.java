@@ -20,14 +20,18 @@ public class QuestionOption {
     @Column(nullable = false, length = 255)
     private String text;
 
+    @Column(name = "is_correct", nullable = false)
+    private boolean isCorrect; 
+
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
     public QuestionOption() {}
 
-    public QuestionOption(String text, Question question) {
+    public QuestionOption(String text, boolean isCorrect, Question question) {
         this.text = text;
+        this.isCorrect = isCorrect;
         this.question = question;
     }
 
@@ -40,6 +44,13 @@ public class QuestionOption {
     }
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+    public void setIsCorrect(boolean isCorrect) {
+        this.isCorrect = isCorrect;
     }
 
     public Question getQuestion() {

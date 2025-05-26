@@ -20,7 +20,7 @@
       (click)="selectAnswer(option)"
       [ngClass]="{ selected: option === selectedAnswer }"
     >
-      {{ option }}
+      {{ option.text }}
     </button>
   </div>
 
@@ -54,16 +54,19 @@
       <p>
         Your answer:
         <span
-          [class.correct]="q.selectedAnswer === q.correctAnswer"
-          [class.incorrect]="q.selectedAnswer !== q.correctAnswer"
-          >{{ q.selectedAnswer }}</span
+          [class.correct]="q.selectedAnswer?.correct"
+          [class.incorrect]="!q.selectedAnswer?.correct"
         >
+          {{ q.selectedAnswer?.text || "No answer" }}
+        </span>
       </p>
       <p>
-        Correct answer: <strong>{{ q.correctAnswer }}</strong>
+        Correct answer:
+        <strong>{{ getCorrectAnswerText(q) }}</strong>
       </p>
     </div>
   </div>
+
   <div class="action-buttons">
     <button class="cta-button" (click)="restartQuiz()">🔁 Try Again</button>
     <button class="cta-button" (click)="backToTopics()">

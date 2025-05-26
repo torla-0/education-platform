@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eduapp.backend.dto.QuestionDto;
 import com.eduapp.backend.model.Question;
-import com.eduapp.backend.model.QuestionOption;
 import com.eduapp.backend.service.QuestionService;
+import com.eduapp.backend.util.DtoMapper;
 
 @RestController
 @RequestMapping("/api/questions")
@@ -26,15 +26,11 @@ public class QuestionController {
     @GetMapping("/topics/{id}/questions")
     public ResponseEntity<List<QuestionDto>> getQuestionsByTopic(@PathVariable Long id) {
         List<Question> questions = service.findByTopicId(id);
-        List<QuestionDto> dtoList = questions.stream().map(q ->
-            new QuestionDto(
-                q.getId(),
-                q.getText(),
-                q.getCorrectAnswer(),
-                q.getOptions().stream().map(QuestionOption::getText).toList()
-            )
-        ).toList();
+        List<QuestionDto> dtoList = questions.stream()
+            .map(DtoMapper::toDto)
+            .toList(); 
+
         return ResponseEntity.ok(dtoList);
     }
-
 }
+

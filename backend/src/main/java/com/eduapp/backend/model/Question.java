@@ -3,6 +3,7 @@ package com.eduapp.backend.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,8 +27,10 @@ public class Question {
     @Column(nullable = false, length = 500)
     private String text;
 
-    @Column(nullable = false, length = 255)
-    private String correctAnswer;
+    @ManyToOne
+    @JoinColumn(name = "quiz_id", nullable = false)
+    @JsonManagedReference
+    private Quiz quiz;
 
     @ManyToOne
     @JoinColumn(name = "topic_id", nullable = false)
@@ -41,9 +44,8 @@ public class Question {
 
     public Question() {}
 
-    public Question(String text, String correctAnswer, QuizTopic topic) {
-        this.text = text;
-        this.correctAnswer = correctAnswer;
+    public Question(String text, QuizTopic topic) {
+        this.text = text;        
         this.topic = topic;
     }
 
@@ -56,13 +58,6 @@ public class Question {
     }
     public void setText(String text) {
         this.text = text;
-    }
-
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
     }
 
     public QuizTopic getTopic() {
@@ -78,4 +73,12 @@ public class Question {
     public void setOptions(List<QuestionOption> options) {
         this.options = options;
     }
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
 }
