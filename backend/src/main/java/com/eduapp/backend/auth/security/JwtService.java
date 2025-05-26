@@ -1,4 +1,4 @@
-package com.eduapp.backend.security;
+package com.eduapp.backend.auth.security;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;

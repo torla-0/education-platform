@@ -2,7 +2,7 @@ package com.eduapp.backend.user.entity;
 
 import java.time.LocalDateTime;
 
-import com.eduapp.backend.model.enums.Role;
+import com.eduapp.backend.user.entity.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

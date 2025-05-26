@@ -1,4 +1,4 @@
-package com.eduapp.backend.controller;
+package com.eduapp.backend.auth.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eduapp.backend.dto.AuthResponse;
-import com.eduapp.backend.dto.LoginRequest;
-import com.eduapp.backend.dto.UserRegisterRequest;
-import com.eduapp.backend.service.AuthService;
+import com.eduapp.backend.auth.dto.AuthResponse;
+import com.eduapp.backend.auth.dto.LoginRequest;
+import com.eduapp.backend.auth.dto.UserRegisterRequest;
+import com.eduapp.backend.auth.service.AuthService;
 import com.eduapp.backend.user.entity.User;
 
 @RestController

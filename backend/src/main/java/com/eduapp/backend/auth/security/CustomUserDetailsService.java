@@ -1,4 +1,4 @@
-package com.eduapp.backend.security;
+package com.eduapp.backend.auth.security;
 
 import java.util.Collections;
 
@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
             user.getEmail(),
             user.getPassword(),
-            Collections.emptyList()  // you can put roles here later
+            Collections.emptyList() 
         );
     }
 }

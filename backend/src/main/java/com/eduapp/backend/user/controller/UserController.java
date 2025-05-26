@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eduapp.backend.dto.ChangePasswordRequest;
-import com.eduapp.backend.dto.DeletionRequestDto;
-import com.eduapp.backend.dto.UpdateProfileRequest;
-import com.eduapp.backend.dto.UserDto;
+import com.eduapp.backend.user.dto.ChangePasswordRequest;
+import com.eduapp.backend.user.dto.DeletionRequestDto;
+import com.eduapp.backend.user.dto.UpdateProfileRequest;
+import com.eduapp.backend.user.dto.UserDto;
 import com.eduapp.backend.user.entity.User;
 import com.eduapp.backend.user.service.UserService;
 

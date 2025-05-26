@@ -1,4 +1,4 @@
-package com.eduapp.backend.dto;
+package com.eduapp.backend.auth.dto;
 
 public class AuthResponse {
     private final String token;

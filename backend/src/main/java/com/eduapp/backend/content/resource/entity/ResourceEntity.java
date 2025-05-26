@@ -1,4 +1,4 @@
-package com.eduapp.backend.model;
+package com.eduapp.backend.content.resource.entity;
 
 
 import java.time.Instant;

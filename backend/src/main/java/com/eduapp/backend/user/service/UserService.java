@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.eduapp.backend.dto.UpdateProfileRequest;
+import com.eduapp.backend.user.dto.UpdateProfileRequest;
 import com.eduapp.backend.user.entity.User;
 import com.eduapp.backend.user.repository.UserRepository;
 

@@ -1,4 +1,4 @@
-package com.eduapp.backend.service;
+package com.eduapp.backend.user.scheduler;
 
 import java.time.LocalDateTime;
 import java.util.List;

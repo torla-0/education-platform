@@ -1,4 +1,4 @@
-package com.eduapp.backend.service;
+package com.eduapp.backend.auth.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +8,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.eduapp.backend.dto.AuthResponse;
-import com.eduapp.backend.dto.LoginRequest;
-import com.eduapp.backend.dto.UserRegisterRequest;
-import com.eduapp.backend.model.enums.Role;
-import com.eduapp.backend.security.JwtService;
+import com.eduapp.backend.auth.dto.AuthResponse;
+import com.eduapp.backend.auth.dto.LoginRequest;
+import com.eduapp.backend.auth.dto.UserRegisterRequest;
+import com.eduapp.backend.auth.security.JwtService;
 import com.eduapp.backend.user.entity.User;
+import com.eduapp.backend.user.entity.enums.Role;
 import com.eduapp.backend.user.repository.UserRepository;
 
 import jakarta.persistence.EntityManager;

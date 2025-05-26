@@ -1,4 +1,4 @@
-package com.eduapp.backend.model.enums;
+package com.eduapp.backend.user.entity.enums;
 
 public enum Role {
     USER,

@@ -1,4 +1,4 @@
-package com.eduapp.backend.service;
+package com.eduapp.backend.content.resource.service;
 
 import java.util.List;
 

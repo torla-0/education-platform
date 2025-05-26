@@ -1,4 +1,4 @@
-package com.eduapp.backend.dto;
+package com.eduapp.backend.user.dto;
 
 public class UpdateProfileRequest {
     private String username;
