@@ -1,0 +1,9 @@
+<h2>Your Learning Resources</h2>
+<button routerLink="/moderator/resources/new">New Resource</button>
+<ul>
+  <li *ngFor="let r of resources">
+    {{ r.title }}
+    <button [routerLink]="['/moderator/resources', r.id]">Edit</button>
+    <button (click)="delete(r.id)">Delete</button>
+  </li>
+</ul>

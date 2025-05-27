@@ -26,7 +26,8 @@ import { SessionService } from '../../../core/services/session.service';
 })
 export class NavbarComponent {
   menuOpen = false;
-  isAdmin = false;
+  isAdmin: boolean | undefined = false;
+  isModerator: boolean | undefined = false;
 
   constructor(
     public authService: AuthService,
@@ -37,7 +38,8 @@ export class NavbarComponent {
 
   ngOnInit() {
     const user = this.sessionService.getUser();
-    this.isAdmin = user?.role === 'ADMIN';
+    this.isAdmin = user?.roles?.includes('ADMIN');
+    this.isModerator = user?.roles?.includes('MODERATOR');
   }
   toggleMenu() {
     this.menuOpen = !this.menuOpen;

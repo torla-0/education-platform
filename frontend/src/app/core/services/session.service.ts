@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 interface JwtPayload {
   email: string;
-  role: string;
+  roles: string[];
   sub: string;
   exp: number;
   iat: number;
@@ -50,5 +50,12 @@ export class SessionService {
   clearToken(): void {
     localStorage.removeItem('token');
     this.reset();
+  }
+
+  getUserRoles(): string[] {
+    const user = this.getUser();
+    if (user && Array.isArray(user.roles)) return user.roles;
+    if (user && typeof user.roles === 'string') return [user.roles];
+    return [];
   }
 }

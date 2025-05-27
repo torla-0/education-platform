@@ -6,16 +6,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UserService } from '../core/services/user.service';
-import { User } from '../core/models/User';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ToastService } from '../core/services/toast.service';
-import { AuthService } from '../core/services/auth.service';
+
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ReauthDialogComponent } from './settings/components/reauth-dialog/reauth-dialog.component';
+import { User } from '../../core/models/user.model';
+import { UserService } from '../../core/services/user.service';
+import { ToastService } from '../../core/services/toast.service';
+import { AuthService } from '../../core/services/auth.service';
+import { ReauthDialogComponent } from './components/reauth-dialog/reauth-dialog.component';
 
 interface ReauthDialogResult {
   success: boolean;

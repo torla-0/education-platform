@@ -36,6 +36,9 @@
         <button *ngIf="isAdmin" mat-menu-item routerLink="/admin">
           🛠️ Dashboard
         </button>
+        <button *ngIf="isModerator" mat-menu-item routerLink="/moderator">
+          🛠️ Dashboard
+        </button>
 
         <button mat-menu-item routerLink="/settings">👤 Settings</button>
 
