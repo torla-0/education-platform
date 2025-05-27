@@ -1,3 +1,12 @@
+.user-management-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .search-filter {
   background-color: #2e2e2e;
   padding: 1.5rem;

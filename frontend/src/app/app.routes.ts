@@ -22,6 +22,9 @@ import { QuizListComponent } from './features/mod/quiz-list/quiz-list.component'
 import { BlogListComponent } from './features/mod/blog-list/blog-list.component';
 import { UserManagementComponent } from './features/admin/user-management/user-management.component';
 import { AdminGuard } from './core/guards/admin.guard';
+import { ProfileComponent } from './features/shared/profile/profile.component';
+import { ReviewQuestionsComponent } from './features/mod/review-questions/review-questions.component';
+import { UserReportsComponent } from './features/mod/user-reports/user-reports.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -50,11 +53,14 @@ export const routes: Routes = [
   {
     path: 'moderator',
     component: ModeratorDashboardComponent,
-    canActivate: [ModeratorGuard],
+    canActivate: [ModeratorGuard, AuthGuard],
     children: [
       { path: 'resources', component: ResourceListComponent },
       { path: 'quizzes', component: QuizListComponent },
       { path: 'blogs', component: BlogListComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'review-questions', component: ReviewQuestionsComponent },
+      { path: 'user-reports', component: UserReportsComponent },
       { path: '', redirectTo: 'resources', pathMatch: 'full' },
     ],
   },

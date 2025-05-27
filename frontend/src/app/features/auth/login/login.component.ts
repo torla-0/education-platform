@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MessageService } from '../../../core/services/message.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { SessionService } from '../../../core/services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private messageService: MessageService,
-    private toast: ToastService
+    private toast: ToastService,
+    private sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
@@ -70,12 +72,14 @@ export class LoginComponent implements OnInit {
         }
 
         localStorage.setItem('token', res.token);
-
+        this.sessionService.refreshUser();
         this.toast.showSuccess('✅ Login successful');
 
-        const returnUrl =
-          this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-        this.router.navigateByUrl(returnUrl);
+        setTimeout(() => {
+          const returnUrl =
+            this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+          this.router.navigateByUrl(returnUrl);
+        }, 0);
       },
       error: () => {
         this.loading = false;

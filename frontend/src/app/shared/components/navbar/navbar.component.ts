@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SessionService } from '../../../core/services/session.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -24,10 +25,11 @@ import { SessionService } from '../../../core/services/session.service';
   styleUrls: ['./navbar.component.css'],
   standalone: true,
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
   menuOpen = false;
-  isAdmin: boolean | undefined = false;
-  isModerator: boolean | undefined = false;
+  isAdmin = false;
+  isModerator = false;
+  private userSub: Subscription | null = null;
 
   constructor(
     public authService: AuthService,
@@ -37,10 +39,17 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit() {
-    const user = this.sessionService.getUser();
-    this.isAdmin = user?.roles?.includes('ADMIN');
-    this.isModerator = user?.roles?.includes('MODERATOR');
+    // Subscribe to user$ observable for real-time updates
+    this.userSub = this.sessionService.user$.subscribe((user) => {
+      this.isAdmin = !!user?.roles?.includes('ADMIN');
+      this.isModerator = !!user?.roles?.includes('MODERATOR');
+    });
   }
+
+  ngOnDestroy() {
+    this.userSub?.unsubscribe();
+  }
+
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
@@ -51,5 +60,7 @@ export class NavbarComponent {
       duration: 3000,
       panelClass: ['snackbar-success'],
     });
+    this.sessionService.refreshUser();
+    this.router.navigate(['/']);
   }
 }

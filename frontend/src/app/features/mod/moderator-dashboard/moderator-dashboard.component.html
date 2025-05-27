@@ -1,10 +1,10 @@
-<div class="mod-dashboard-layout">
-  <aside class="sidebar">
-    <a routerLink="resources">Resources</a>
-    <a routerLink="quizzes">Quizzes</a>
-    <a routerLink="blogs">Blogs</a>
-  </aside>
-  <main>
+<div class="moderator-container">
+  <app-sidebar [links]="links"></app-sidebar>
+  <div class="main-content">
+    <div class="header-section">
+      <h1 class="title">Moderator Dashboard</h1>
+      <p class="subtitle">Lorem ipsum, lorem ipsum, lorem</p>
+    </div>
     <router-outlet></router-outlet>
-  </main>
+  </div>
 </div>

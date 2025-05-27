@@ -1,41 +1,10 @@
 <div class="admin-container">
-  <!-- Sidebar -->
-  <nav class="sidebar" [class.closed]="!sidebarOpen">
-    <h3 *ngIf="sidebarOpen">Admin Panel</h3>
-    <ul class="nav-links">
-      <li>
-        <a routerLink="/admin/users" routerLinkActive="active-link">
-          👤 <span class="link-text">Users</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/admin/quizzes" routerLinkActive="active-link">
-          🧠 <span class="link-text">Quizzes</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/admin/resources" routerLinkActive="active-link">
-          📚 <span class="link-text">Resources</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/admin/analytics" routerLinkActive="active-link">
-          📈 <span class="link-text">Analytics</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-
-  <!-- Main Content -->
+  <app-sidebar [links]="links"></app-sidebar>
   <div class="main-content">
-    <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
-
-    <div class="admin-dashboard">
-      <div class="header-section">
-        <h1 class="title">🛠️ Admin Panel</h1>
-        <p class="subtitle">Manage users and system roles</p>
-      </div>
-      <router-outlet></router-outlet>
+    <div class="header-section">
+      <h1 class="title">Admin Dashboard</h1>
+      <p class="subtitle">Manage users, quizzes, and more</p>
     </div>
+    <router-outlet></router-outlet>
   </div>
 </div>
