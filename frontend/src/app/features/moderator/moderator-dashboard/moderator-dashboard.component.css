@@ -15,16 +15,6 @@
   z-index: 20;
 }
 
-.moderator-dashboard {
-  min-height: 100vh;
-  background-color: #1e1e1e;
-  padding: 4rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #e0e0e0;
-}
-
 .header-section {
   text-align: center;
   margin-bottom: 2rem;

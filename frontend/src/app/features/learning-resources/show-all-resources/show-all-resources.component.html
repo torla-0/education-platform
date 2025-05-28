@@ -1,0 +1,32 @@
+<div *ngIf="isLoading" class="empty-msg">Loading...</div>
+<div *ngIf="!isLoading && resources.length === 0" class="empty-msg">
+  No resources found.
+</div>
+<table *ngIf="!isLoading && resources.length > 0" class="user-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>URL</th>
+      <th>Tags</th>
+      <th>Status</th>
+      <th>Created</th>
+      <th>Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let res of resources">
+      <td>{{ res.title }}</td>
+      <td>
+        <a [href]="res.url" target="_blank">{{ res.url }}</a>
+      </td>
+      <td>
+        <span *ngFor="let tag of res.tags" class="role-badge user">{{
+          tag
+        }}</span>
+      </td>
+      <td>{{ res.status }}</td>
+      <td>{{ res.createdAt | date : "short" }}</td>
+      <td>{{ res.authorEmail }}</td>
+    </tr>
+  </tbody>
+</table>

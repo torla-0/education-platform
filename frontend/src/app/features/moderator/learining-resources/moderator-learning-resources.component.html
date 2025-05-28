@@ -1,0 +1,33 @@
+<div class="workbar">
+  <button [class.active]="activeTab === 'all'" (click)="activeTab = 'all'">
+    Show All
+  </button>
+  <button [class.active]="activeTab === 'my'" (click)="activeTab = 'my'">
+    My Resources
+  </button>
+  <button [class.active]="activeTab === 'add'" (click)="activeTab = 'add'">
+    Add New
+  </button>
+  <button [class.active]="activeTab === 'edit'" (click)="activeTab = 'edit'">
+    Edit
+  </button>
+</div>
+
+<div class="dynamic-section">
+  <app-show-all-resources
+    *ngIf="activeTab === 'all'"
+    [showOnlyMine]="false"
+    [currentUserEmail]="loggedInEmail"
+  ></app-show-all-resources>
+  <app-show-all-resources
+    *ngIf="activeTab === 'my'"
+    [showOnlyMine]="true"
+    [currentUserEmail]="loggedInEmail"
+  ></app-show-all-resources>
+  <app-add-learning-resource
+    *ngIf="activeTab === 'add'"
+  ></app-add-learning-resource>
+  <app-edit-learning-resource
+    *ngIf="activeTab === 'edit'"
+  ></app-edit-learning-resource>
+</div>

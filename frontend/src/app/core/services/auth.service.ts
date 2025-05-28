@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SessionService } from './session.service';
+import { getEmailFromToken } from '../utils/token.utils';
 
 interface LoginResponse {
   token: string;
@@ -49,5 +50,11 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  getCurrentUserEmail(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    return getEmailFromToken(token);
   }
 }

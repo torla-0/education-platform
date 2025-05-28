@@ -14,17 +14,13 @@ import { SettingsAuthGuard } from './core/guards/settings-auth.guard';
 import { AdminDashboardComponent } from './features/admin/admin-dashboard/admin-dashboard.component';
 
 import { ModeratorGuard } from './core/guards/moderator.guard';
-import { ModeratorDashboardComponent } from './features/mod/moderator-dashboard/moderator-dashboard.component';
+import { ModeratorDashboardComponent } from './features/moderator/moderator-dashboard/moderator-dashboard.component';
 import { BlogComponent } from './features/blog/blog.component';
 import { SettingsComponent } from './features/settings/settings.component';
-import { ResourceListComponent } from './features/mod/resource-list/resource-list.component';
-import { QuizListComponent } from './features/mod/quiz-list/quiz-list.component';
-import { BlogListComponent } from './features/mod/blog-list/blog-list.component';
 import { UserManagementComponent } from './features/admin/user-management/user-management.component';
 import { AdminGuard } from './core/guards/admin.guard';
-import { ProfileComponent } from './features/shared/profile/profile.component';
-import { ReviewQuestionsComponent } from './features/mod/review-questions/review-questions.component';
-import { UserReportsComponent } from './features/mod/user-reports/user-reports.component';
+
+import { ModeratorLearningResourcesComponent } from './features/moderator/learining-resources/moderator-learning-resources.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -55,12 +51,12 @@ export const routes: Routes = [
     component: ModeratorDashboardComponent,
     canActivate: [ModeratorGuard, AuthGuard],
     children: [
-      { path: 'resources', component: ResourceListComponent },
-      { path: 'quizzes', component: QuizListComponent },
-      { path: 'blogs', component: BlogListComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'review-questions', component: ReviewQuestionsComponent },
-      { path: 'user-reports', component: UserReportsComponent },
+      { path: 'resources', component: ModeratorLearningResourcesComponent },
+      // { path: 'quizzes', component: QuizListComponent },
+      // { path: 'blogs', component: BlogListComponent },
+      //{ path: 'profile', component: ProfileComponent },
+      // { path: 'review-questions', component: ReviewQuestionsComponent },
+      // { path: 'user-reports', component: UserReportsComponent },
       { path: '', redirectTo: 'resources', pathMatch: 'full' },
     ],
   },

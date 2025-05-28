@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { SidebarLink } from '../../../core/models/sidebar-link.model';
 import { SidebarComponent } from '../../../shared/sidebar/sidebar.component';
+import { AddLearningResourceComponent } from '../../learning-resources/add-learning-resource/add-learning-resource.component';
+import { EditLearningResourceComponent } from '../../learning-resources/edit-learning-resource/edit-learning-resource.component';
+import { ShowAllResourcesComponent } from '../../learning-resources/show-all-resources/show-all-resources.component';
 
 const moderatorLinks: SidebarLink[] = [
   {
@@ -20,6 +23,7 @@ const moderatorLinks: SidebarLink[] = [
   styleUrl: './moderator-dashboard.component.css',
 })
 export class ModeratorDashboardComponent {
+  // Sidebar links for the moderator dashboard
   links = [
     {
       icon: '👤',
