@@ -1,32 +1,109 @@
-<div *ngIf="isLoading" class="empty-msg">Loading...</div>
-<div *ngIf="!isLoading && resources.length === 0" class="empty-msg">
-  No resources found.
+<div class="resource-management-wrapper">
+  <div class="search-filter">
+    <input
+      type="text"
+      class="search-input"
+      (keyup)="applyFilter($event)"
+      placeholder="Search by title, URL, tag, author, status..."
+    />
+
+    <div class="filter-buttons">
+      <span>Tag:</span>
+      <button
+        class="filter-button"
+        (click)="filterByTag('ALL')"
+        [class.active]="currentTagFilter === 'ALL'"
+      >
+        All
+      </button>
+      <button
+        class="filter-button"
+        *ngFor="let tag of allTags"
+        (click)="filterByTag(tag)"
+        [class.active]="currentTagFilter === tag"
+      >
+        {{ tag }}
+      </button>
+    </div>
+    <div class="filter-buttons">
+      <span>Status:</span>
+      <button
+        class="filter-button"
+        (click)="filterByStatus('ALL')"
+        [class.active]="currentStatusFilter === 'ALL'"
+      >
+        All
+      </button>
+      <button
+        class="filter-button"
+        *ngFor="let status of allStatuses"
+        (click)="filterByStatus(status)"
+        [class.active]="currentStatusFilter === status"
+      >
+        {{ status }}
+      </button>
+    </div>
+  </div>
+  <div class="dashboard-table">
+    <div class="pagination-settings">
+      <label for="rowsPerPage">Rows per page:</label>
+      <select
+        id="rowsPerPage"
+        [(ngModel)]="itemsPerPage"
+        (change)="updatePageSize()"
+      >
+        <option *ngFor="let option of pageSizeOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>URL</th>
+          <th>Tags</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Author</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let res of paginatedResources">
+          <td>{{ res.title }}</td>
+          <td>
+            <a [href]="res.url" target="_blank">{{ res.url }}</a>
+          </td>
+          <td>
+            <span *ngFor="let tag of res.tags" class="role-badge user">
+              {{ tag }}
+            </span>
+          </td>
+          <td>{{ res.status }}</td>
+          <td>{{ res.createdAt | date : "short" }}</td>
+          <td class="dashboard-td">{{ res.authorEmail }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination-controls">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">
+        ← Prev
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        Next →
+      </button>
+    </div>
+
+    <div
+      class="empty-msg"
+      *ngIf="paginatedResources.length === 0 && !isLoading"
+    >
+      <p>No resources found.</p>
+    </div>
+  </div>
+
+  <div class="empty-msg" *ngIf="isLoading">Loading...</div>
 </div>
-<table *ngIf="!isLoading && resources.length > 0" class="user-table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>URL</th>
-      <th>Tags</th>
-      <th>Status</th>
-      <th>Created</th>
-      <th>Author</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let res of resources">
-      <td>{{ res.title }}</td>
-      <td>
-        <a [href]="res.url" target="_blank">{{ res.url }}</a>
-      </td>
-      <td>
-        <span *ngFor="let tag of res.tags" class="role-badge user">{{
-          tag
-        }}</span>
-      </td>
-      <td>{{ res.status }}</td>
-      <td>{{ res.createdAt | date : "short" }}</td>
-      <td>{{ res.authorEmail }}</td>
-    </tr>
-  </tbody>
-</table>

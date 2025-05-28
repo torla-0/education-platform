@@ -1,18 +1,3 @@
-<div class="workbar">
-  <button [class.active]="activeTab === 'all'" (click)="activeTab = 'all'">
-    Show All
-  </button>
-  <button [class.active]="activeTab === 'my'" (click)="activeTab = 'my'">
-    My Resources
-  </button>
-  <button [class.active]="activeTab === 'add'" (click)="activeTab = 'add'">
-    Add New
-  </button>
-  <button [class.active]="activeTab === 'edit'" (click)="activeTab = 'edit'">
-    Edit
-  </button>
-</div>
-
 <div class="dynamic-section">
   <app-show-all-resources
     *ngIf="activeTab === 'all'"
