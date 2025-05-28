@@ -1,1 +1,47 @@
-aaa
+<form [formGroup]="resourceForm" (ngSubmit)="onSubmit()" class="resource-form">
+  <div class="form-group">
+    <label>Title *</label>
+    <input formControlName="title" type="text" />
+    <span
+      class="form-error"
+      *ngIf="
+        resourceForm.get('title')?.invalid && resourceForm.get('title')?.touched
+      "
+    >
+      Title is required (max 120 chars).
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label>URL *</label>
+    <input formControlName="url" type="url" />
+    <span
+      class="form-error"
+      *ngIf="
+        resourceForm.get('url')?.invalid && resourceForm.get('url')?.touched
+      "
+    >
+      Valid URL required (http(s)://...).
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label>Tags (comma separated)</label>
+    <input
+      formControlName="tags"
+      type="text"
+      placeholder="e.g. Angular, Spring, Java"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <textarea formControlName="description"></textarea>
+  </div>
+
+  <button type="submit" [disabled]="isSubmitting || resourceForm.invalid">
+    {{ isSubmitting ? "Adding..." : "Add Resource" }}
+  </button>
+  <div class="form-success" *ngIf="submitSuccess">{{ submitSuccess }}</div>
+  <div class="form-error" *ngIf="submitError">{{ submitError }}</div>
+</form>

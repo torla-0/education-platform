@@ -3,7 +3,6 @@ package com.eduapp.backend.user.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,8 +27,7 @@ import com.eduapp.backend.user.service.UserService;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;  
-
-    @Autowired
+    
     public UserController(UserService userService) {
         this.userService = userService;
     }

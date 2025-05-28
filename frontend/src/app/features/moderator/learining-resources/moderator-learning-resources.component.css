@@ -1,0 +1,24 @@
+.workbar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.workbar button {
+  background: #23272f;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  outline: none;
+}
+
+.workbar button.active,
+.workbar button:hover {
+  background: #00bcd4;
+  color: #121212;
+}

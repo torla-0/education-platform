@@ -25,11 +25,11 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/moderator/resources")
 @PreAuthorize("hasRole('MODERATOR')")
-public class ModeratorController {
+public class ModeratorResourceController {
 
     private final LearningResourceService resourceService;
 
-    public ModeratorController(LearningResourceService resourceService) {
+    public ModeratorResourceController(LearningResourceService resourceService) {
         this.resourceService = resourceService;
     }
 
@@ -45,8 +45,6 @@ public class ModeratorController {
         System.out.println("Controller: resources returned = " + list.size());
         return list;
     }
-
-
 
     /**
      * POST /api/moderator/resources
@@ -93,9 +91,14 @@ public class ModeratorController {
     /** Helper to fetch authenticated user’s email from the security context */
     private String currentUserEmail() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof User) {
-            return ((User) principal).getEmail();
+        if (principal instanceof User user) {
+            return user.getEmail();
+        } else if (principal != null) {
+            return principal.toString();
+        } else {
+            // Handle the case where principal is null
+            // For example, you can return a default value or throw an exception
+            return "Unknown";
         }
-        return principal.toString();
     }
 }

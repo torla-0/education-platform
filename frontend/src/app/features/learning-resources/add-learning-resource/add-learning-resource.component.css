@@ -1,0 +1,45 @@
+.resource-form {
+  max-width: 450px;
+  margin: 2rem auto;
+  background: #1a1d22;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0, 188, 212, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+input,
+textarea {
+  background: #23272f;
+  color: #e0e0e0;
+  border: 1px solid #303848;
+  border-radius: 6px;
+  padding: 0.65rem 1rem;
+}
+
+button[type="submit"] {
+  background: #00bcd4;
+  color: #121212;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-error {
+  color: #e66464;
+  font-size: 0.97rem;
+}
+.form-success {
+  color: #16de91;
+  font-size: 0.97rem;
+}

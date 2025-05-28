@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 
 import com.eduapp.backend.content.resource.dto.CreateResourceDto;
 import com.eduapp.backend.content.resource.dto.ResourceDto;
-import com.eduapp.backend.content.resource.entity.ResourceEntity;
+import com.eduapp.backend.content.resource.entity.LearningResource;
 import com.eduapp.backend.content.resource.entity.enums.ResourceStatus;
 
 @Component
 public class ResourceMapper {
 
-    public ResourceDto toDto(ResourceEntity entity) {
+    public ResourceDto toDto(LearningResource entity) {
         ResourceDto dto = new ResourceDto();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
@@ -25,8 +25,8 @@ public class ResourceMapper {
         return dto;
     }
 
-    public ResourceEntity toEntity(String authorEmail, CreateResourceDto dto) {
-        ResourceEntity entity = new ResourceEntity();
+    public LearningResource toEntity(String authorEmail, CreateResourceDto dto) {
+        LearningResource entity = new LearningResource();
         entity.setAuthorEmail(authorEmail);
         entity.setTitle(dto.getTitle());
         entity.setUrl(dto.getUrl());

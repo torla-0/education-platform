@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.eduapp.backend.content.resource.entity.ResourceEntity;
+import com.eduapp.backend.content.resource.entity.LearningResource;
 
-public interface LearningResourceRepository extends JpaRepository<ResourceEntity,Long> {
-  List<ResourceEntity> findAllByAuthorEmail(String email);
+public interface LearningResourceRepository extends JpaRepository<LearningResource,Long> {
+  List<LearningResource> findAllByAuthorEmail(String email);
 }

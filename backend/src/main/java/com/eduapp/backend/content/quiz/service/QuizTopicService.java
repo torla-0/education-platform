@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.eduapp.backend.content.quiz.dto.QuizTopicDto;
-import com.eduapp.backend.content.quiz.entity.QuizTopic;
-import com.eduapp.backend.content.quiz.mapper.QuizDtoMapper;
 import com.eduapp.backend.content.quiz.repository.QuizTopicRepository;
 
 /**
