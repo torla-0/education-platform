@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eduapp.backend.content.resource.dto.CreateResourceDto;
 import com.eduapp.backend.content.resource.dto.ResourceDto;
 import com.eduapp.backend.content.resource.service.LearningResourceService;
+import com.eduapp.backend.user.entity.User;
 
 import jakarta.validation.Valid;
 
@@ -32,10 +33,28 @@ public class ModeratorController {
         this.resourceService = resourceService;
     }
 
+    /**
+     * GET /api/moderator/resources
+     * @return list of resources created by the currently authenticated moderator
+     */
     @GetMapping
     public List<ResourceDto> list() {
-        return resourceService.findByAuthor(currentUserEmail());
+        String email = currentUserEmail();
+        System.out.println("Controller: currentUserEmail = " + email);
+        List<ResourceDto> list = resourceService.findByAuthor(email);
+        System.out.println("Controller: resources returned = " + list.size());
+        return list;
     }
+
+
+
+    /**
+     * POST /api/moderator/resources
+     * Create a new learning resource.
+     *
+     * @param dto the payload containing resource details
+     * @return the created ResourceDto
+     */
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -43,6 +62,14 @@ public class ModeratorController {
         return resourceService.create(currentUserEmail(), dto);
     }
 
+    /**
+     * PUT /api/moderator/resources/{id}
+     * Update an existing learning resource.
+     *
+     * @param id   the ID of the resource to update
+     * @param dto  the payload containing updated resource details
+     * @return the updated ResourceDto
+     */
     @PutMapping("/{id}")
     public ResourceDto update(
             @PathVariable("id") Long id,
@@ -51,6 +78,12 @@ public class ModeratorController {
         return resourceService.update(id, currentUserEmail(), dto);
     }
 
+    /**
+     * DELETE /api/moderator/resources/{id}
+     * Delete a learning resource created by the currently authenticated moderator.
+     *
+     * @param id the ID of the resource to delete
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id) {
@@ -59,8 +92,10 @@ public class ModeratorController {
 
     /** Helper to fetch authenticated user’s email from the security context */
     private String currentUserEmail() {
-        return SecurityContextHolder.getContext()
-                                    .getAuthentication()
-                                    .getName();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            return ((User) principal).getEmail();
+        }
+        return principal.toString();
     }
 }

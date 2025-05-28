@@ -6,3 +6,20 @@
   flex-direction: column;
   align-items: center;
 }
+
+.filter-dropdowns {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-select {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #00bcd4;
+  background: #191c22;
+  color: #e0e0e0;
+  font-size: 1rem;
+  max-width: 220px;
+}

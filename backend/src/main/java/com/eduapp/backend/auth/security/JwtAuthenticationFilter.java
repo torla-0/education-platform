@@ -49,11 +49,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             User user = userRepository.findByEmail(email).orElse(null);
             if (user != null && jwtService.isTokenValid(token, user)) {
-                
+                System.out.println("Setting auth for user: " + user.getEmail() + ", role: " + user.getRole().name());
     
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     user, null,  List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
                 );
+                System.out.println("Granted authorities: " + authToken.getAuthorities());
+
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }

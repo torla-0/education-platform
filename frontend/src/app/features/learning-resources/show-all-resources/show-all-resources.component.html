@@ -7,24 +7,18 @@
       placeholder="Search by title, URL, tag, author, status..."
     />
 
-    <div class="filter-buttons">
+    <div class="filter-dropdowns">
       <span>Tag:</span>
-      <button
-        class="filter-button"
-        (click)="filterByTag('ALL')"
-        [class.active]="currentTagFilter === 'ALL'"
+      <select
+        class="filter-select"
+        [(ngModel)]="currentTagFilter"
+        (change)="applyFilters()"
       >
-        All
-      </button>
-      <button
-        class="filter-button"
-        *ngFor="let tag of allTags"
-        (click)="filterByTag(tag)"
-        [class.active]="currentTagFilter === tag"
-      >
-        {{ tag }}
-      </button>
+        <option value="ALL">All</option>
+        <option *ngFor="let tag of allTags" [value]="tag">{{ tag }}</option>
+      </select>
     </div>
+
     <div class="filter-buttons">
       <span>Status:</span>
       <button
@@ -44,6 +38,7 @@
       </button>
     </div>
   </div>
+
   <div class="dashboard-table">
     <div class="pagination-settings">
       <label for="rowsPerPage">Rows per page:</label>
