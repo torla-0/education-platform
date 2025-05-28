@@ -13,19 +13,6 @@
   </div>
 
   <div class="form-group">
-    <label>URL *</label>
-    <input formControlName="url" type="url" />
-    <span
-      class="form-error"
-      *ngIf="
-        resourceForm.get('url')?.invalid && resourceForm.get('url')?.touched
-      "
-    >
-      Valid URL required (http(s)://...).
-    </span>
-  </div>
-
-  <div class="form-group">
     <label>Tags (comma separated)</label>
     <input
       formControlName="tags"
@@ -34,9 +21,34 @@
     />
   </div>
 
-  <div class="form-group">
-    <label>Description</label>
-    <textarea formControlName="description"></textarea>
+  <div formArrayName="sections">
+    <label>Sections</label>
+    <div
+      *ngFor="let section of sections.controls; let i = index"
+      [formGroupName]="i"
+      class="section-block"
+    >
+      <div class="form-group">
+        <label>Section Title *</label>
+        <input formControlName="heading" type="text" />
+      </div>
+      <div class="form-group">
+        <label>Section Content *</label>
+        <textarea formControlName="content" rows="5"></textarea>
+      </div>
+      <button
+        type="button"
+        (click)="removeSection(i)"
+        *ngIf="sections.length > 1"
+        class="danger-btn"
+      >
+        Remove Section
+      </button>
+      <hr />
+    </div>
+    <button type="button" (click)="addSection()" class="add-btn">
+      + Add Section
+    </button>
   </div>
 
   <button type="submit" [disabled]="isSubmitting || resourceForm.invalid">

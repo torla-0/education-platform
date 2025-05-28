@@ -1,16 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
+  Validators,
+  FormArray,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-learning-resource',
+  standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './add-learning-resource.component.html',
   styleUrl: './add-learning-resource.component.css',
@@ -24,10 +26,29 @@ export class AddLearningResourceComponent {
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.resourceForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(120)]],
-      url: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+/)]],
       tags: [''], // comma-separated for now
-      description: [''],
+      sections: this.fb.array([]), // Array of sections
     });
+
+    // Start with one blank section
+    this.addSection();
+  }
+
+  get sections() {
+    return this.resourceForm.get('sections') as FormArray;
+  }
+
+  addSection() {
+    this.sections.push(
+      this.fb.group({
+        heading: ['', Validators.required],
+        content: ['', Validators.required],
+      })
+    );
+  }
+
+  removeSection(index: number) {
+    this.sections.removeAt(index);
   }
 
   onSubmit() {
@@ -52,6 +73,8 @@ export class AddLearningResourceComponent {
       next: () => {
         this.submitSuccess = 'Resource added!';
         this.resourceForm.reset();
+        this.sections.clear();
+        this.addSection();
         this.isSubmitting = false;
       },
       error: (err) => {
