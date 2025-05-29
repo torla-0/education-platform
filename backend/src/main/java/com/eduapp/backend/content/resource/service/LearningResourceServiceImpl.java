@@ -3,6 +3,8 @@ package com.eduapp.backend.content.resource.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,8 @@ import com.eduapp.backend.content.resource.dto.ResourceDto;
 import com.eduapp.backend.content.resource.entity.LearningResource;
 import com.eduapp.backend.content.resource.mapper.ResourceMapper;
 import com.eduapp.backend.content.resource.repository.LearningResourceRepository;
+import com.eduapp.backend.content.resource.spec.LearningResourceSpecification;
+
 
 @Service
 public class LearningResourceServiceImpl implements LearningResourceService {
@@ -77,4 +81,25 @@ public class LearningResourceServiceImpl implements LearningResourceService {
 
         resourceRepository.delete(entity);
     }
+
+   
+
+    @Override
+    public ResourceDto getPublicResourceById(Long id) {
+        LearningResource resource = resourceRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+            String.format("Learning Resource not found with id='%s'", id)));
+    
+        // Filter out any moderator-only/internal fields here
+        return mapper.toResourceDto(resource); 
+    }
+
+    @Override
+    public Page<ResourceDto> getPublicResources(String search, String tag, Pageable pageable) {
+        return resourceRepository
+            .findAll(LearningResourceSpecification.publishedAndMatches(search, tag), pageable)
+            .map(mapper::toResourceDto);
+    }
+
+    
 }

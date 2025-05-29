@@ -2,6 +2,9 @@ package com.eduapp.backend.content.resource.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.eduapp.backend.content.resource.dto.CreateResourceDto;
 import com.eduapp.backend.content.resource.dto.ResourceDto;
 
@@ -44,4 +47,20 @@ public interface LearningResourceService {
      * @param authorEmail the email of the resource author
      */
     void delete(Long id, String authorEmail);
+
+    /**
+     * Retrieve a paginated list of public resources.
+     * 
+     * @return a Page of ResourceDto objects
+     */
+    Page<ResourceDto> getPublicResources(String search, String tag, Pageable pageable);
+
+    /**
+     * Find a resource by its ID.
+     *
+     * @param id the ID of the resource
+     * @return the LearningResource entity
+     */
+    ResourceDto getPublicResourceById(Long id);
+    
 }

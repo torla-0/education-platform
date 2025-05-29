@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
+import { Router, RouterModule } from '@angular/router';
 
 interface Resource {
   id: number;
@@ -17,7 +19,7 @@ interface Resource {
 @Component({
   selector: 'app-show-all-resources',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './show-all-resources.component.html',
   styleUrl: './show-all-resources.component.css',
 })
@@ -44,10 +46,15 @@ export class ShowAllResourcesComponent implements OnInit {
   allTags: string[] = [];
   allStatuses: string[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.fetchResources();
+    this.currentUserEmail = this.authService.getCurrentUserEmail() ?? '';
   }
 
   fetchResources() {
@@ -161,5 +168,13 @@ export class ShowAllResourcesComponent implements OnInit {
       Math.ceil(this.filteredResources.length / this.itemsPerPage)
     );
     this.updatePagination();
+  }
+
+  goToOverview(id: number) {
+    this.router.navigate(['/moderator/learning-resources', id]);
+  }
+
+  editResource(id: number) {
+    this.router.navigate(['/moderator/learning-resources/edit', id]);
   }
 }

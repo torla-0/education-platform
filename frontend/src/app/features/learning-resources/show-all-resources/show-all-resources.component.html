@@ -57,27 +57,34 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>URL</th>
           <th>Tags</th>
           <th>Status</th>
-          <th>Created</th>
           <th>Author</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let res of paginatedResources">
           <td>{{ res.title }}</td>
           <td>
-            <a [href]="res.url" target="_blank">{{ res.url }}</a>
-          </td>
-          <td>
             <span *ngFor="let tag of res.tags" class="role-badge user">
               {{ tag }}
             </span>
           </td>
           <td>{{ res.status }}</td>
-          <td>{{ res.createdAt | date : "short" }}</td>
-          <td class="dashboard-td">{{ res.authorEmail }}</td>
+          <td>{{ res.authorEmail }}</td>
+          <td>
+            <button (click)="goToOverview(res.id)" class="action-btn">
+              Overview
+            </button>
+            <button
+              *ngIf="res.authorEmail === currentUserEmail"
+              (click)="editResource(res.id)"
+              class="action-btn"
+            >
+              Edit
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

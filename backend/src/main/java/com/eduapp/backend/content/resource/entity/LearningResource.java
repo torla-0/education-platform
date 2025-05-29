@@ -23,12 +23,17 @@ import jakarta.persistence.OrderBy;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * JPA entity representing a Learning Resource created by a moderator.
  */
-@Data
+@Builder @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "learning_resources")
 public class LearningResource {

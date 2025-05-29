@@ -34,10 +34,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/api/auth/**",
-                    "/api/topics/**",
-                    "/api/questions/**",
-                    "/h2-console/**"
-                    
+                    "/api/public/**",
+                    "/h2-console/**"                    
                 ).permitAll()
                 .requestMatchers("/api/moderator/**").hasRole("MODERATOR")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")

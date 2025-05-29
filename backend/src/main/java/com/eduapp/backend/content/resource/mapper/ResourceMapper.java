@@ -1,6 +1,9 @@
 package com.eduapp.backend.content.resource.mapper;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -12,26 +15,39 @@ import com.eduapp.backend.content.resource.entity.enums.ResourceStatus;
 @Component
 public class ResourceMapper {
 
+    private final SectionMapper sectionMapper;
+
+    public ResourceMapper(SectionMapper sectionMapper) {
+        this.sectionMapper = sectionMapper;
+    }
+
     public ResourceDto toResourceDto(LearningResource entity) {
-        ResourceDto dto = new ResourceDto();
-        dto.setId(entity.getId());
-        dto.setTitle(entity.getTitle());
-        dto.setUrl(entity.getUrl());
-        dto.setTags(entity.getTags().toArray(new String[0]));
-        dto.setAuthorEmail(entity.getAuthorEmail());
-        dto.setStatus(entity.getStatus().name());
-        dto.setCreatedAt(entity.getCreatedAt().toString());
-        dto.setUpdatedAt(entity.getUpdatedAt().toString());
-        return dto;
+        List sectionDtos = entity.getSections() != null
+                ? entity.getSections().stream()
+                    .map(sectionMapper::toSectionDto)
+                    .collect(Collectors.toList())
+                : Collections.emptyList();
+
+        return ResourceDto.builder()
+            .id(entity.getId())
+            .title(entity.getTitle())
+            .url(entity.getUrl())
+            .tags(entity.getTags() != null ? entity.getTags().toArray(new String[0]) : new String[0])
+            .authorEmail(entity.getAuthorEmail())
+            .status(entity.getStatus().name())
+            .createdAt(entity.getCreatedAt() != null ? entity.getCreatedAt().toString() : null)
+            .updatedAt(entity.getUpdatedAt() != null ? entity.getUpdatedAt().toString() : null)
+            .sections(sectionDtos)
+            .build();
     }
 
     public LearningResource toResourceEntity(String authorEmail, CreateResourceDto dto) {
-        LearningResource entity = new LearningResource();
-        entity.setAuthorEmail(authorEmail);
-        entity.setTitle(dto.getTitle());
-        entity.setUrl(dto.getUrl());
-        entity.setTags(Arrays.asList(dto.getTags()));
-        entity.setStatus(ResourceStatus.DRAFT);
-        return entity;
+        return LearningResource.builder()
+            .authorEmail(authorEmail)
+            .title(dto.getTitle())
+            .url(dto.getUrl())
+            .tags(dto.getTags() != null ? Arrays.asList(dto.getTags()) : Collections.emptyList())
+            .status(ResourceStatus.DRAFT)
+            .build();
     }
 }
