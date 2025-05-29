@@ -1,7 +1,6 @@
 .admin-container,
 .dashboard-layout {
   display: flex;
-  height: 100vh;
   overflow: hidden;
 }
 
@@ -13,6 +12,7 @@
   color: #e0e0e0;
   position: relative;
   z-index: 20;
+  overflow: hidden;
 }
 
 .header-section {
