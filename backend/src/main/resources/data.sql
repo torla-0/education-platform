@@ -245,11 +245,11 @@ INSERT INTO users (username, email, password, first_name, last_name, role, delet
 ('mod10', 'mod10@test.com', '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey', 'Mod', 'Ten', 'MODERATOR', false, NULL);
 
 --- Dummy learning resources
-INSERT INTO learning_resources (id, title, url, author_email, status, created_at, updated_at)
+INSERT INTO learning_resources (title, url, author_email, status, created_at, updated_at)
 VALUES
-  (1, 'Angular Fundamentals', 'https://angular.dev/docs/fundamentals', 'mod@test.com', 'PUBLISHED', '2024-05-01T09:00:00Z', '2024-05-01T09:00:00Z'),
-  (2, 'Spring Boot Guide', 'https://spring.io/guides', 'mod2@email.com', 'PUBLISHED', '2024-05-02T10:00:00Z', '2024-05-02T10:00:00Z'),
-  (3, 'React Essentials', 'https://react.dev/learn', 'mod@test.com', 'DRAFT', '2024-05-03T11:00:00Z', '2024-05-03T11:00:00Z');
+  ('Angular Fundamentals', 'https://angular.dev/docs/fundamentals', 'mod@test.com', 'PUBLISHED', '2024-05-01T09:00:00Z', '2024-05-01T09:00:00Z'),
+  ('Spring Boot Guide', 'https://spring.io/guides', 'mod2@email.com', 'PUBLISHED', '2024-05-02T10:00:00Z', '2024-05-02T10:00:00Z'),
+  ('React Essentials', 'https://react.dev/learn', 'mod@test.com', 'DRAFT', '2024-05-03T11:00:00Z', '2024-05-03T11:00:00Z');
 
 -- Tags for resources (resource_id references learning_resources.id)
 INSERT INTO resource_tags (resource_id, tag)

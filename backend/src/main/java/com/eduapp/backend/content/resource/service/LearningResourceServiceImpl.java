@@ -29,15 +29,15 @@ public class LearningResourceServiceImpl implements LearningResourceService {
     @Override
     public List<ResourceDto> findByAuthor(String authorEmail) {
         return resourceRepository.findAllByAuthorEmail(authorEmail).stream()
-                .map(mapper::toDto)
+                .map(mapper::toResourceDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public ResourceDto create(String authorEmail, CreateResourceDto dto) {
-        LearningResource entity = mapper.toEntity(authorEmail, dto);
+        LearningResource entity = mapper.toResourceEntity(authorEmail, dto);
         LearningResource saved = resourceRepository.save(entity);
-        return mapper.toDto(saved);
+        return mapper.toResourceDto(saved);
     }
 
     @Override
@@ -54,11 +54,11 @@ public class LearningResourceServiceImpl implements LearningResourceService {
                 "You are not the author of this resource.");
         }
 
-        LearningResource updatedEntity = mapper.toEntity(authorEmail, dto);
+        LearningResource updatedEntity = mapper.toResourceEntity(authorEmail, dto);
         updatedEntity.setId(entity.getId());
 
         LearningResource saved = resourceRepository.save(updatedEntity);
-        return mapper.toDto(saved);
+        return mapper.toResourceDto(saved);
     }
 
     @Override

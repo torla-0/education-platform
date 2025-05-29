@@ -40,7 +40,7 @@ public class LearningResource {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String url;
 
     @ElementCollection

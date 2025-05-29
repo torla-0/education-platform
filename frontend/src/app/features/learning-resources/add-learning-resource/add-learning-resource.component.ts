@@ -26,11 +26,12 @@ export class AddLearningResourceComponent {
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.resourceForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(120)]],
-      tags: [''], // comma-separated for now
-      sections: this.fb.array([]), // Array of sections
+      url: [''],
+      status: ['DRAFT', Validators.required],
+      tags: [''],
+      sections: this.fb.array([]),
     });
 
-    // Start with one blank section
     this.addSection();
   }
 
@@ -51,36 +52,59 @@ export class AddLearningResourceComponent {
     this.sections.removeAt(index);
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.resourceForm.invalid) return;
 
     this.isSubmitting = true;
     this.submitSuccess = null;
     this.submitError = null;
 
-    // Convert comma-separated tags to array
+    const { title, url, status, tags } = this.resourceForm.value;
     const payload = {
-      ...this.resourceForm.value,
-      tags: this.resourceForm.value.tags
-        ? this.resourceForm.value.tags
+      title,
+      url,
+      status,
+      tags: tags
+        ? tags
             .split(',')
             .map((tag: string) => tag.trim())
             .filter((tag: string) => tag)
         : [],
     };
 
-    this.http.post('/api/moderator/resources', payload).subscribe({
-      next: () => {
-        this.submitSuccess = 'Resource added!';
-        this.resourceForm.reset();
-        this.sections.clear();
-        this.addSection();
-        this.isSubmitting = false;
-      },
-      error: (err) => {
-        this.submitError = err?.error?.message || 'Failed to add resource.';
-        this.isSubmitting = false;
-      },
-    });
+    try {
+      const resource: any = await this.http
+        .post('/api/moderator/resources', payload)
+        .toPromise();
+
+      const resourceId = resource.id;
+      if (!resourceId) throw new Error('No resourceId returned from server.');
+
+      const sectionsArray = this.sections.value;
+      const sectionPromises = sectionsArray.map((section: any, idx: number) =>
+        this.http
+          .post('/api/moderator/sections', {
+            title: section.heading,
+            content: section.content,
+            sectionOrder: idx + 1,
+            resourceId: resourceId,
+          })
+          .toPromise()
+      );
+
+      await Promise.all(sectionPromises);
+
+      this.submitSuccess = 'Resource and all sections added!';
+      this.resourceForm.reset();
+      this.sections.clear();
+      this.addSection();
+      this.isSubmitting = false;
+    } catch (err: any) {
+      this.submitError =
+        err?.error?.message ||
+        err?.message ||
+        'Failed to add resource or sections.';
+      this.isSubmitting = false;
+    }
   }
 }

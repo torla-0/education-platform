@@ -21,6 +21,13 @@
     />
   </div>
 
+  <input formControlName="url" placeholder="Resource URL" />
+
+  <select formControlName="status">
+    <option value="DRAFT">Draft</option>
+    <option value="PUBLISHED">Published</option>
+  </select>
+
   <div formArrayName="sections">
     <label>Sections</label>
     <div

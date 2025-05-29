@@ -12,7 +12,7 @@ import com.eduapp.backend.content.resource.entity.enums.ResourceStatus;
 @Component
 public class ResourceMapper {
 
-    public ResourceDto toDto(LearningResource entity) {
+    public ResourceDto toResourceDto(LearningResource entity) {
         ResourceDto dto = new ResourceDto();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
@@ -25,7 +25,7 @@ public class ResourceMapper {
         return dto;
     }
 
-    public LearningResource toEntity(String authorEmail, CreateResourceDto dto) {
+    public LearningResource toResourceEntity(String authorEmail, CreateResourceDto dto) {
         LearningResource entity = new LearningResource();
         entity.setAuthorEmail(authorEmail);
         entity.setTitle(dto.getTitle());
