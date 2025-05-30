@@ -1,0 +1,41 @@
+<div class="resource-detail" *ngIf="!isLoading && resource">
+  <div class="detail-actions">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+    <button class="cta-btn" (click)="enroll()" *ngIf="!isEnrolled">
+      {{ isLoggedIn ? "Enroll" : "Sign up to enroll" }}
+    </button>
+    <span *ngIf="isEnrolled" class="enrolled-badge">✅ Enrolled</span>
+  </div>
+
+  <h1>{{ resource.title }}</h1>
+  <p>{{ resource.description }}</p>
+  <div class="tags">
+    <span *ngFor="let tag of resource.tags" class="tag">{{ tag }}</span>
+  </div>
+  <div>
+    Author: {{ resource.authorFirstName }} {{ resource.authorLastName }}
+  </div>
+  <div>Status: {{ resource.status }}</div>
+  <div>Created: {{ resource.createdAt | date : "short" }}</div>
+  <div>Updated: {{ resource.updatedAt | date : "short" }}</div>
+  <div *ngIf="resource.url">
+    <a [href]="resource.url" target="_blank">External Link</a>
+  </div>
+
+  <h2 *ngIf="resource.sections?.length">Sections</h2>
+  <ul *ngIf="resource.sections?.length">
+    <li *ngFor="let section of resource.sections" class="section-row">
+      {{ section.title }}
+      <button
+        *ngIf="isEnrolled"
+        class="cta-btn"
+        (click)="goToSection(section.id)"
+      >
+        Overview
+      </button>
+      <span *ngIf="!isEnrolled" class="lock-icon" style="margin-left: 1rem"
+        >🔒</span
+      >
+    </li>
+  </ul>
+</div>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { HomeComponent } from './features/home/home.component';
-import { LearningResourcesComponent } from './features/learning-resources/learning-resources.component';
+import { PublicLearningResourcesComponent } from './features/learning-resources/public-learning-resources.component';
 import { QuizComponent } from './features/quiz/quiz.component';
 
 import { QuizRunComponent } from './features/quiz/components/quiz-run/quiz-run.component';
@@ -21,10 +21,12 @@ import { UserManagementComponent } from './features/admin/user-management/user-m
 import { AdminGuard } from './core/guards/admin.guard';
 
 import { ModeratorLearningResourcesComponent } from './features/moderator/learining-resources/moderator-learning-resources.component';
+import { PublicResourceDetailsComponent } from './features/learning-resources/public-resource-details/public-resource-details.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'learning-resources', component: LearningResourcesComponent },
+  { path: 'learning-resources', component: PublicLearningResourcesComponent },
+  { path: 'learning-resources/:id', component: PublicResourceDetailsComponent },
   { path: 'quiz', component: QuizComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'quiz/:id', component: QuizRunComponent },

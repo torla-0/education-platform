@@ -1,4 +1,6 @@
-package com.eduapp.backend.content.resource.entity;
+package com.eduapp.backend.content.resource.section.entity;
+
+import com.eduapp.backend.content.resource.entity.LearningResource;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +25,7 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    
     private String title;
     @Column(columnDefinition = "TEXT")
     private String content;

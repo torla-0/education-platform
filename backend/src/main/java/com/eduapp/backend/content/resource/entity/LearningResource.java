@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.eduapp.backend.content.resource.entity.enums.ResourceStatus;
+import com.eduapp.backend.content.resource.section.entity.Section;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -25,7 +26,6 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

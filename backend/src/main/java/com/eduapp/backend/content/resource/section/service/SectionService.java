@@ -1,14 +1,14 @@
-package com.eduapp.backend.content.resource.service;
+package com.eduapp.backend.content.resource.section.service;
 
 import org.springframework.stereotype.Service;
 
-import com.eduapp.backend.content.resource.dto.CreateSectionDto;
-import com.eduapp.backend.content.resource.dto.SectionDto;
 import com.eduapp.backend.content.resource.entity.LearningResource;
-import com.eduapp.backend.content.resource.entity.Section;
-import com.eduapp.backend.content.resource.mapper.SectionMapper;
 import com.eduapp.backend.content.resource.repository.LearningResourceRepository;
-import com.eduapp.backend.content.resource.repository.SectionRepository;
+import com.eduapp.backend.content.resource.section.dto.CreateSectionDto;
+import com.eduapp.backend.content.resource.section.dto.SectionDto;
+import com.eduapp.backend.content.resource.section.entity.Section;
+import com.eduapp.backend.content.resource.section.mapper.SectionMapper;
+import com.eduapp.backend.content.resource.section.repository.SectionRepository;
 
 import lombok.RequiredArgsConstructor;
 

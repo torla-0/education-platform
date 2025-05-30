@@ -5,18 +5,26 @@
   z-index: 1000;
   display: flex;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 2.2rem;
   font-weight: 500;
-  height: 64px;
+  height: 66px;
+  background: linear-gradient(90deg, #44135a 0%, #8e24aa 70%, #311b41 100%);
+  box-shadow: 0 2px 12px #14002e33;
+  border-bottom: 1.5px solid #311b41;
 }
 
 /* Logo link */
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: bold;
-  color: white;
+  color: #00bcd4;
+  letter-spacing: 1px;
   cursor: pointer;
   text-decoration: none;
+  transition: color 0.2s;
+}
+.logo:hover {
+  color: #26c6da;
 }
 
 /* Spacer to push menu to right */
@@ -28,21 +36,37 @@
 .desktop-menu {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 /* Menu links */
 nav a,
 nav a[mat-button] {
-  color: white;
+  color: #f6f6ff;
   text-decoration: none;
   cursor: pointer;
   font-weight: 500;
+  font-size: 1.07rem;
+  padding: 0.3rem 1.1rem 0.3rem 1.1rem;
+  border-radius: 0.8rem;
+  transition: background 0.15s, color 0.17s;
+  position: relative;
+  top: 0;
+}
+
+nav a:not(.active-link):hover,
+nav a[mat-button]:not(.active-link):hover {
+  background: #2a1846;
+  color: #ba68c8;
 }
 
 /* Active link style */
 nav a.active-link {
-  border-bottom: 2px solid white;
+  color: #00bcd4;
+  background: #2a1846;
+  border-bottom: 2.5px solid #00bcd4;
+  box-shadow: 0 3px 16px #00bcd466;
+  font-weight: 700;
 }
 
 /* Dropdown menu button container */
@@ -53,9 +77,32 @@ nav a.active-link {
 }
 
 .dropdown-menu button[mat-icon-button] {
-  color: white;
+  color: #f6f6ff;
+  background: transparent;
+  border-radius: 50%;
+  transition: background 0.16s, color 0.16s;
+}
+.dropdown-menu button[mat-icon-button]:hover {
+  background: #311b41;
+  color: #00bcd4;
 }
 
 .cdk-overlay-container {
   z-index: 1100; /* Above toolbar */
+}
+
+/* Responsive for mobile */
+@media (max-width: 700px) {
+  .navbar {
+    padding: 0 0.7rem;
+    height: 56px;
+  }
+  .logo {
+    font-size: 1.22rem;
+  }
+  nav a,
+  nav a[mat-button] {
+    font-size: 0.98rem;
+    padding: 0.2rem 0.6rem;
+  }
 }

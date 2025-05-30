@@ -2,6 +2,8 @@ package com.eduapp.backend.content.resource.dto;
 
 import java.util.List;
 
+import com.eduapp.backend.content.resource.section.dto.SectionDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +16,8 @@ public class ResourceDto {
     private String title;
     private String url;
     private String[] tags;
-    private String authorEmail;
+    private String authorFirstName;
+    private String authorLastName;
     private String status;
     private String createdAt;
     private String updatedAt;

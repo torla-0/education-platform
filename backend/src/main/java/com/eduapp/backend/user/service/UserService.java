@@ -1,5 +1,6 @@
 package com.eduapp.backend.user.service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +21,15 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+    public Long getCurrentUserId(Principal principal) {
+    String email = principal.getName(); 
+    User user = userRepository.findByEmail(email)
+        .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + email));
+    return user.getId();
+}
+
+    
 
     public void updateUserProfile(User user, UpdateProfileRequest request) {
 

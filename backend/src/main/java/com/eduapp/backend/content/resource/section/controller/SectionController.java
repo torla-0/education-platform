@@ -1,4 +1,4 @@
-package com.eduapp.backend.content.resource.controller;
+package com.eduapp.backend.content.resource.section.controller;
 
 
 import org.springframework.http.HttpStatus;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eduapp.backend.content.resource.dto.CreateSectionDto;
-import com.eduapp.backend.content.resource.dto.SectionDto;
-import com.eduapp.backend.content.resource.service.SectionService;
+import com.eduapp.backend.content.resource.section.dto.CreateSectionDto;
+import com.eduapp.backend.content.resource.section.dto.SectionDto;
+import com.eduapp.backend.content.resource.section.service.SectionService;
 
 import lombok.RequiredArgsConstructor;
 

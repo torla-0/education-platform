@@ -1,11 +1,11 @@
-package com.eduapp.backend.content.resource.mapper;
+package com.eduapp.backend.content.resource.section.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.eduapp.backend.content.resource.dto.CreateSectionDto;
-import com.eduapp.backend.content.resource.dto.SectionDto;
 import com.eduapp.backend.content.resource.entity.LearningResource;
-import com.eduapp.backend.content.resource.entity.Section;
+import com.eduapp.backend.content.resource.section.dto.CreateSectionDto;
+import com.eduapp.backend.content.resource.section.dto.SectionDto;
+import com.eduapp.backend.content.resource.section.entity.Section;
 
 @Component
 public class SectionMapper {

@@ -37,9 +37,16 @@ public class SecurityConfig {
                     "/api/public/**",
                     "/h2-console/**"                    
                 ).permitAll()
+                .requestMatchers(
+                    "/api/sections/*/comments/**",
+                    "/api/sections/*/like/**",
+                    "/api/sections/*/bookmark/**",
+                    "/api/sections/*/note/**"
+                ).authenticated()
                 .requestMatchers("/api/moderator/**").hasRole("MODERATOR")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/users/**").authenticated()                
+                .requestMatchers("/api/enrollments/**").authenticated()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // ⬅️ Important line

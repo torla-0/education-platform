@@ -244,19 +244,118 @@ INSERT INTO users (username, email, password, first_name, last_name, role, delet
 ('mod9', 'mod9@test.com', '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey', 'Mod', 'Nine', 'MODERATOR', false, NULL),
 ('mod10', 'mod10@test.com', '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey', 'Mod', 'Ten', 'MODERATOR', false, NULL);
 
---- Dummy learning resources
+-- Dummy learning resources
 INSERT INTO learning_resources (title, url, author_email, status, created_at, updated_at)
 VALUES
   ('Angular Fundamentals', 'https://angular.dev/docs/fundamentals', 'mod@test.com', 'PUBLISHED', '2024-05-01T09:00:00Z', '2024-05-01T09:00:00Z'),
   ('Spring Boot Guide', 'https://spring.io/guides', 'mod2@email.com', 'PUBLISHED', '2024-05-02T10:00:00Z', '2024-05-02T10:00:00Z'),
-  ('React Essentials', 'https://react.dev/learn', 'mod@test.com', 'DRAFT', '2024-05-03T11:00:00Z', '2024-05-03T11:00:00Z');
+  ('React Essentials', 'https://react.dev/learn', 'mod@test.com', 'DRAFT', '2024-05-03T11:00:00Z', '2024-05-03T11:00:00Z'),
+  ('JavaScript Basics', 'https://javascript.info', 'mod2@email.com', 'PUBLISHED', '2024-05-04T13:30:00Z', '2024-05-04T13:30:00Z'),
+  ('Python Crash Course', 'https://docs.python.org/3/tutorial/', 'mod@test.com', 'PUBLISHED', '2024-05-05T10:20:00Z', '2024-05-05T10:20:00Z'),
+  ('Docker for Beginners', 'https://docker-curriculum.com/', 'mod3@email.com', 'PUBLISHED', '2024-05-06T08:15:00Z', '2024-05-06T08:15:00Z'),
+  ('Kubernetes Basics', 'https://kubernetes.io/docs/tutorials/', 'mod3@email.com', 'DRAFT', '2024-05-07T09:10:00Z', '2024-05-07T09:10:00Z'),
+  ('SQL Fundamentals', 'https://www.sqltutorial.org/', 'mod2@email.com', 'PUBLISHED', '2024-05-08T07:00:00Z', '2024-05-08T07:00:00Z'),
+  ('HTML & CSS Foundations', 'https://developer.mozilla.org/en-US/docs/Learn', 'mod@test.com', 'PUBLISHED', '2024-05-09T14:30:00Z', '2024-05-09T14:30:00Z'),
+  ('DevOps Introduction', 'https://roadmap.sh/devops', 'mod3@email.com', 'PUBLISHED', '2024-05-10T16:30:00Z', '2024-05-10T16:30:00Z'),
+  ('Node.js Quickstart', 'https://nodejs.dev/learn', 'mod2@email.com', 'PUBLISHED', '2024-05-11T11:30:00Z', '2024-05-11T11:30:00Z'),
+  ('Git & GitHub', 'https://guides.github.com', 'mod@test.com', 'PUBLISHED', '2024-05-12T12:30:00Z', '2024-05-12T12:30:00Z'),
+  ('TypeScript in Depth', 'https://www.typescriptlang.org/docs/', 'mod2@email.com', 'DRAFT', '2024-05-13T13:30:00Z', '2024-05-13T13:30:00Z'),
+  ('REST API Design', 'https://restfulapi.net/', 'mod3@email.com', 'PUBLISHED', '2024-05-14T10:30:00Z', '2024-05-14T10:30:00Z'),
+  ('Testing with JUnit', 'https://junit.org/junit5/docs/current/user-guide/', 'mod@test.com', 'PUBLISHED', '2024-05-15T12:30:00Z', '2024-05-15T12:30:00Z');
 
 -- Tags for resources (resource_id references learning_resources.id)
-INSERT INTO resource_tags (resource_id, tag)
-VALUES
-  (1, 'angular'),
-  (1, 'frontend'),
-  (2, 'spring'),
-  (2, 'backend'),
-  (3, 'react'),
-  (3, 'javascript');
+INSERT INTO resource_tags (resource_id, tag) VALUES
+  (1, 'angular'),        (1, 'frontend'),
+  (2, 'spring'),         (2, 'backend'),
+  (3, 'react'),          (3, 'javascript'),
+  (4, 'javascript'),     (4, 'basics'),
+  (5, 'python'),         (5, 'backend'),
+  (6, 'docker'),         (6, 'devops'),
+  (7, 'kubernetes'),     (7, 'devops'),
+  (8, 'sql'),            (8, 'database'),
+  (9, 'html'),           (9, 'css'),              (9, 'frontend'),
+  (10, 'devops'),        (10, 'tools'),
+  (11, 'nodejs'),        (11, 'backend'),
+  (12, 'git'),           (12, 'github'),          (12, 'tools'),
+  (13, 'typescript'),    (13, 'javascript'),
+  (14, 'rest'),          (14, 'api'),
+  (15, 'junit'),         (15, 'testing');
+
+-- Sections for resources (resource_id, title, content, position)
+INSERT INTO sections (resource_id, title, content, section_order) VALUES
+  -- Angular Fundamentals
+  (1, 'Introduction to Angular', 'Learn what Angular is and why it is used.', 1),
+  (1, 'Components and Templates', 'How to build and compose components and templates.', 2),
+  (1, 'Data Binding', 'Property binding, event binding, and two-way binding.', 3),
+  (1, 'Directives and Pipes', 'Using built-in directives and pipes for dynamic behavior.', 4),
+
+  -- Spring Boot Guide
+  (2, 'Getting Started with Spring Boot', 'What is Spring Boot and why is it popular?', 1),
+  (2, 'Creating Your First Project', 'How to use Spring Initializr.', 2),
+  (2, 'Dependency Injection', 'Beans and dependency injection in Spring.', 3),
+  (2, 'REST APIs', 'Building REST APIs with Spring Boot.', 4),
+
+  -- React Essentials
+  (3, 'React Overview', 'Introduction to React and its main concepts.', 1),
+  (3, 'JSX and Rendering', 'How JSX works and how to render elements.', 2),
+  (3, 'State and Props', 'Managing state and passing data using props.', 3),
+
+  -- JavaScript Basics
+  (4, 'JS Syntax', 'Learn the syntax of JavaScript.', 1),
+  (4, 'Variables and Data Types', 'Working with variables and different data types.', 2),
+  (4, 'Control Flow', 'if, else, switch, loops in JavaScript.', 3),
+
+  -- Python Crash Course
+  (5, 'Python Introduction', 'Intro to Python and its features.', 1),
+  (5, 'Data Types & Variables', 'Understanding data types and variables in Python.', 2),
+  (5, 'Control Structures', 'if, for, while, and other flow controls.', 3),
+
+  -- Docker for Beginners
+  (6, 'What is Docker?', 'Understanding containers and Docker basics.', 1),
+  (6, 'Docker Images', 'Building and using Docker images.', 2),
+  (6, 'Docker Compose', 'Defining multi-container apps with Docker Compose.', 3),
+
+  -- Kubernetes Basics
+  (7, 'Kubernetes Overview', 'Introduction to Kubernetes.', 1),
+  (7, 'Pods and Deployments', 'Understanding pods and deployments.', 2),
+  (7, 'Services', 'Kubernetes Services and networking basics.', 3),
+
+  -- SQL Fundamentals
+  (8, 'What is SQL?', 'Introduction to SQL databases.', 1),
+  (8, 'SELECT Queries', 'Writing basic SELECT queries.', 2),
+  (8, 'Joins', 'Combining data from multiple tables.', 3),
+
+  -- HTML & CSS Foundations
+  (9, 'HTML Structure', 'Learn about HTML tags and structure.', 1),
+  (9, 'CSS Basics', 'Styling with CSS.', 2),
+  (9, 'Layout Techniques', 'Flexbox, Grid, and modern layout methods.', 3),
+
+  -- DevOps Introduction
+  (10, 'What is DevOps?', 'Understanding DevOps principles.', 1),
+  (10, 'CI/CD', 'Continuous integration and delivery.', 2),
+  (10, 'Monitoring', 'Basics of system and application monitoring.', 3),
+
+  -- Node.js Quickstart
+  (11, 'Node.js Overview', 'What is Node.js and where to use it?', 1),
+  (11, 'npm & Modules', 'Using npm and managing modules.', 2),
+  (11, 'Asynchronous JS', 'Callbacks, Promises, and async/await.', 3),
+
+  -- Git & GitHub
+  (12, 'Git Basics', 'Version control with Git.', 1),
+  (12, 'Branching', 'Working with branches.', 2),
+  (12, 'Using GitHub', 'Collaborating with GitHub.', 3),
+
+  -- TypeScript in Depth
+  (13, 'TypeScript Basics', 'What is TypeScript and why use it?', 1),
+  (13, 'Types', 'Understanding types in TypeScript.', 2),
+  (13, 'Interfaces & Classes', 'Object-oriented programming in TS.', 3),
+
+  -- REST API Design
+  (14, 'REST Principles', 'What makes an API RESTful?', 1),
+  (14, 'Endpoints & Methods', 'Designing endpoints and using HTTP methods.', 2),
+  (14, 'Status Codes', 'Using correct status codes.', 3),
+
+  -- Testing with JUnit
+  (15, 'Introduction to JUnit', 'Getting started with unit testing in Java.', 1),
+  (15, 'Annotations', 'Understanding JUnit annotations.', 2),
+  (15, 'Assertions', 'Writing and using assertions.', 3);

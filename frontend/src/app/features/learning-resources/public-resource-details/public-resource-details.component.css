@@ -1,0 +1,125 @@
+.detail-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem !important;
+
+  gap: 1rem;
+}
+
+.back-btn {
+  background: transparent;
+  color: #ba68c8;
+  border: 2px solid #ba68c8;
+  border-radius: 1.1rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.back-btn:hover {
+  background: #311b41;
+  color: #fff;
+}
+
+.cta-btn {
+  background: #00bcd4;
+  color: #1e1e1e;
+  border: none;
+  border-radius: 1.1rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  box-shadow: 0 1px 6px 0 #0003;
+}
+.cta-btn:hover {
+  background: #26c6da;
+}
+
+.resource-detail {
+  max-width: 660px;
+  margin: 2rem auto;
+  background: #22262a;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 18px 0 #00141f1a;
+  padding: 2.5rem 2rem;
+  color: #e0e0e0;
+}
+
+.resource-detail h1 {
+  font-size: 2.1rem;
+  color: #ba68c8;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+}
+
+.resource-detail p {
+  font-size: 1.13rem;
+  margin-bottom: 1.1rem;
+  color: #b0bfc7;
+}
+
+.tags {
+  margin-bottom: 1.1rem;
+}
+
+.tag {
+  display: inline-block;
+  background: #311b41;
+  color: #ba68c8;
+  border-radius: 999px;
+  padding: 0.23rem 0.9rem;
+  font-size: 0.97rem;
+  margin-right: 0.38rem;
+  margin-bottom: 3px;
+}
+
+.resource-detail div {
+  margin-bottom: 0.75rem;
+  font-size: 1.01rem;
+}
+
+.resource-detail a {
+  color: #00bcd4;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.17s;
+}
+
+.resource-detail a:hover {
+  color: #26c6da;
+}
+
+.resource-detail h2 {
+  margin-top: 1.7rem;
+  margin-bottom: 0.7rem;
+  font-size: 1.32rem;
+  color: #8e24aa;
+  font-weight: 600;
+}
+
+ul {
+  list-style: disc inside;
+  padding-left: 1.1rem;
+}
+
+li {
+  padding: 0.27rem 0;
+  font-size: 1.02rem;
+  color: #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 700px) {
+  .resource-detail {
+    padding: 1.2rem 0.6rem;
+    font-size: 0.97rem;
+  }
+  .resource-detail h1 {
+    font-size: 1.3rem;
+  }
+}

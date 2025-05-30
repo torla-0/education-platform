@@ -1,4 +1,5 @@
-package com.eduapp.backend.content.resource.dto;
+package com.eduapp.backend.content.resource.section.dto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,11 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class SectionDto {
-    private Long id; 
+public class CreateSectionDto {
     private String title;
     private String content;
-    private Integer sectionOrder;
+    private int sectionOrder;
+    private Long resourceId;
 }
