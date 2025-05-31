@@ -23,9 +23,14 @@
   </div>
 
   <h2 *ngIf="resource.sections?.length">Sections</h2>
-  <ul *ngIf="resource.sections?.length">
-    <li *ngFor="let section of resource.sections" class="section-row">
-      {{ section.title }}
+  <ul *ngIf="resource.sections?.length" class="sections-list">
+    <li
+      *ngFor="let section of resource.sections; index as i"
+      class="section-row"
+    >
+      <span class="section-number">{{ i + 1 }}.</span>
+      <span class="section-title">{{ section.title }}</span>
+
       <button
         *ngIf="isEnrolled"
         class="cta-btn"
@@ -33,7 +38,12 @@
       >
         Overview
       </button>
-      <span *ngIf="!isEnrolled" class="lock-icon" style="margin-left: 1rem"
+
+      <span
+        *ngIf="!isEnrolled"
+        class="lock-icon"
+        title="Enroll to unlock section overview"
+        style="margin-left: 1rem"
         >🔒</span
       >
     </li>

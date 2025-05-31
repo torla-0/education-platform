@@ -22,11 +22,18 @@ import { AdminGuard } from './core/guards/admin.guard';
 
 import { ModeratorLearningResourcesComponent } from './features/moderator/learining-resources/moderator-learning-resources.component';
 import { PublicResourceDetailsComponent } from './features/learning-resources/public-resource-details/public-resource-details.component';
+import { SectionUserViewComponent } from './features/learning-resources/section/component/section-user-view/section-user-view.component';
+import { SectionOverviewComponent } from './features/learning-resources/section/component/section-overview/section-overview.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'learning-resources', component: PublicLearningResourcesComponent },
   { path: 'learning-resources/:id', component: PublicResourceDetailsComponent },
+  {
+    path: 'learning-resources/:resourceId/section/:sectionId',
+    component: SectionOverviewComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'quiz', component: QuizComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'quiz/:id', component: QuizRunComponent },

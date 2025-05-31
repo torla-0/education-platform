@@ -13,4 +13,7 @@ public class SectionDto {
     private String title;
     private String content;
     private Integer sectionOrder;
+
+    private Long prevSectionId;
+    private Long nextSectionId;
 }

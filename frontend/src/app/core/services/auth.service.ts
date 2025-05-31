@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SessionService } from './session.service';
 import { getEmailFromToken } from '../utils/token.utils';
+import { jwtDecode } from 'jwt-decode';
 
 interface LoginResponse {
   token: string;
@@ -56,5 +57,20 @@ export class AuthService {
     const token = localStorage.getItem('token');
     if (!token) return null;
     return getEmailFromToken(token);
+  }
+
+  get user() {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    try {
+      return jwtDecode<any>(token);
+    } catch {
+      return null;
+    }
+  }
+  hasRole(role: string): boolean {
+    const user = this.user;
+    if (!user?.roles) return false;
+    return user.roles.includes(role);
   }
 }

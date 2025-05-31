@@ -1,0 +1,27 @@
+<div *ngIf="isLoading">Loading section...</div>
+<div *ngIf="!isLoading && section" class="section-overview-container">
+  <div class="section-header">
+    <h1>{{ section.title }}</h1>
+    <div class="section-meta">
+      Author: {{ section.authorName }} | Updated:
+      {{ section.updatedAt | date : "short" }}
+    </div>
+  </div>
+
+  <div class="section-content" [innerHTML]="section.content"></div>
+
+  <!-- Moderator View -->
+  <app-section-moderator-view
+    *ngIf="isModerator"
+    [section]="section"
+    (sectionUpdated)="refreshSection()"
+  ></app-section-moderator-view>
+
+  <!-- User View -->
+  <app-section-user-view
+    *ngIf="!isModerator"
+    [section]="section"
+    [prevSectionId]="prevSectionId"
+    [nextSectionId]="nextSectionId"
+  ></app-section-user-view>
+</div>

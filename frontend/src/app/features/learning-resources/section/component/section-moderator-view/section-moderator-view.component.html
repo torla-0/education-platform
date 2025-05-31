@@ -1,0 +1,12 @@
+<div class="section-moderator-actions">
+  <button (click)="editSection()">✏️ Edit</button>
+  <button (click)="deleteSection()">🗑️ Delete</button>
+  <button (click)="moveSectionUp()">⬆️ Move Up</button>
+  <button (click)="moveSectionDown()">⬇️ Move Down</button>
+  <button *ngIf="!section.published" (click)="publishSection()">
+    ✅ Publish
+  </button>
+  <button *ngIf="section.published" (click)="unpublishSection()">
+    🚫 Unpublish
+  </button>
+</div>
