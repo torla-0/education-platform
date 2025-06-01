@@ -15,6 +15,9 @@ export class SectionUserViewComponent {
   @Input() prevSectionId: number | null = null;
   @Input() nextSectionId: number | null = null;
 
+  @Input() sectionId!: number;
+  @Input() resourceId!: number;
+
   likeStatus = { liked: false, likeCount: 0 };
   bookmarkStatus = { bookmarked: false };
   note: string = '';
@@ -28,6 +31,10 @@ export class SectionUserViewComponent {
   ngOnInit() {
     // Fetch initial like/bookmark/note/comments status if needed
     // Simulated here
+
+    console.log(
+      `Section User View initialized for Section ID: ${this.sectionId}, Resource ID: ${this.resourceId}`
+    );
     this.likeStatus = { liked: false, likeCount: 12 };
     this.bookmarkStatus = { bookmarked: false };
     this.comments = [

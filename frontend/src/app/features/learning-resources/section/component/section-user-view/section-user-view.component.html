@@ -39,13 +39,15 @@
 <div class="section-pagination">
   <button
     *ngIf="prevSectionId"
-    [routerLink]="['/learning-resources/section', prevSectionId]"
+    [routerLink]="['/learning-resources', resourceId, 'section', prevSectionId]"
+    type="button"
   >
     ← Previous
   </button>
   <button
     *ngIf="nextSectionId"
-    [routerLink]="['/learning-resources/section', nextSectionId]"
+    [routerLink]="['/learning-resources', resourceId, 'section', nextSectionId]"
+    type="button"
   >
     Next →
   </button>

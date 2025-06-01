@@ -5,6 +5,7 @@ import { AuthService } from '../../../../../core/services/auth.service';
 import { SectionUserViewComponent } from '../section-user-view/section-user-view.component';
 import { SectionModeratorViewComponent } from '../section-moderator-view/section-moderator-view.component';
 import { SectionService } from '../../service/section.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-section-overview',
@@ -24,6 +25,9 @@ export class SectionOverviewComponent implements OnInit {
   prevSectionId: number | null = null;
   nextSectionId: number | null = null;
 
+  resourceId!: number;
+  sectionId!: number;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private route: Router,
@@ -33,8 +37,12 @@ export class SectionOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      const sectionId = params['sectionId'];
-      this.fetchSection(sectionId);
+      this.resourceId = Number(params['resourceId']);
+      this.sectionId = Number(params['sectionId']);
+      console.log(
+        `Resource ID: ${this.resourceId}, Section ID: ${this.sectionId}`
+      );
+      this.fetchSection(this.sectionId);
     });
     this.isModerator = this.authService.hasRole('MODERATOR');
   }
