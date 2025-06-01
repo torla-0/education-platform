@@ -1,18 +1,45 @@
 .section-moderator-actions {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
   flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 1.7rem 0 2.2rem 0;
+  align-items: center;
 }
+
 .section-moderator-actions button {
-  background: #191970;
-  color: #fafafa;
+  background: linear-gradient(90deg, #22326c 0%, #28398a 100%);
+  color: #e7f0fd;
   border: none;
-  border-radius: 6px;
-  padding: 0.7rem 1.5rem;
+  border-radius: 7px;
+  padding: 0.72rem 1.8rem;
+  font-size: 1.08rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 8px rgba(24, 28, 40, 0.13);
+  letter-spacing: 0.01em;
+  transition: background 0.18s, transform 0.16s;
 }
+
 .section-moderator-actions button:hover {
-  background: #3241b5;
+  background: linear-gradient(90deg, #2d4edb 0%, #2d72e7 100%);
+  color: #fafcff;
+  transform: translateY(-1.5px) scale(1.05);
+}
+
+.section-moderator-actions button:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 700px) {
+  .section-overview-container,
+  .section-content,
+  .comment,
+  .section-actions,
+  .section-moderator-actions {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    border-radius: 0.5rem !important;
+    font-size: 1.01rem !important;
+  }
 }
