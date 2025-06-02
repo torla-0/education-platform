@@ -4,6 +4,8 @@ export interface Resource {
   url: string;
   tags: string[];
   authorEmail: string;
+  authorFirstName: string;
+  authorLastName: string;
   status: string;
   createdAt: string;
   updatedAt: string;

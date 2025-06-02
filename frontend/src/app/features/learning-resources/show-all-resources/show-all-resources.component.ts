@@ -4,17 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterModule } from '@angular/router';
-
-interface Resource {
-  id: number;
-  title: string;
-  url: string;
-  tags: string[];
-  authorEmail: string;
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Resource } from '../../../core/models/resource.model';
 
 @Component({
   selector: 'app-show-all-resources',
@@ -62,20 +52,41 @@ export class ShowAllResourcesComponent implements OnInit {
     const endpoint = this.showOnlyMine
       ? `/api/moderator/resources`
       : `/api/public/resources`;
-    this.http.get<Resource[]>(endpoint).subscribe({
+    this.http.get<any>(endpoint).subscribe({
       next: (data) => {
+        console.log('Fetched data:', data);
+
+        // This handles both paginated and non-paginated
+        let loadedResources: Resource[] = [];
+        if (Array.isArray(data)) {
+          loadedResources = data;
+        } else if (data && Array.isArray(data.content)) {
+          loadedResources = data.content;
+        } else {
+          loadedResources = [];
+        }
+
+        // Filter for "mine" if needed
         if (this.showOnlyMine && this.currentUserEmail) {
-          this.resources = data.filter(
+          console.log(
+            'Filtering for my resources. currentUserEmail:',
+            this.currentUserEmail
+          );
+          loadedResources.forEach((r) =>
+            console.log('Resource authorEmail:', r.authorEmail)
+          );
+          loadedResources = loadedResources.filter(
             (r) => r.authorEmail === this.currentUserEmail
           );
-        } else {
-          this.resources = data;
+          console.log('My resources after filter:', loadedResources);
         }
+
+        this.resources = loadedResources;
         this.isLoading = false;
 
-        // collect unique tags/statuses for filter buttons
+        // Collect unique tags/statuses for filter buttons (guard for missing .tags)
         this.allTags = Array.from(
-          new Set(this.resources.flatMap((r) => r.tags))
+          new Set(this.resources.flatMap((r) => r.tags || []))
         ).sort();
         this.allStatuses = Array.from(
           new Set(this.resources.map((r) => r.status))
@@ -115,7 +126,7 @@ export class ShowAllResourcesComponent implements OnInit {
       const matchesSearch =
         resource.title.toLowerCase().includes(this.searchTerm) ||
         resource.url.toLowerCase().includes(this.searchTerm) ||
-        resource.tags.some((tag) =>
+        (resource.tags || []).some((tag) =>
           tag.toLowerCase().includes(this.searchTerm)
         ) ||
         resource.authorEmail.toLowerCase().includes(this.searchTerm) ||
@@ -123,7 +134,7 @@ export class ShowAllResourcesComponent implements OnInit {
 
       const matchesTag =
         this.currentTagFilter === 'ALL' ||
-        resource.tags.includes(this.currentTagFilter);
+        (resource.tags || []).includes(this.currentTagFilter);
 
       const matchesStatus =
         this.currentStatusFilter === 'ALL' ||

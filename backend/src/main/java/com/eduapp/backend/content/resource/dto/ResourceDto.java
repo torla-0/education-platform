@@ -16,6 +16,7 @@ public class ResourceDto {
     private String title;
     private String url;
     private String[] tags;
+    public String authorEmail;
     private String authorFirstName;
     private String authorLastName;
     private String status;

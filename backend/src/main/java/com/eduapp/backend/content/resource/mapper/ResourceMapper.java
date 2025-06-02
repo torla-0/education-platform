@@ -55,8 +55,9 @@ public class ResourceMapper {
             .createdAt(entity.getCreatedAt() != null ? entity.getCreatedAt().toString() : null)
             .updatedAt(entity.getUpdatedAt() != null ? entity.getUpdatedAt().toString() : null)
             .sections(sectionDtos)
+            .authorEmail(entity.getAuthorEmail())
             .authorFirstName(authorFirstName)
-            .authorLastName(authorLastName)
+            .authorLastName(authorLastName)            
             .build();
     }
 
