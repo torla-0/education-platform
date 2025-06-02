@@ -26,5 +26,6 @@ public class SectionOverviewController {
         SectionDto dto = sectionService.getSectionWithPrevNext(id);
         return ResponseEntity.ok(dto);
     }
+
     
 }

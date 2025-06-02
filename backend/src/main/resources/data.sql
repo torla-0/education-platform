@@ -218,7 +218,7 @@ VALUES (
   NULL
 );
 
--- Dummy users for pagination testing
+-- Dummy users 
 INSERT INTO users (username, email, password, first_name, last_name, role, deletion_requested, scheduled_deletion_at) VALUES
 ('user1', 'user1@test.com', '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey', 'User', 'One', 'USER', false, NULL),
 ('user2', 'user2@test.com', '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey', 'User', 'Two', 'USER', false, NULL),
@@ -359,3 +359,62 @@ INSERT INTO sections (resource_id, title, content, section_order) VALUES
   (15, 'Introduction to JUnit', 'Getting started with unit testing in Java.', 1),
   (15, 'Annotations', 'Understanding JUnit annotations.', 2),
   (15, 'Assertions', 'Writing and using assertions.', 3);
+
+
+
+-- Section Likes 
+INSERT INTO section_like (id, user_id, section_id) VALUES
+-- Angular sections likes (sections 1-4)
+(1001, (SELECT id FROM users WHERE email = 'mujo@test.com' AND role = 'USER'), 1),
+(1002, (SELECT id FROM users WHERE email = 'user1@test.com'), 2),
+(1003, (SELECT id FROM users WHERE email = 'user2@test.com'), 3),
+(1004, (SELECT id FROM users WHERE email = 'user3@test.com'), 4),
+-- Spring Boot sections likes (sections 5-8)
+(1005, (SELECT id FROM users WHERE email = 'user4@test.com'), 5),
+(1006, (SELECT id FROM users WHERE email = 'user5@test.com'), 6),
+(1007, (SELECT id FROM users WHERE email = 'user6@test.com'), 7),
+(1008, (SELECT id FROM users WHERE email = 'user7@test.com'), 8),
+-- React sections likes (sections 9-11)
+(1009, (SELECT id FROM users WHERE email = 'user8@test.com'), 9),
+(1010, (SELECT id FROM users WHERE email = 'user9@test.com'), 10),
+(1011, (SELECT id FROM users WHERE email = 'user10@test.com'), 11),
+-- Additional likes for popular sections
+(1012, (SELECT id FROM users WHERE email = 'mujo@test.com' AND role = 'USER'), 5),
+(1013, (SELECT id FROM users WHERE email = 'user1@test.com'), 9),
+(1014, (SELECT id FROM users WHERE email = 'user2@test.com'), 10),
+(1015, (SELECT id FROM users WHERE email = 'user3@test.com'), 11),
+(1016, (SELECT id FROM users WHERE email = 'mujo@test.com' AND role = 'USER'), 2),
+(1017, (SELECT id FROM users WHERE email = 'mujo@test.com' AND role = 'USER'), 3);
+
+-- Section Bookmarks
+INSERT INTO section_bookmark (id, user_id, section_id) VALUES
+-- Angular sections bookmarks
+(2001, (SELECT id FROM users WHERE email = 'mujo@test.com'), 1),
+(2002, (SELECT id FROM users WHERE email = 'user1@test.com'), 2),
+(2003, (SELECT id FROM users WHERE email = 'user2@test.com'), 3),
+-- Spring Boot sections bookmarks
+(2004, (SELECT id FROM users WHERE email = 'user3@test.com'), 5),
+(2005, (SELECT id FROM users WHERE email = 'user4@test.com'), 6),
+-- React sections bookmarks
+(2006, (SELECT id FROM users WHERE email = 'user5@test.com'), 9),
+(2007, (SELECT id FROM users WHERE email = 'user6@test.com'), 10);
+
+-- Section Comments
+INSERT INTO section_comment (id, user_id, section_id, content, created_at) VALUES
+(3001, (SELECT id FROM users WHERE email = 'mujo@test.com'), 1, 'Great introduction to Angular fundamentals!', '2025-06-01 10:00:00'),
+(3002, (SELECT id FROM users WHERE email = 'user1@test.com'), 1, 'This helped me understand Angular better.', '2025-06-01 10:30:00'),
+(3003, (SELECT id FROM users WHERE email = 'user2@test.com'), 2, 'The Components section is very detailed.', '2025-06-01 11:00:00'),
+(3004, (SELECT id FROM users WHERE email = 'user3@test.com'), 5, 'Spring Boot explanation is clear and concise.', '2025-06-01 11:30:00'),
+(3005, (SELECT id FROM users WHERE email = 'user4@test.com'), 6, 'Great examples in the Spring Boot project section!', '2025-06-01 12:00:00'),
+(3006, (SELECT id FROM users WHERE email = 'user5@test.com'), 9, 'React overview is very helpful for beginners.', '2025-06-01 12:30:00'),
+(3007, (SELECT id FROM users WHERE email = 'user6@test.com'), 10, 'JSX explanation could use more examples.', '2025-06-01 13:00:00');
+
+-- Section Notes
+INSERT INTO section_note (id, user_id, section_id, note_content, last_modified) VALUES
+(4001, (SELECT id FROM users WHERE email = 'mujo@test.com'), 1, 'Remember to review Angular CLI commands', '2025-06-01 09:00:00'),
+(4002, (SELECT id FROM users WHERE email = 'user1@test.com'), 2, 'Key points about component lifecycle hooks: ngOnInit, ngOnDestroy', '2025-06-01 09:30:00'),
+(4003, (SELECT id FROM users WHERE email = 'user2@test.com'), 3, 'Different types of data binding in Angular: [], (), [()]', '2025-06-01 10:00:00'),
+(4004, (SELECT id FROM users WHERE email = 'user3@test.com'), 5, 'Spring Boot starters and their purposes', '2025-06-01 10:30:00'),
+(4005, (SELECT id FROM users WHERE email = 'user4@test.com'), 6, 'Steps to create a new Spring Boot project with dependencies', '2025-06-01 11:00:00'),
+(4006, (SELECT id FROM users WHERE email = 'user5@test.com'), 9, 'React components vs elements - key differences', '2025-06-01 11:30:00'),
+(4007, (SELECT id FROM users WHERE email = 'user6@test.com'), 10, 'JSX syntax rules and conventions to remember', '2025-06-01 12:00:00');
