@@ -360,7 +360,29 @@ INSERT INTO sections (resource_id, title, content, section_order) VALUES
   (15, 'Annotations', 'Understanding JUnit annotations.', 2),
   (15, 'Assertions', 'Writing and using assertions.', 3);
 
+-- ENROLLMENTS (ENROLLED_AT, RESOURCE_ID, USER_ID)
+-- Angular Fundamentals (resource 1), sections 1–4
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:00:00', 1, (SELECT id FROM users WHERE email = 'mujo@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:10:00', 1, (SELECT id FROM users WHERE email = 'user1@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:15:00', 1, (SELECT id FROM users WHERE email = 'user2@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:20:00', 1, (SELECT id FROM users WHERE email = 'user3@test.com'));
 
+-- Spring Boot Guide (resource 2), sections 5–8
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:25:00', 2, (SELECT id FROM users WHERE email = 'user4@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:30:00', 2, (SELECT id FROM users WHERE email = 'user5@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:35:00', 2, (SELECT id FROM users WHERE email = 'user6@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:40:00', 2, (SELECT id FROM users WHERE email = 'user7@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:45:00', 2, (SELECT id FROM users WHERE email = 'mujo@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 09:50:00', 2, (SELECT id FROM users WHERE email = 'user1@test.com'));
+
+-- React Essentials (resource 3), sections 9–11
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 10:00:00', 3, (SELECT id FROM users WHERE email = 'user8@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 10:05:00', 3, (SELECT id FROM users WHERE email = 'user9@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 10:10:00', 3, (SELECT id FROM users WHERE email = 'user10@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 10:15:00', 3, (SELECT id FROM users WHERE email = 'mujo@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 10:20:00', 3, (SELECT id FROM users WHERE email = 'user1@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 10:25:00', 3, (SELECT id FROM users WHERE email = 'user2@test.com'));
+INSERT INTO enrollments (enrolled_at, resource_id, user_id) VALUES ('2025-05-28 10:30:00', 3, (SELECT id FROM users WHERE email = 'user5@test.com'));
 
 -- Section Likes 
 INSERT INTO section_like (id, user_id, section_id) VALUES
@@ -418,3 +440,4 @@ INSERT INTO section_note (id, user_id, section_id, note_content, last_modified) 
 (4005, (SELECT id FROM users WHERE email = 'user4@test.com'), 6, 'Steps to create a new Spring Boot project with dependencies', '2025-06-01 11:00:00'),
 (4006, (SELECT id FROM users WHERE email = 'user5@test.com'), 9, 'React components vs elements - key differences', '2025-06-01 11:30:00'),
 (4007, (SELECT id FROM users WHERE email = 'user6@test.com'), 10, 'JSX syntax rules and conventions to remember', '2025-06-01 12:00:00');
+

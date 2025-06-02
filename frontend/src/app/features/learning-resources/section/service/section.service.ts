@@ -23,11 +23,14 @@ export class SectionService {
   }
 
   toggleLike(sectionId: number) {
-    return this.http.post<any>(`${this.baseUrl}/${sectionId}/like`, {});
+    return this.http.post<any>(`${this.baseUrl}/${sectionId}/like/toggle`, {});
   }
 
   toggleBookmark(sectionId: number) {
-    return this.http.post<any>(`${this.baseUrl}/${sectionId}/bookmark`, {});
+    return this.http.post<any>(
+      `${this.baseUrl}/${sectionId}/bookmark/toggle`,
+      {}
+    );
   }
 
   getNote(sectionId: number) {

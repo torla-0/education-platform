@@ -1,6 +1,7 @@
 package com.eduapp.backend.content.resource.section.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.eduapp.backend.content.resource.section.dto.SectionBookmarkDto;
 import com.eduapp.backend.content.resource.section.entity.Section;
@@ -29,6 +30,7 @@ public class SectionBookmarkService {
                 .build();
     }
 
+    @Transactional
     public void toggleBookmark(Long sectionId, User user) {
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new IllegalArgumentException("Section not found"));

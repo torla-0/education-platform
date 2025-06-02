@@ -1,12 +1,14 @@
 package com.eduapp.backend.content.resource.section.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.eduapp.backend.content.resource.section.dto.SectionLikeDto;
 import com.eduapp.backend.content.resource.section.entity.Section;
 import com.eduapp.backend.content.resource.section.entity.SectionLike;
 import com.eduapp.backend.content.resource.section.repository.SectionLikeRepository;
 import com.eduapp.backend.content.resource.section.repository.SectionRepository;
 import com.eduapp.backend.user.entity.User;
-import org.springframework.stereotype.Service;
 
 @Service
 public class SectionLikeService {
@@ -30,6 +32,7 @@ public class SectionLikeService {
                 .build();
     }
 
+    @Transactional
     public void toggleLike(Long sectionId, User user) {
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new IllegalArgumentException("Section not found"));

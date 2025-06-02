@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eduapp.backend.content.resource.section.dto.CreateSectionCommentDto;
 import com.eduapp.backend.content.resource.section.dto.SectionCommentDto;
 import com.eduapp.backend.content.resource.section.service.SectionCommentService;
 import com.eduapp.backend.user.entity.User;
@@ -32,10 +33,10 @@ public class SectionCommentController {
     @PostMapping
     public SectionCommentDto addComment(
             @PathVariable Long sectionId,
-            @RequestBody String content,
+            @RequestBody CreateSectionCommentDto dto,
             Authentication authentication
     ) {
         User user = (User) authentication.getPrincipal();
-        return commentService.addComment(sectionId, user, content);
+        return commentService.addComment(sectionId, user, dto);
     }
 }

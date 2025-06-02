@@ -28,8 +28,9 @@ public class SectionLikeController {
     }
 
     @PostMapping("/toggle")
-    public void toggleLike(@PathVariable Long sectionId, Authentication authentication) {
+    public SectionLikeDto toggleLike(@PathVariable Long sectionId, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         likeService.toggleLike(sectionId, user);
+        return likeService.getLikeStatus(sectionId, user);        
     }
 }
