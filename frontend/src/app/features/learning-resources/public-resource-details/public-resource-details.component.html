@@ -1,10 +1,16 @@
 <div class="resource-detail" *ngIf="!isLoading && resource">
   <div class="detail-actions">
     <button class="back-btn" (click)="goBack()">← Back</button>
-    <button class="cta-btn" (click)="enroll()" *ngIf="!isEnrolled">
-      {{ isLoggedIn ? "Enroll" : "Sign up to enroll" }}
+    <button
+      class="cta-button"
+      *ngIf="!isEnrolled && !isPrivilegedRole()"
+      (click)="enroll()"
+    >
+      Enroll
     </button>
-    <span *ngIf="isEnrolled" class="enrolled-badge">✅ Enrolled</span>
+    <span *ngIf="isEnrolled && !isPrivilegedRole()" class="enrolled-badge"
+      >✅ Enrolled</span
+    >
   </div>
 
   <h1>{{ resource.title }}</h1>

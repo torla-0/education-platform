@@ -73,4 +73,10 @@ export class AuthService {
     if (!user?.roles) return false;
     return user.roles.includes(role);
   }
+
+  getUserRoles(): string[] {
+    const user = this.user;
+    if (!user?.roles) return [];
+    return user.roles;
+  }
 }

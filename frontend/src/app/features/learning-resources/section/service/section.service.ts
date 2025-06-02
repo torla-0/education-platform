@@ -10,60 +10,41 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class SectionService {
+  private baseUrl = '/api/sections'; // Adjust to your actual backend API
+
   constructor(private http: HttpClient) {}
 
-  // Comments
-  getComments(sectionId: number): Observable<SectionComment[]> {
-    return this.http.get<SectionComment[]>(
-      `/api/sections/${sectionId}/comments`
-    );
-  }
-  addComment(sectionId: number, content: string): Observable<SectionComment> {
-    return this.http.post<SectionComment>(
-      `/api/sections/${sectionId}/comments`,
-      JSON.stringify(content),
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+  getSectionById(sectionId: number) {
+    return this.http.get<any>(`${this.baseUrl}/${sectionId}`);
   }
 
-  // Likes
-  getLikeStatus(sectionId: number): Observable<SectionLikeDto> {
-    return this.http.get<SectionLikeDto>(`/api/sections/${sectionId}/like`);
-  }
-  toggleLike(sectionId: number): Observable<void> {
-    return this.http.post<void>(`/api/sections/${sectionId}/like/toggle`, {});
+  getSectionStatus(sectionId: number) {
+    return this.http.get<any>(`${this.baseUrl}/${sectionId}/status`);
   }
 
-  // Bookmarks
-  getBookmarkStatus(sectionId: number): Observable<SectionBookmarkDto> {
-    return this.http.get<SectionBookmarkDto>(
-      `/api/sections/${sectionId}/bookmark`
-    );
-  }
-  toggleBookmark(sectionId: number): Observable<void> {
-    return this.http.post<void>(
-      `/api/sections/${sectionId}/bookmark/toggle`,
-      {}
-    );
+  toggleLike(sectionId: number) {
+    return this.http.post<any>(`${this.baseUrl}/${sectionId}/like`, {});
   }
 
-  // Notes
-  getNote(sectionId: number): Observable<SectionNoteDto> {
-    return this.http.get<SectionNoteDto>(`/api/sections/${sectionId}/note`);
-  }
-  saveNote(sectionId: number, noteContent: string): Observable<SectionNoteDto> {
-    return this.http.post<SectionNoteDto>(
-      `/api/sections/${sectionId}/note`,
-      JSON.stringify(noteContent),
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+  toggleBookmark(sectionId: number) {
+    return this.http.post<any>(`${this.baseUrl}/${sectionId}/bookmark`, {});
   }
 
-  getSectionById(id: number): Observable<any> {
-    return this.http.get(`/api/sections/${id}`);
+  getNote(sectionId: number) {
+    return this.http.get<any>(`${this.baseUrl}/${sectionId}/note`);
+  }
+
+  saveNote(sectionId: number, note: string) {
+    return this.http.post<any>(`${this.baseUrl}/${sectionId}/note`, { note });
+  }
+
+  getComments(sectionId: number) {
+    return this.http.get<any[]>(`${this.baseUrl}/${sectionId}/comments`);
+  }
+
+  addComment(sectionId: number, comment: string) {
+    return this.http.post<any>(`${this.baseUrl}/${sectionId}/comments`, {
+      content: comment,
+    });
   }
 }

@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SectionService } from '../../service/section.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -10,11 +11,10 @@ import { RouterModule } from '@angular/router';
   templateUrl: './section-user-view.component.html',
   styleUrls: ['./section-user-view.component.css'],
 })
-export class SectionUserViewComponent {
+export class SectionUserViewComponent implements OnInit {
   @Input() section: any;
   @Input() prevSectionId: number | null = null;
   @Input() nextSectionId: number | null = null;
-
   @Input() sectionId!: number;
   @Input() resourceId!: number;
 
@@ -23,57 +23,70 @@ export class SectionUserViewComponent {
   note: string = '';
   isSavingNote = false;
   noteSaved = false;
-
   comments: any[] = [];
   isLoadingComments = false;
   newComment = '';
 
-  ngOnInit() {
-    // Fetch initial like/bookmark/note/comments status if needed
-    // Simulated here
+  constructor(private sectionService: SectionService) {}
 
-    console.log(
-      `Section User View initialized for Section ID: ${this.sectionId}, Resource ID: ${this.resourceId}`
-    );
-    this.likeStatus = { liked: false, likeCount: 12 };
-    this.bookmarkStatus = { bookmarked: false };
-    this.comments = [
-      {
-        userFirstName: 'Alice',
-        userLastName: 'Doe',
-        content: 'Great section!',
-        createdAt: new Date(),
-      },
-    ];
+  ngOnInit() {
+    // Section details, if not passed in
+    if (!this.section) {
+      this.sectionService
+        .getSectionById(this.sectionId)
+        .subscribe((section) => {
+          this.section = section;
+        });
+    }
+
+    this.sectionService.getSectionStatus(this.sectionId).subscribe((status) => {
+      this.likeStatus = { liked: status.liked, likeCount: status.likeCount };
+      this.bookmarkStatus = { bookmarked: status.bookmarked };
+    });
+
+    this.sectionService.getNote(this.sectionId).subscribe((note) => {
+      this.note = note?.content ?? '';
+    });
+
+    this.loadComments();
+  }
+
+  loadComments() {
+    this.isLoadingComments = true;
+    this.sectionService.getComments(this.sectionId).subscribe((comments) => {
+      this.comments = comments;
+      this.isLoadingComments = false;
+    });
   }
 
   toggleLike() {
-    this.likeStatus.liked = !this.likeStatus.liked;
-    this.likeStatus.likeCount += this.likeStatus.liked ? 1 : -1;
-    // TODO: Call backend
+    this.sectionService.toggleLike(this.sectionId).subscribe((result) => {
+      this.likeStatus = result;
+    });
   }
+
   toggleBookmark() {
-    this.bookmarkStatus.bookmarked = !this.bookmarkStatus.bookmarked;
-    // TODO: Call backend
+    this.sectionService.toggleBookmark(this.sectionId).subscribe((result) => {
+      this.bookmarkStatus = result;
+    });
   }
+
   saveNote() {
     this.isSavingNote = true;
-    setTimeout(() => {
+    this.sectionService.saveNote(this.sectionId, this.note).subscribe(() => {
       this.isSavingNote = false;
       this.noteSaved = true;
       setTimeout(() => (this.noteSaved = false), 1500);
-    }, 700);
-    // TODO: Call backend
+    });
   }
+
   addComment() {
     if (!this.newComment.trim()) return;
-    this.comments.push({
-      userFirstName: 'You',
-      userLastName: '',
-      content: this.newComment,
-      createdAt: new Date(),
-    });
-    this.newComment = '';
-    // TODO: Call backend
+    this.sectionService
+      .addComment(this.sectionId, this.newComment)
+      .subscribe((newComment) => {
+        this.comments.push(newComment);
+        this.newComment = '';
+      });
   }
 }

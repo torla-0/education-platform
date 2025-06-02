@@ -39,8 +39,14 @@ export class PublicResourceDetailsComponent implements OnInit {
     this.resourceService.getResourceById(id).subscribe((res) => {
       this.resource = res;
       this.isLoading = false;
+
       if (this.isLoggedIn && this.resource) {
-        this.checkEnrollment(); // <-- only call after resource is loaded!
+        // If MODERATOR or ADMIN, grant access
+        if (this.isPrivilegedRole()) {
+          this.isEnrolled = true;
+        } else {
+          this.checkEnrollment();
+        }
       }
     });
   }
@@ -80,6 +86,11 @@ export class PublicResourceDetailsComponent implements OnInit {
     } else {
       this.toastService.showError('Resource not found. Cannot enroll.');
     }
+  }
+
+  isPrivilegedRole(): boolean {
+    const roles = this.authService.getUserRoles();
+    return roles.includes('MODERATOR') || roles.includes('ADMIN');
   }
 
   goToSection(sectionId: number) {
