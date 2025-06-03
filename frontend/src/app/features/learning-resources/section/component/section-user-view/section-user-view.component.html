@@ -1,4 +1,4 @@
-<!-- Like & Bookmark -->
+<!-- Like & Bookmark, Notes -->
 <div class="section-actions">
   <button (click)="toggleLike()">
     <span [class.liked]="likeStatus.liked">👍</span> {{ likeStatus.likeCount }}
@@ -11,12 +11,19 @@
 </div>
 
 <!-- Notes -->
-<div class="section-notes">
+<!-- <div class="section-notes">
   <label for="note">Your Note:</label>
   <textarea [(ngModel)]="note" id="note"></textarea>
   <button (click)="saveNote()" [disabled]="isSavingNote">Save Note</button>
   <span *ngIf="noteSaved">✔ Saved!</span>
-</div>
+</div> -->
+<button
+  class="notes-toggle-btn"
+  (click)="toggleNotesDrawer()"
+  aria-label="Open My Notes"
+>
+  📝 My Notes
+</button>
 
 <!-- Comments -->
 <div class="section-comments">
@@ -52,3 +59,52 @@
     Next →
   </button>
 </div>
+
+<!-- Notes Drawer -->
+<div
+  class="notes-drawer"
+  [class.open]="notesDrawerOpen"
+  tabindex="-1"
+  *ngIf="notesDrawerOpen"
+>
+  <div class="notes-drawer-header">
+    <span>My Notes for this Section</span>
+    <button class="close-btn" (click)="closeNotesDrawer()" aria-label="Close">
+      &times;
+    </button>
+  </div>
+
+  <div class="notes-drawer-overview">
+    <span class="notes-preview-label">Preview:</span>
+    <div class="notes-preview" *ngIf="note; else noNote">
+      {{ note.length > 120 ? (note | slice : 0 : 120) + "…" : note }}
+    </div>
+    <ng-template #noNote>
+      <span class="no-note">No note for this section yet.</span>
+    </ng-template>
+  </div>
+
+  <div class="notes-drawer-editor">
+    <label for="noteTextarea">Edit your note:</label>
+    <textarea
+      id="noteTextarea"
+      [(ngModel)]="note"
+      placeholder="Type your note here…"
+      rows="7"
+      [disabled]="isSavingNote"
+      autocomplete="off"
+      autocapitalize="sentences"
+    ></textarea>
+    <div class="notes-actions">
+      <button (click)="saveNote()" [disabled]="isSavingNote">Save Note</button>
+      <span *ngIf="noteSaved" class="saved-indicator">✔ Saved!</span>
+      <span *ngIf="isSavingNote" class="saving-indicator">Saving…</span>
+    </div>
+  </div>
+</div>
+
+<div
+  class="notes-backdrop"
+  *ngIf="notesDrawerOpen"
+  (click)="closeNotesDrawer()"
+></div>

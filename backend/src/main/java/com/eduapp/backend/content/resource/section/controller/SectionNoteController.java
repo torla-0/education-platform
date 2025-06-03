@@ -1,6 +1,7 @@
 package com.eduapp.backend.content.resource.section.controller;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eduapp.backend.content.resource.section.dto.CreateSectionNoteDto;
 import com.eduapp.backend.content.resource.section.dto.SectionNoteDto;
 import com.eduapp.backend.content.resource.section.service.SectionNoteService;
 import com.eduapp.backend.user.entity.User;
@@ -23,18 +25,22 @@ public class SectionNoteController {
     }
 
     @GetMapping
-    public SectionNoteDto getUserNote(@PathVariable Long sectionId, Authentication authentication) {
+    public SectionNoteDto getUserNote(
+            @PathVariable Long sectionId,
+            Authentication authentication
+    ) {
         User user = (User) authentication.getPrincipal();
         return noteService.getUserNote(sectionId, user);
     }
 
+    @Transactional
     @PostMapping
     public SectionNoteDto saveUserNote(
             @PathVariable Long sectionId,
-            @RequestBody String noteContent,
+            @RequestBody CreateSectionNoteDto dto,
             Authentication authentication
     ) {
         User user = (User) authentication.getPrincipal();
-        return noteService.saveUserNote(sectionId, user, noteContent);
+        return noteService.saveUserNote(sectionId, user, dto);
     }
 }

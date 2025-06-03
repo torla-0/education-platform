@@ -2,10 +2,6 @@
 <div *ngIf="!isLoading && section" class="section-overview-container">
   <div class="section-header">
     <h1>{{ section.title }}</h1>
-    <div class="section-meta">
-      Author: {{ section.authorName }} | Updated:
-      {{ section.updatedAt | date : "short" }}
-    </div>
   </div>
 
   <div class="section-content" [innerHTML]="section.content"></div>

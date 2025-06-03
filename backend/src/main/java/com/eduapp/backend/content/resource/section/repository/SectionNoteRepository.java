@@ -10,6 +10,6 @@ import com.eduapp.backend.content.resource.section.entity.SectionNote;
 import com.eduapp.backend.user.entity.User;
 
 public interface SectionNoteRepository extends JpaRepository<SectionNote, Long> {
-    Optional<SectionNote> findBySectionAndUser(Section section, User user);
+    Optional<SectionNote> findBySectionIdAndUserId(Long sectionId, Long userId);
     void deleteBySectionAndUser(Section section, User user);
 }

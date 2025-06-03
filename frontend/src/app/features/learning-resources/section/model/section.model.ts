@@ -17,6 +17,6 @@ export interface SectionBookmarkDto {
 }
 
 export interface SectionNoteDto {
-  noteContent: string;
+  content: string;
   lastModified: string | null;
 }

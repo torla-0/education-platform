@@ -1,8 +1,6 @@
 package com.eduapp.backend.content.resource.section.entity;
 
 
-import java.time.LocalDateTime;
-
 import com.eduapp.backend.user.entity.User;
 
 import jakarta.persistence.Column;
@@ -23,7 +21,8 @@ public class SectionNote {
     private Long id;
     @ManyToOne private User user;
     @ManyToOne private Section section;
-    @Column(columnDefinition="TEXT") private String noteContent;
-    private LocalDateTime lastModified;
+    @Column(columnDefinition="TEXT") 
+    private String noteContent;
+    
 }
 

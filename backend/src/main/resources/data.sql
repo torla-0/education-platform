@@ -432,12 +432,12 @@ INSERT INTO section_comment (id, user_id, section_id, content, created_at) VALUE
 (3007, (SELECT id FROM users WHERE email = 'user6@test.com'), 10, 'JSX explanation could use more examples.', '2025-06-01 13:00:00');
 
 -- Section Notes
-INSERT INTO section_note (id, user_id, section_id, note_content, last_modified) VALUES
-(4001, (SELECT id FROM users WHERE email = 'mujo@test.com'), 1, 'Remember to review Angular CLI commands', '2025-06-01 09:00:00'),
-(4002, (SELECT id FROM users WHERE email = 'user1@test.com'), 2, 'Key points about component lifecycle hooks: ngOnInit, ngOnDestroy', '2025-06-01 09:30:00'),
-(4003, (SELECT id FROM users WHERE email = 'user2@test.com'), 3, 'Different types of data binding in Angular: [], (), [()]', '2025-06-01 10:00:00'),
-(4004, (SELECT id FROM users WHERE email = 'user3@test.com'), 5, 'Spring Boot starters and their purposes', '2025-06-01 10:30:00'),
-(4005, (SELECT id FROM users WHERE email = 'user4@test.com'), 6, 'Steps to create a new Spring Boot project with dependencies', '2025-06-01 11:00:00'),
-(4006, (SELECT id FROM users WHERE email = 'user5@test.com'), 9, 'React components vs elements - key differences', '2025-06-01 11:30:00'),
-(4007, (SELECT id FROM users WHERE email = 'user6@test.com'), 10, 'JSX syntax rules and conventions to remember', '2025-06-01 12:00:00');
+INSERT INTO section_note (id, user_id, section_id, note_content) VALUES
+(4001, (SELECT id FROM users WHERE email = 'mujo@test.com'), 1, 'Remember to review Angular CLI commands'),
+(4002, (SELECT id FROM users WHERE email = 'user1@test.com'), 2, 'Key points about component lifecycle hooks: ngOnInit, ngOnDestroy'),
+(4003, (SELECT id FROM users WHERE email = 'user2@test.com'), 3, 'Different types of data binding in Angular: [], (), [()]'),
+(4004, (SELECT id FROM users WHERE email = 'user3@test.com'), 5, 'Spring Boot starters and their purposes'),
+(4005, (SELECT id FROM users WHERE email = 'user4@test.com'), 6, 'Steps to create a new Spring Boot project with dependencies'),
+(4006, (SELECT id FROM users WHERE email = 'user5@test.com'), 9, 'React components vs elements - key differences'),
+(4007, (SELECT id FROM users WHERE email = 'user6@test.com'), 10, 'JSX syntax rules and conventions to remember');
 

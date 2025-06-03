@@ -10,7 +10,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class SectionService {
-  private baseUrl = '/api/sections'; // Adjust to your actual backend API
+  private baseUrl = '/api/sections';
 
   constructor(private http: HttpClient) {}
 
@@ -37,8 +37,10 @@ export class SectionService {
     return this.http.get<any>(`${this.baseUrl}/${sectionId}/note`);
   }
 
-  saveNote(sectionId: number, note: string) {
-    return this.http.post<any>(`${this.baseUrl}/${sectionId}/note`, { note });
+  saveNote(sectionId: number, content: string) {
+    return this.http.post<any>(`${this.baseUrl}/${sectionId}/note`, {
+      content,
+    });
   }
 
   getComments(sectionId: number) {
