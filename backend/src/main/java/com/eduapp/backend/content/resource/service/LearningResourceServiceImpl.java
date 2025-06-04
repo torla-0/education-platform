@@ -56,7 +56,7 @@ public class LearningResourceServiceImpl implements LearningResourceService {
             throw new AccessDeniedException("Not allowed to edit");
         }
 
-        mapper.updateEntityFromDto(resource, dto); // ✅ delegate field update
+        mapper.updateEntityFromDto(resource, dto);
 
         LearningResource saved = resourceRepository.save(resource);
         return mapper.toResourceDto(saved);

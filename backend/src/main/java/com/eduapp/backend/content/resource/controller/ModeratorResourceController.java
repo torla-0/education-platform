@@ -3,7 +3,9 @@ package com.eduapp.backend.content.resource.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +38,9 @@ public class ModeratorResourceController {
 
     /**
      * GET /api/moderator/resources
-     * @return list of resources created by the currently authenticated moderator
+     *
+     * @return list of resources created by the currently authenticated
+     * moderator
      */
     @GetMapping
     public List<ResourceDto> list() {
@@ -48,13 +52,11 @@ public class ModeratorResourceController {
     }
 
     /**
-     * POST /api/moderator/resources
-     * Create a new learning resource.
+     * POST /api/moderator/resources Create a new learning resource.
      *
      * @param dto the payload containing resource details
      * @return the created ResourceDto
      */
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResourceDto create(@RequestBody @Valid CreateResourceDto dto) {
@@ -62,11 +64,10 @@ public class ModeratorResourceController {
     }
 
     /**
-     * PUT /api/moderator/resources/{id}
-     * Update an existing learning resource.
+     * PUT /api/moderator/resources/{id} Update an existing learning resource.
      *
-     * @param id   the ID of the resource to update
-     * @param dto  the payload containing updated resource details
+     * @param id the ID of the resource to update
+     * @param dto the payload containing updated resource details
      * @return the updated ResourceDto
      */
     @PutMapping("/{id}")
@@ -78,18 +79,25 @@ public class ModeratorResourceController {
     }
 
     /**
-     * DELETE /api/moderator/resources/{id}
-     * Delete a learning resource created by the currently authenticated moderator.
+     * DELETE /api/moderator/resources/{id} Delete a learning resource created
+     * by the currently authenticated moderator.
      *
      * @param id the ID of the resource to delete
      */
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") Long id) {
-        resourceService.delete(id, currentUserEmail());
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        if (user == null) {
+            throw new RuntimeException("User not authenticated");
+        }
+        resourceService.delete(id, user.getEmail());
+        System.out.println("Deleted by: " + user.getEmail());
+        return ResponseEntity.noContent().build();
     }
 
-    /** Helper to fetch authenticated user’s email from the security context */
+    /**
+     * Helper to fetch authenticated user’s email from the security context
+     */
     private String currentUserEmail() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof User user) {

@@ -8,6 +8,10 @@ import { Resource } from '../../../core/models/resource.model';
 
 import { MatDialog } from '@angular/material/dialog';
 import { EditLearningResourceDialogComponent } from '../edit-learning-resource-dialog/edit-learning-resource-dialog.component';
+import { ConfirmationDialogComponent } from '../../../shared/confirmation-dialog/confirmation-dialog.component';
+import { ToastService } from '../../../core/services/toast.service';
+import { PublicLearningResourceService } from '../../../core/services/public-learning-resource.service';
+import { ModeratorService } from '../../../core/services/moderator.service';
 
 @Component({
   selector: 'app-show-all-resources',
@@ -17,6 +21,7 @@ import { EditLearningResourceDialogComponent } from '../edit-learning-resource-d
     FormsModule,
     RouterModule,
     EditLearningResourceDialogComponent,
+    ConfirmationDialogComponent,
   ],
   templateUrl: './show-all-resources.component.html',
   styleUrl: './show-all-resources.component.css',
@@ -44,13 +49,20 @@ export class ShowAllResourcesComponent implements OnInit {
   allTags: string[] = [];
   allStatuses: string[] = [];
 
+  // For edit dialog
   selectedResource: any = null;
+
+  // For delete/confirmation dialog
+  showConfirmDialog = false;
+  confirmMessage = '';
+  resourceIdToDelete: number | null = null;
 
   constructor(
     private http: HttpClient,
     private authService: AuthService,
     private router: Router,
-    private dialog: MatDialog
+    private toastService: ToastService,
+    private moderatorService: ModeratorService
   ) {}
 
   ngOnInit() {
@@ -208,6 +220,34 @@ export class ShowAllResourcesComponent implements OnInit {
     this.selectedResource = null;
     if (refresh) {
       this.fetchResources();
+    }
+  }
+
+  opetDeleteDialog(resourceId: number, title: string) {
+    this.resourceIdToDelete = resourceId;
+    this.confirmMessage = `Are you sure you want to delete "${title}"?`;
+    this.showConfirmDialog = true;
+  }
+
+  handleDeleteConfirmation(confirmed: boolean) {
+    this.showConfirmDialog = false;
+    if (confirmed && this.resourceIdToDelete !== null) {
+      this.moderatorService.deleteResource(this.resourceIdToDelete).subscribe({
+        next: () => {
+          this.resources = this.resources.filter(
+            (r) => r.id !== this.resourceIdToDelete
+          );
+          this.resourceIdToDelete = null;
+          this.toastService.showSuccess('Resource deleted successfully');
+          this.fetchResources();
+          // Optionally show toast/snackbar
+        },
+        error: (err) => {
+          console.error('Delete failed', err);
+        },
+      });
+    } else {
+      this.resourceIdToDelete = null;
     }
   }
 }

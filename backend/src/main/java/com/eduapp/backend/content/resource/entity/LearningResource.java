@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.eduapp.backend.content.resource.entity.enums.ResourceStatus;
 import com.eduapp.backend.content.resource.section.entity.Section;
+import com.eduapp.backend.user.entity.Enrollment;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -18,6 +19,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.PrePersist;
@@ -72,6 +74,9 @@ public class LearningResource {
     @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("sectionOrder ASC")
     private List<Section> sections = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Enrollment> enrollments = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;

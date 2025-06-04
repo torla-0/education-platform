@@ -84,6 +84,12 @@
             >
               Edit
             </button>
+            <button
+              *ngIf="res.authorEmail === currentUserEmail"
+              (click)="opetDeleteDialog(res.id, res.title)"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
@@ -115,3 +121,10 @@
   [resource]="selectedResource"
   (closed)="closeDialog($event)"
 ></app-edit-learning-resource-dialog>
+
+<app-confirmation-dialog
+  *ngIf="showConfirmDialog"
+  [message]="confirmMessage"
+  (confirmed)="handleDeleteConfirmation($event)"
+>
+</app-confirmation-dialog>
