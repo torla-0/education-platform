@@ -8,9 +8,6 @@
   <button [class.active]="activeTab === 'add'" (click)="activeTab = 'add'">
     Add New
   </button>
-  <button [class.active]="activeTab === 'edit'" (click)="activeTab = 'edit'">
-    Edit
-  </button>
 </div>
 <div class="dynamic-section">
   <app-show-all-resources
@@ -26,7 +23,4 @@
   <app-add-learning-resource
     *ngIf="activeTab === 'add'"
   ></app-add-learning-resource>
-  <app-edit-learning-resource
-    *ngIf="activeTab === 'edit'"
-  ></app-edit-learning-resource>
 </div>

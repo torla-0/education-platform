@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateResource, Resource } from '../models/resource.model';
+import {
+  CreateResource,
+  Resource,
+  UpdateResource,
+} from '../models/resource.model';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -13,7 +17,7 @@ export class ModeratorService {
   createResource(r: CreateResource) {
     return this.http.post<Resource>('/api/moderator/resources', r);
   }
-  updateResource(id: number, resource: CreateResource): Observable<Resource> {
+  updateResource(id: number, resource: UpdateResource): Observable<Resource> {
     return this.http.put<Resource>(`/api/moderator/resources/${id}`, resource);
   }
 

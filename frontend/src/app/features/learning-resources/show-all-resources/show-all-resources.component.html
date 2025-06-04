@@ -79,7 +79,7 @@
             </button>
             <button
               *ngIf="res.authorEmail === currentUserEmail"
-              (click)="editResource(res.id)"
+              (click)="openEditDialog(res)"
               class="action-btn"
             >
               Edit
@@ -109,3 +109,9 @@
 
   <div class="empty-msg" *ngIf="isLoading">Loading...</div>
 </div>
+
+<app-edit-learning-resource-dialog
+  *ngIf="selectedResource"
+  [resource]="selectedResource"
+  (closed)="closeDialog($event)"
+></app-edit-learning-resource-dialog>

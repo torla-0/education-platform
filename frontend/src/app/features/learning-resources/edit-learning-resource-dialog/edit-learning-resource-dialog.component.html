@@ -1,0 +1,34 @@
+<div class="modal-backdrop">
+  <div class="resource-form">
+    <h2>Edit Resource</h2>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" type="text" formControlName="title" />
+      </div>
+
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input id="url" type="text" formControlName="url" />
+      </div>
+
+      <div class="form-group">
+        <label for="tags">Tags (comma separated)</label>
+        <input
+          id="tags"
+          type="text"
+          [value]="form.value.tags?.join(', ')"
+          (input)="onTagInput($event)"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button class="danger-btn" type="button" (click)="cancel()">
+          Cancel
+        </button>
+        <button type="submit" [disabled]="form.invalid">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

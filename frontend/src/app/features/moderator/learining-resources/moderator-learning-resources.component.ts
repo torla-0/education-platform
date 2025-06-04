@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { AddLearningResourceComponent } from '../../learning-resources/add-learning-resource/add-learning-resource.component';
-import { EditLearningResourceComponent } from '../../learning-resources/edit-learning-resource/edit-learning-resource.component';
+
 import { ShowAllResourcesComponent } from '../../learning-resources/show-all-resources/show-all-resources.component';
 import { getEmailFromToken } from '../../../core/utils/token.utils';
 import { AuthService } from '../../../core/services/auth.service';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     AddLearningResourceComponent,
-    EditLearningResourceComponent,
+
     ShowAllResourcesComponent,
     FormsModule,
   ],
@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './moderator-learning-resources.component.css',
 })
 export class ModeratorLearningResourcesComponent {
-  activeTab: 'all' | 'my' | 'add' | 'edit' = 'my';
+  activeTab: 'all' | 'my' | 'add' = 'my';
 
   loggedInEmail = '';
   searchTerm: string = '';

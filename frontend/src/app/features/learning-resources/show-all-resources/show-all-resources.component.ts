@@ -6,10 +6,18 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { Resource } from '../../../core/models/resource.model';
 
+import { MatDialog } from '@angular/material/dialog';
+import { EditLearningResourceDialogComponent } from '../edit-learning-resource-dialog/edit-learning-resource-dialog.component';
+
 @Component({
   selector: 'app-show-all-resources',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    EditLearningResourceDialogComponent,
+  ],
   templateUrl: './show-all-resources.component.html',
   styleUrl: './show-all-resources.component.css',
 })
@@ -36,10 +44,13 @@ export class ShowAllResourcesComponent implements OnInit {
   allTags: string[] = [];
   allStatuses: string[] = [];
 
+  selectedResource: any = null;
+
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -187,5 +198,16 @@ export class ShowAllResourcesComponent implements OnInit {
 
   editResource(id: number) {
     this.router.navigate(['/moderator/learning-resources/edit', id]);
+  }
+
+  openEditDialog(resource: any) {
+    this.selectedResource = resource;
+  }
+
+  closeDialog(refresh: boolean) {
+    this.selectedResource = null;
+    if (refresh) {
+      this.fetchResources();
+    }
   }
 }
