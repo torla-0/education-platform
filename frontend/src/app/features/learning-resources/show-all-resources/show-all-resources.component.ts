@@ -240,7 +240,6 @@ export class ShowAllResourcesComponent implements OnInit {
           this.resourceIdToDelete = null;
           this.toastService.showSuccess('Resource deleted successfully');
           this.fetchResources();
-          // Optionally show toast/snackbar
         },
         error: (err) => {
           console.error('Delete failed', err);
