@@ -1,31 +1,36 @@
 package com.eduapp.backend.content.resource.service;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.eduapp.backend.content.resource.dto.CreateResourceDto;
 import com.eduapp.backend.content.resource.dto.ResourceDto;
+import com.eduapp.backend.content.resource.dto.UpdateResourceDto;
 import com.eduapp.backend.content.resource.entity.LearningResource;
 import com.eduapp.backend.content.resource.mapper.ResourceMapper;
 import com.eduapp.backend.content.resource.repository.LearningResourceRepository;
 import com.eduapp.backend.content.resource.spec.LearningResourceSpecification;
-
 
 @Service
 public class LearningResourceServiceImpl implements LearningResourceService {
 
     private final LearningResourceRepository resourceRepository;
     private final ResourceMapper mapper;
-    
+
     public LearningResourceServiceImpl(LearningResourceRepository resourceRepository,
-                                       ResourceMapper mapper) {
+            ResourceMapper mapper) {
         this.resourceRepository = resourceRepository;
         this.mapper = mapper;
     }
@@ -46,60 +51,54 @@ public class LearningResourceServiceImpl implements LearningResourceService {
 
     @Override
     @Transactional
-    public ResourceDto update(Long id, String authorEmail, CreateResourceDto dto) {
-        LearningResource entity = resourceRepository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                String.format("Learning Resource not found with id='%s'", id)));
+    public ResourceDto update(Long id, String userEmail, UpdateResourceDto dto) {
+        LearningResource resource = resourceRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
 
-        if (!entity.getAuthorEmail().equals(authorEmail)) {
-            throw new ResponseStatusException(
-                HttpStatus.FORBIDDEN,
-                "You are not the author of this resource.");
+        if (!resource.getAuthorEmail().equals(userEmail)) {
+            throw new AccessDeniedException("Not allowed to edit");
         }
 
-        LearningResource updatedEntity = mapper.toResourceEntity(authorEmail, dto);
-        updatedEntity.setId(entity.getId());
+        resource.setTitle(dto.getTitle());
+        resource.setUrl(dto.getUrl());
+        resource.setTags(new ArrayList<>(new HashSet<>(dto.getTags())));
+        resource.setUpdatedAt(Instant.now());
 
-        LearningResource saved = resourceRepository.save(updatedEntity);
-        return mapper.toResourceDto(saved);
+        return mapper.toResourceDto(resourceRepository.save(resource));
     }
 
     @Override
     @Transactional
     public void delete(Long id, String authorEmail) {
         LearningResource entity = resourceRepository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(
+                .orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND,
                 String.format("Learning Resource not found with id='%s'", id)));
 
         if (!entity.getAuthorEmail().equals(authorEmail)) {
             throw new ResponseStatusException(
-                HttpStatus.FORBIDDEN,
-                "You are not the author of this resource.");
+                    HttpStatus.FORBIDDEN,
+                    "You are not the author of this resource.");
         }
 
         resourceRepository.delete(entity);
     }
 
-   
-
     @Override
     public ResourceDto getPublicResourceById(Long id) {
         LearningResource resource = resourceRepository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-            String.format("Learning Resource not found with id='%s'", id)));
-    
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                String.format("Learning Resource not found with id='%s'", id)));
+
         // Filter out any moderator-only/internal fields here
-        return mapper.toResourceDto(resource); 
+        return mapper.toResourceDto(resource);
     }
 
     @Override
     public Page<ResourceDto> getPublicResources(String search, String tag, Pageable pageable) {
         return resourceRepository
-            .findAll(LearningResourceSpecification.publishedAndMatches(search, tag), pageable)
-            .map(mapper::toResourceDto);
+                .findAll(LearningResourceSpecification.publishedAndMatches(search, tag), pageable)
+                .map(mapper::toResourceDto);
     }
 
-    
 }

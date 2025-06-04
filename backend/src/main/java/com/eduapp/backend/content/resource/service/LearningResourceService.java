@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.eduapp.backend.content.resource.dto.CreateResourceDto;
 import com.eduapp.backend.content.resource.dto.ResourceDto;
+import com.eduapp.backend.content.resource.dto.UpdateResourceDto;
 
 /**
  * Service interface for managing learning resources authored by moderators.
@@ -38,7 +39,7 @@ public interface LearningResourceService {
      * @param dto         the payload containing updated details
      * @return the updated ResourceDto
      */
-    ResourceDto update(Long id, String authorEmail, CreateResourceDto dto);
+    ResourceDto update(Long id, String authorEmail, UpdateResourceDto dto);
 
     /**
      * Delete a learning resource.

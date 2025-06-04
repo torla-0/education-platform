@@ -182,7 +182,7 @@ export class ShowAllResourcesComponent implements OnInit {
   }
 
   goToOverview(id: number) {
-    this.router.navigate(['/moderator/learning-resources', id]);
+    this.router.navigate(['/learning-resources', id]);
   }
 
   editResource(id: number) {

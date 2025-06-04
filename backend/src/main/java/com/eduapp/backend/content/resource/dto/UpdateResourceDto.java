@@ -1,5 +1,7 @@
 package com.eduapp.backend.content.resource.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,13 +10,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateResourceDto {
+@Builder
+public class UpdateResourceDto {
 
     private String title;
     private String url;
-    private String[] tags;
-
+    private List<String> tags;
+    private String updatedAt;
+    private List<Long> sectionIds;
+    private String status;
 }

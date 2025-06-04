@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eduapp.backend.content.resource.dto.CreateResourceDto;
 import com.eduapp.backend.content.resource.dto.ResourceDto;
+import com.eduapp.backend.content.resource.dto.UpdateResourceDto;
 import com.eduapp.backend.content.resource.service.LearningResourceService;
 import com.eduapp.backend.user.entity.User;
 
@@ -71,7 +72,7 @@ public class ModeratorResourceController {
     @PutMapping("/{id}")
     public ResourceDto update(
             @PathVariable("id") Long id,
-            @RequestBody @Valid CreateResourceDto dto) {
+            @RequestBody @Valid UpdateResourceDto dto) {
 
         return resourceService.update(id, currentUserEmail(), dto);
     }
