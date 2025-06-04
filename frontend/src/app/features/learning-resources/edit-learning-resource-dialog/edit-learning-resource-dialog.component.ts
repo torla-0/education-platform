@@ -27,7 +27,9 @@ export class EditLearningResourceDialogComponent implements OnInit {
     this.form = this.fb.group({
       title: ['', Validators.required],
       url: ['', Validators.required],
+      description: [''],
       tags: [[]],
+      status: ['DRAFT', Validators.required],
     });
   }
 
@@ -43,6 +45,8 @@ export class EditLearningResourceDialogComponent implements OnInit {
       title: this.form.value.title ?? '',
       url: this.form.value.url ?? '',
       tags: this.form.value.tags ?? [],
+      description: this.form.value.description ?? '',
+      status: this.form.value.status ?? 'DRAFT',
     };
     this.service.updateResource(this.resource.id, formData).subscribe(() => {
       this.closed.emit(true);

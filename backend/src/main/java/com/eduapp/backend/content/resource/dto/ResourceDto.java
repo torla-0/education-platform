@@ -19,6 +19,7 @@ public class ResourceDto {
 
     private Long id;
     private String title;
+    private String description;
     private String url;
     private String[] tags;
     public String authorEmail;

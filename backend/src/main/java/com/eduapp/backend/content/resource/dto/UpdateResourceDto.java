@@ -16,6 +16,7 @@ import lombok.Setter;
 public class UpdateResourceDto {
 
     private String title;
+    private String description;
     private String url;
     private List<String> tags;
     private String updatedAt;

@@ -1,8 +1,5 @@
 package com.eduapp.backend.content.resource.service;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,12 +56,10 @@ public class LearningResourceServiceImpl implements LearningResourceService {
             throw new AccessDeniedException("Not allowed to edit");
         }
 
-        resource.setTitle(dto.getTitle());
-        resource.setUrl(dto.getUrl());
-        resource.setTags(new ArrayList<>(new HashSet<>(dto.getTags())));
-        resource.setUpdatedAt(Instant.now());
+        mapper.updateEntityFromDto(resource, dto); // ✅ delegate field update
 
-        return mapper.toResourceDto(resourceRepository.save(resource));
+        LearningResource saved = resourceRepository.save(resource);
+        return mapper.toResourceDto(saved);
     }
 
     @Override
@@ -89,6 +84,7 @@ public class LearningResourceServiceImpl implements LearningResourceService {
         LearningResource resource = resourceRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                 String.format("Learning Resource not found with id='%s'", id)));
+        System.out.println("Returning description: " + resource.getDescription());
 
         // Filter out any moderator-only/internal fields here
         return mapper.toResourceDto(resource);

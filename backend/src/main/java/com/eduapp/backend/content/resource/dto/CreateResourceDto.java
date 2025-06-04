@@ -14,6 +14,7 @@ import lombok.Setter;
 public class CreateResourceDto {
 
     private String title;
+    private String description;
     private String url;
     private String[] tags;
 

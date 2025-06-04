@@ -244,24 +244,24 @@ INSERT INTO users (username, email, password, first_name, last_name, role, delet
 ('mod9', 'mod9@test.com', '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey', 'Mod', 'Nine', 'MODERATOR', false, NULL),
 ('mod10', 'mod10@test.com', '$2y$10$JQ8JErQ.uMmvp2I4G8SJ1ueiFn/WIq8HRGtMySyzHYT6JUhTeixey', 'Mod', 'Ten', 'MODERATOR', false, NULL);
 
--- Dummy learning resources
-INSERT INTO learning_resources (title, url, author_email, status, created_at, updated_at)
+-- Dummy learning resources 
+INSERT INTO learning_resources (title, url, description, author_email, status, created_at, updated_at)
 VALUES
-  ('Angular Fundamentals', 'https://angular.dev/docs/fundamentals', 'mod@test.com', 'PUBLISHED', '2024-05-01T09:00:00Z', '2024-05-01T09:00:00Z'),
-  ('Spring Boot Guide', 'https://spring.io/guides', 'mod2@email.com', 'PUBLISHED', '2024-05-02T10:00:00Z', '2024-05-02T10:00:00Z'),
-  ('React Essentials', 'https://react.dev/learn', 'mod@test.com', 'DRAFT', '2024-05-03T11:00:00Z', '2024-05-03T11:00:00Z'),
-  ('JavaScript Basics', 'https://javascript.info', 'mod2@email.com', 'PUBLISHED', '2024-05-04T13:30:00Z', '2024-05-04T13:30:00Z'),
-  ('Python Crash Course', 'https://docs.python.org/3/tutorial/', 'mod@test.com', 'PUBLISHED', '2024-05-05T10:20:00Z', '2024-05-05T10:20:00Z'),
-  ('Docker for Beginners', 'https://docker-curriculum.com/', 'mod3@email.com', 'PUBLISHED', '2024-05-06T08:15:00Z', '2024-05-06T08:15:00Z'),
-  ('Kubernetes Basics', 'https://kubernetes.io/docs/tutorials/', 'mod3@email.com', 'DRAFT', '2024-05-07T09:10:00Z', '2024-05-07T09:10:00Z'),
-  ('SQL Fundamentals', 'https://www.sqltutorial.org/', 'mod2@email.com', 'PUBLISHED', '2024-05-08T07:00:00Z', '2024-05-08T07:00:00Z'),
-  ('HTML & CSS Foundations', 'https://developer.mozilla.org/en-US/docs/Learn', 'mod@test.com', 'PUBLISHED', '2024-05-09T14:30:00Z', '2024-05-09T14:30:00Z'),
-  ('DevOps Introduction', 'https://roadmap.sh/devops', 'mod3@email.com', 'PUBLISHED', '2024-05-10T16:30:00Z', '2024-05-10T16:30:00Z'),
-  ('Node.js Quickstart', 'https://nodejs.dev/learn', 'mod2@email.com', 'PUBLISHED', '2024-05-11T11:30:00Z', '2024-05-11T11:30:00Z'),
-  ('Git & GitHub', 'https://guides.github.com', 'mod@test.com', 'PUBLISHED', '2024-05-12T12:30:00Z', '2024-05-12T12:30:00Z'),
-  ('TypeScript in Depth', 'https://www.typescriptlang.org/docs/', 'mod2@email.com', 'DRAFT', '2024-05-13T13:30:00Z', '2024-05-13T13:30:00Z'),
-  ('REST API Design', 'https://restfulapi.net/', 'mod3@email.com', 'PUBLISHED', '2024-05-14T10:30:00Z', '2024-05-14T10:30:00Z'),
-  ('Testing with JUnit', 'https://junit.org/junit5/docs/current/user-guide/', 'mod@test.com', 'PUBLISHED', '2024-05-15T12:30:00Z', '2024-05-15T12:30:00Z');
+  ('Angular Fundamentals', 'https://angular.dev/docs/fundamentals', 'Learn Angular core concepts, components, services, and routing.', 'mod@test.com', 'PUBLISHED', '2024-05-01T09:00:00Z', '2024-05-01T09:00:00Z'),
+  ('Spring Boot Guide', 'https://spring.io/guides', 'Comprehensive tutorials on Spring Boot, REST APIs, and more.', 'mod2@email.com', 'PUBLISHED', '2024-05-02T10:00:00Z', '2024-05-02T10:00:00Z'),
+  ('React Essentials', 'https://react.dev/learn', 'Start learning React with hooks, components, and state management.', 'mod@test.com', 'DRAFT', '2024-05-03T11:00:00Z', '2024-05-03T11:00:00Z'),
+  ('JavaScript Basics', 'https://javascript.info', 'Understand JavaScript fundamentals including types, loops, and functions.', 'mod2@email.com', 'PUBLISHED', '2024-05-04T13:30:00Z', '2024-05-04T13:30:00Z'),
+  ('Python Crash Course', 'https://docs.python.org/3/tutorial/', 'Intro to Python syntax, data structures, and control flow.', 'mod@test.com', 'PUBLISHED', '2024-05-05T10:20:00Z', '2024-05-05T10:20:00Z'),
+  ('Docker for Beginners', 'https://docker-curriculum.com/', 'Step-by-step guide to containers, images, and Docker commands.', 'mod3@email.com', 'PUBLISHED', '2024-05-06T08:15:00Z', '2024-05-06T08:15:00Z'),
+  ('Kubernetes Basics', 'https://kubernetes.io/docs/tutorials/', 'Get started with Kubernetes clusters, pods, and deployments.', 'mod3@email.com', 'DRAFT', '2024-05-07T09:10:00Z', '2024-05-07T09:10:00Z'),
+  ('SQL Fundamentals', 'https://www.sqltutorial.org/', 'Learn SQL syntax, joins, grouping, and subqueries.', 'mod2@email.com', 'PUBLISHED', '2024-05-08T07:00:00Z', '2024-05-08T07:00:00Z'),
+  ('HTML & CSS Foundations', 'https://developer.mozilla.org/en-US/docs/Learn', 'MDN learning path for HTML semantics and CSS styling.', 'mod@test.com', 'PUBLISHED', '2024-05-09T14:30:00Z', '2024-05-09T14:30:00Z'),
+  ('DevOps Introduction', 'https://roadmap.sh/devops', 'Overview of the DevOps roadmap and core tools.', 'mod3@email.com', 'PUBLISHED', '2024-05-10T16:30:00Z', '2024-05-10T16:30:00Z'),
+  ('Node.js Quickstart', 'https://nodejs.dev/learn', 'Beginner-friendly guide to Node.js, modules, and HTTP.', 'mod2@email.com', 'PUBLISHED', '2024-05-11T11:30:00Z', '2024-05-11T11:30:00Z'),
+  ('Git & GitHub', 'https://guides.github.com', 'Master Git basics, GitHub workflows, and pull requests.', 'mod@test.com', 'PUBLISHED', '2024-05-12T12:30:00Z', '2024-05-12T12:30:00Z'),
+  ('TypeScript in Depth', 'https://www.typescriptlang.org/docs/', 'Advanced guide to TypeScript types, interfaces, and generics.', 'mod2@email.com', 'DRAFT', '2024-05-13T13:30:00Z', '2024-05-13T13:30:00Z'),
+  ('REST API Design', 'https://restfulapi.net/', 'Learn best practices for designing RESTful APIs.', 'mod3@email.com', 'PUBLISHED', '2024-05-14T10:30:00Z', '2024-05-14T10:30:00Z'),
+  ('Testing with JUnit', 'https://junit.org/junit5/docs/current/user-guide/', 'JUnit testing strategies for Java applications.', 'mod@test.com', 'PUBLISHED', '2024-05-15T12:30:00Z', '2024-05-15T12:30:00Z');
 
 -- Tags for resources (resource_id references learning_resources.id)
 INSERT INTO resource_tags (resource_id, tag) VALUES

@@ -1,6 +1,5 @@
 package com.eduapp.backend.content.resource.entity;
 
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,11 @@ import lombok.Setter;
 /**
  * JPA entity representing a Learning Resource created by a moderator.
  */
-@Builder @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "learning_resources")
 public class LearningResource {
@@ -45,13 +48,16 @@ public class LearningResource {
     @Column(nullable = false)
     private String title;
 
+    @Column(length = 2000)
+    private String description;
+
     @Column(nullable = true)
     private String url;
 
     @ElementCollection
     @CollectionTable(
-        name = "resource_tags",
-        joinColumns = @JoinColumn(name = "resource_id")
+            name = "resource_tags",
+            joinColumns = @JoinColumn(name = "resource_id")
     )
     @Column(name = "tag")
     private List<String> tags;
@@ -83,4 +89,3 @@ public class LearningResource {
         updatedAt = Instant.now();
     }
 }
-
