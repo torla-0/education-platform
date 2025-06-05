@@ -281,84 +281,85 @@ INSERT INTO resource_tags (resource_id, tag) VALUES
   (14, 'rest'),          (14, 'api'),
   (15, 'junit'),         (15, 'testing');
 
--- Sections for resources (resource_id, title, content, position)
-INSERT INTO sections (resource_id, title, content, section_order) VALUES
+-- Sections for resources (resource_id, title, content, section_order, published)
+INSERT INTO sections (resource_id, title, content, section_order, published) VALUES
   -- Angular Fundamentals
-  (1, 'Introduction to Angular', 'Learn what Angular is and why it is used.', 1),
-  (1, 'Components and Templates', 'How to build and compose components and templates.', 2),
-  (1, 'Data Binding', 'Property binding, event binding, and two-way binding.', 3),
-  (1, 'Directives and Pipes', 'Using built-in directives and pipes for dynamic behavior.', 4),
+  (1, 'Introduction to Angular', 'Learn what Angular is and why it is used.', 1, true),
+  (1, 'Components and Templates', 'How to build and compose components and templates.', 2, true),
+  (1, 'Data Binding', 'Property binding, event binding, and two-way binding.', 3, true),
+  (1, 'Directives and Pipes', 'Using built-in directives and pipes for dynamic behavior.', 4, true),
 
   -- Spring Boot Guide
-  (2, 'Getting Started with Spring Boot', 'What is Spring Boot and why is it popular?', 1),
-  (2, 'Creating Your First Project', 'How to use Spring Initializr.', 2),
-  (2, 'Dependency Injection', 'Beans and dependency injection in Spring.', 3),
-  (2, 'REST APIs', 'Building REST APIs with Spring Boot.', 4),
+  (2, 'Getting Started with Spring Boot', 'What is Spring Boot and why it is popular?', 1, true),
+  (2, 'Creating Your First Project', 'How to use Spring Initializr.', 2, true),
+  (2, 'Dependency Injection', 'Beans and dependency injection in Spring.', 3, true),
+  (2, 'REST APIs', 'Building REST APIs with Spring Boot.', 4, true),
 
   -- React Essentials
-  (3, 'React Overview', 'Introduction to React and its main concepts.', 1),
-  (3, 'JSX and Rendering', 'How JSX works and how to render elements.', 2),
-  (3, 'State and Props', 'Managing state and passing data using props.', 3),
+  (3, 'React Overview', 'Introduction to React and its main concepts.', 1, true),
+  (3, 'JSX and Rendering', 'How JSX works and how to render elements.', 2, true),
+  (3, 'State and Props', 'Managing state and passing data using props.', 3, true),
 
   -- JavaScript Basics
-  (4, 'JS Syntax', 'Learn the syntax of JavaScript.', 1),
-  (4, 'Variables and Data Types', 'Working with variables and different data types.', 2),
-  (4, 'Control Flow', 'if, else, switch, loops in JavaScript.', 3),
+  (4, 'JS Syntax', 'Learn the syntax of JavaScript.', 1, true),
+  (4, 'Variables and Data Types', 'Working with variables and different data types.', 2, true),
+  (4, 'Control Flow', 'if, else, switch, loops in JavaScript.', 3, true),
 
   -- Python Crash Course
-  (5, 'Python Introduction', 'Intro to Python and its features.', 1),
-  (5, 'Data Types & Variables', 'Understanding data types and variables in Python.', 2),
-  (5, 'Control Structures', 'if, for, while, and other flow controls.', 3),
+  (5, 'Python Introduction', 'Intro to Python and its features.', 1, true),
+  (5, 'Data Types & Variables', 'Understanding data types and variables in Python.', 2, true),
+  (5, 'Control Structures', 'if, for, while, and other flow controls.', 3, true),
 
   -- Docker for Beginners
-  (6, 'What is Docker?', 'Understanding containers and Docker basics.', 1),
-  (6, 'Docker Images', 'Building and using Docker images.', 2),
-  (6, 'Docker Compose', 'Defining multi-container apps with Docker Compose.', 3),
+  (6, 'What is Docker?', 'Understanding containers and Docker basics.', 1, true),
+  (6, 'Docker Images', 'Building and using Docker images.', 2, true),
+  (6, 'Docker Compose', 'Defining multi-container apps with Docker Compose.', 3, true),
 
   -- Kubernetes Basics
-  (7, 'Kubernetes Overview', 'Introduction to Kubernetes.', 1),
-  (7, 'Pods and Deployments', 'Understanding pods and deployments.', 2),
-  (7, 'Services', 'Kubernetes Services and networking basics.', 3),
+  (7, 'Kubernetes Overview', 'Introduction to Kubernetes.', 1, true),
+  (7, 'Pods and Deployments', 'Understanding pods and deployments.', 2, true),
+  (7, 'Services', 'Kubernetes Services and networking basics.', 3, true),
 
   -- SQL Fundamentals
-  (8, 'What is SQL?', 'Introduction to SQL databases.', 1),
-  (8, 'SELECT Queries', 'Writing basic SELECT queries.', 2),
-  (8, 'Joins', 'Combining data from multiple tables.', 3),
+  (8, 'What is SQL?', 'Introduction to SQL databases.', 1, true),
+  (8, 'SELECT Queries', 'Writing basic SELECT queries.', 2, true),
+  (8, 'Joins', 'Combining data from multiple tables.', 3, true),
 
   -- HTML & CSS Foundations
-  (9, 'HTML Structure', 'Learn about HTML tags and structure.', 1),
-  (9, 'CSS Basics', 'Styling with CSS.', 2),
-  (9, 'Layout Techniques', 'Flexbox, Grid, and modern layout methods.', 3),
+  (9, 'HTML Structure', 'Learn about HTML tags and structure.', 1, true),
+  (9, 'CSS Basics', 'Styling with CSS.', 2, true),
+  (9, 'Layout Techniques', 'Flexbox, Grid, and modern layout methods.', 3, true),
 
   -- DevOps Introduction
-  (10, 'What is DevOps?', 'Understanding DevOps principles.', 1),
-  (10, 'CI/CD', 'Continuous integration and delivery.', 2),
-  (10, 'Monitoring', 'Basics of system and application monitoring.', 3),
+  (10, 'What is DevOps?', 'Understanding DevOps principles.', 1, true),
+  (10, 'CI/CD', 'Continuous integration and delivery.', 2, true),
+  (10, 'Monitoring', 'Basics of system and application monitoring.', 3, true),
 
   -- Node.js Quickstart
-  (11, 'Node.js Overview', 'What is Node.js and where to use it?', 1),
-  (11, 'npm & Modules', 'Using npm and managing modules.', 2),
-  (11, 'Asynchronous JS', 'Callbacks, Promises, and async/await.', 3),
+  (11, 'Node.js Overview', 'What is Node.js and where to use it?', 1, true),
+  (11, 'npm & Modules', 'Using npm and managing modules.', 2, true),
+  (11, 'Asynchronous JS', 'Callbacks, Promises, and async/await.', 3, true),
 
   -- Git & GitHub
-  (12, 'Git Basics', 'Version control with Git.', 1),
-  (12, 'Branching', 'Working with branches.', 2),
-  (12, 'Using GitHub', 'Collaborating with GitHub.', 3),
+  (12, 'Git Basics', 'Version control with Git.', 1, true),
+  (12, 'Branching', 'Working with branches.', 2, true),
+  (12, 'Using GitHub', 'Collaborating with GitHub.', 3, true),
 
   -- TypeScript in Depth
-  (13, 'TypeScript Basics', 'What is TypeScript and why use it?', 1),
-  (13, 'Types', 'Understanding types in TypeScript.', 2),
-  (13, 'Interfaces & Classes', 'Object-oriented programming in TS.', 3),
+  (13, 'TypeScript Basics', 'What is TypeScript and why use it?', 1, true),
+  (13, 'Types', 'Understanding types in TypeScript.', 2, true),
+  (13, 'Interfaces & Classes', 'Object-oriented programming in TS.', 3, true),
 
   -- REST API Design
-  (14, 'REST Principles', 'What makes an API RESTful?', 1),
-  (14, 'Endpoints & Methods', 'Designing endpoints and using HTTP methods.', 2),
-  (14, 'Status Codes', 'Using correct status codes.', 3),
+  (14, 'REST Principles', 'What makes an API RESTful?', 1, true),
+  (14, 'Endpoints & Methods', 'Designing endpoints and using HTTP methods.', 2, true),
+  (14, 'Status Codes', 'Using correct status codes.', 3, true),
 
   -- Testing with JUnit
-  (15, 'Introduction to JUnit', 'Getting started with unit testing in Java.', 1),
-  (15, 'Annotations', 'Understanding JUnit annotations.', 2),
-  (15, 'Assertions', 'Writing and using assertions.', 3);
+  (15, 'Introduction to JUnit', 'Getting started with unit testing in Java.', 1, true),
+  (15, 'Annotations', 'Understanding JUnit annotations.', 2, true),
+  (15, 'Assertions', 'Writing and using assertions.', 3, true);
+
 
 -- ENROLLMENTS (ENROLLED_AT, RESOURCE_ID, USER_ID)
 -- Angular Fundamentals (resource 1), sections 1–4

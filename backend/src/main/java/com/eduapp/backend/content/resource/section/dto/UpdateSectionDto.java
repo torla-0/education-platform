@@ -8,14 +8,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class CreateSectionDto {
+public class UpdateSectionDto {
 
     private String title;
     private String content;
-    private int sectionOrder;
-    private boolean published;
-    private Long resourceId;
 }
