@@ -15,4 +15,6 @@ public class UpdateSectionDto {
 
     private String title;
     private String content;
+    private Integer sectionOrder;
+    private boolean published;
 }

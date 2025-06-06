@@ -1,8 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SectionService } from '../../service/section.service';
 import { SectionDto, UpdateSectionDto } from '../../model/section.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { EditSectionDialogComponent } from '../edit-section-dialog/edit-section-dialog.component';
+import { ToastService } from '../../../../../core/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-section-moderator-view',
@@ -14,29 +16,37 @@ import { EditSectionDialogComponent } from '../edit-section-dialog/edit-section-
 export class SectionModeratorViewComponent {
   @Input() section!: SectionDto;
   @Output() sectionUpdated = new EventEmitter<void>();
+  @Output() sectionDeleted = new EventEmitter<number>();
 
   isLoading = false;
   statusMessage = '';
 
   editing = false;
 
-  constructor(private sectionService: SectionService) {}
+  constructor(
+    private sectionService: SectionService,
+    private toastService: ToastService,
+    private router: Router,
+    private location: Location
+  ) {}
 
-  showStatus(message: string) {
-    this.statusMessage = message;
-    setTimeout(() => (this.statusMessage = ''), 2000);
+  ngOnInit() {
+    console.log('Section order: ' + this.section.sectionOrder);
+    console.log('Section published: ' + this.section.published);
+    console.log('Section object:', this.section);
+    console.log('Section resource id: ' + this.section.resource);
   }
 
   moveSectionUp() {
     this.isLoading = true;
     this.sectionService.moveSectionUp(this.section.id).subscribe({
       next: () => {
-        this.showStatus('Section moved up');
+        this.toastService.showSuccess('Section moved up');
         this.sectionUpdated.emit();
         this.isLoading = false;
       },
       error: () => {
-        this.showStatus('Failed to move up');
+        this.toastService.showError('Failed to move up');
         this.isLoading = false;
       },
     });
@@ -46,12 +56,12 @@ export class SectionModeratorViewComponent {
     this.isLoading = true;
     this.sectionService.moveSectionDown(this.section.id).subscribe({
       next: () => {
-        this.showStatus('Section moved down');
+        this.toastService.showSuccess('Section moved down');
         this.sectionUpdated.emit();
         this.isLoading = false;
       },
       error: () => {
-        this.showStatus('Failed to move down');
+        this.toastService.showError('Failed to move down');
         this.isLoading = false;
       },
     });
@@ -67,12 +77,14 @@ export class SectionModeratorViewComponent {
     this.isLoading = true;
     this.sectionService.deleteSection(this.section.id).subscribe({
       next: () => {
-        this.showStatus('Section deleted');
-        this.sectionUpdated.emit();
+        this.toastService.showSuccess('Section deleted');
+        this.sectionDeleted.emit(this.section.id);
         this.isLoading = false;
+        // TODO: Need fixing, to go direclty to resource view - not back
+        this.location.back();
       },
       error: () => {
-        this.showStatus('Failed to delete');
+        this.toastService.showError('Failed to delete');
         this.isLoading = false;
       },
     });
@@ -86,12 +98,12 @@ export class SectionModeratorViewComponent {
     this.isLoading = true;
     this.sectionService.publishSection(this.section.id).subscribe({
       next: () => {
-        this.showStatus('Section published');
+        this.toastService.showSuccess('Section published');
         this.sectionUpdated.emit();
         this.isLoading = false;
       },
       error: () => {
-        this.showStatus('Failed to publish');
+        this.toastService.showError('Failed to publish');
         this.isLoading = false;
       },
     });
@@ -105,12 +117,12 @@ export class SectionModeratorViewComponent {
     this.isLoading = true;
     this.sectionService.unpublishSection(this.section.id).subscribe({
       next: () => {
-        this.showStatus('Section unpublished');
+        this.toastService.showSuccess('Section unpublished');
         this.sectionUpdated.emit();
         this.isLoading = false;
       },
       error: () => {
-        this.showStatus('Failed to unpublish');
+        this.toastService.showError('Failed to unpublish');
         this.isLoading = false;
       },
     });
@@ -122,9 +134,15 @@ export class SectionModeratorViewComponent {
 
   onSaveEdit(dto: UpdateSectionDto) {
     this.sectionService.updateSection(this.section.id, dto).subscribe(() => {
-      this.showStatus('Section updated');
+      this.toastService.showSuccess('Section updated');
       this.sectionUpdated.emit();
       this.editing = false;
+    });
+  }
+
+  loadSection() {
+    this.sectionService.getSectionById(this.section.id).subscribe((sec) => {
+      this.section = sec;
     });
   }
 }

@@ -17,7 +17,6 @@ export class SectionService {
 
   constructor(private http: HttpClient) {}
 
-  // 🔽 Public User Actions (already in your service)
   getSectionById(sectionId: number) {
     return this.http.get<SectionDto>(`${this.baseUrl}/${sectionId}`);
   }

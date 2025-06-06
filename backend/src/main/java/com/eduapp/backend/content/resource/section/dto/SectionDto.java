@@ -20,6 +20,7 @@ public class SectionDto {
     private String content;
     private Integer sectionOrder;
     private boolean published;
+    private Long resourceId;
 
     private Long prevSectionId;
     private Long nextSectionId;

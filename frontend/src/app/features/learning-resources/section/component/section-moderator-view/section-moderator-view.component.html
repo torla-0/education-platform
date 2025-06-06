@@ -39,4 +39,5 @@
   [section]="section"
   (save)="onSaveEdit($event)"
   (cancel)="editing = false"
+  (sectionUpdated)="loadSection()"
 ></app-edit-section-dialog>

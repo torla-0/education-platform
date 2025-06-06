@@ -76,6 +76,8 @@ public class SectionService {
         dto.setId(section.getId());
         dto.setTitle(section.getTitle());
         dto.setContent(section.getContent());
+        dto.setSectionOrder(section.getSectionOrder());
+        dto.setPublished(section.isPublished());
         dto.setPrevSectionId(prev != null ? prev.getId() : null);
         dto.setNextSectionId(next != null ? next.getId() : null);
         // Add author, updatedAt, etc if needed
@@ -98,6 +100,8 @@ public class SectionService {
 
         section.setTitle(dto.getTitle());
         section.setContent(dto.getContent());
+        section.setSectionOrder(dto.getSectionOrder());
+        section.setPublished(dto.isPublished());
         section.setUpdatedAt(LocalDateTime.now());
         return sectionMapper.toSectionDto(sectionRepository.save(section));
     }
@@ -143,8 +147,8 @@ public class SectionService {
     public void setPublished(Long id, boolean published) {
         Section section = sectionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Section not found"));
+        section.setPublished(published);
         section.setUpdatedAt(LocalDateTime.now());
-        sectionRepository.save(section);
     }
 
 }
