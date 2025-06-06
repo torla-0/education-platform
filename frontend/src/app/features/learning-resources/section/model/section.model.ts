@@ -20,3 +20,19 @@ export interface SectionNoteDto {
   content: string;
   lastModified: string | null;
 }
+
+export interface SectionDto {
+  id: number;
+  title: string;
+  content: string;
+  sectionOrder: number;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+  resourceId?: number;
+}
+
+export interface UpdateSectionDto {
+  title: string;
+  content: string;
+}

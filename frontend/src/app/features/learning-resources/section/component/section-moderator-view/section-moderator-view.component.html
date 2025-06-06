@@ -1,12 +1,42 @@
 <div class="section-moderator-actions">
-  <button (click)="editSection()">✏️ Edit</button>
-  <button (click)="deleteSection()">🗑️ Delete</button>
-  <button (click)="moveSectionUp()">⬆️ Move Up</button>
-  <button (click)="moveSectionDown()">⬇️ Move Down</button>
-  <button *ngIf="!section.published" (click)="publishSection()">
-    ✅ Publish
-  </button>
-  <button *ngIf="section.published" (click)="unpublishSection()">
-    🚫 Unpublish
-  </button>
+  <p class="section-meta">
+    Section #{{ section.sectionOrder }} —
+    <span
+      [class.published]="section.published"
+      [class.draft]="!section.published"
+    >
+      {{ section.published ? "Published" : "Draft" }}
+    </span>
+  </p>
+
+  <div class="actions">
+    <button (click)="editSection()" [disabled]="isLoading">✏️ Edit</button>
+    <button (click)="confirmDelete()" [disabled]="isLoading">🗑️ Delete</button>
+    <button (click)="moveSectionUp()" [disabled]="isLoading">⬆️ Up</button>
+    <button (click)="moveSectionDown()" [disabled]="isLoading">⬇️ Down</button>
+
+    <button
+      *ngIf="!section.published"
+      (click)="confirmPublish()"
+      [disabled]="isLoading"
+    >
+      ✅ Publish
+    </button>
+    <button
+      *ngIf="section.published"
+      (click)="confirmUnpublish()"
+      [disabled]="isLoading"
+    >
+      🚫 Unpublish
+    </button>
+  </div>
+
+  <p *ngIf="statusMessage" class="status-message">{{ statusMessage }}</p>
 </div>
+
+<app-edit-section-dialog
+  *ngIf="editing"
+  [section]="section"
+  (save)="onSaveEdit($event)"
+  (cancel)="editing = false"
+></app-edit-section-dialog>
