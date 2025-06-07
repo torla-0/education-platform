@@ -6,6 +6,12 @@
   align-items: center;
 }
 
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .section-moderator-actions button {
   background: linear-gradient(90deg, #22326c 0%, #28398a 100%);
   color: #e7f0fd;

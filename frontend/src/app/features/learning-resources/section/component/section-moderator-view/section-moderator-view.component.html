@@ -22,14 +22,14 @@
 
     <button
       *ngIf="!section.published"
-      (click)="confirmPublish()"
+      (click)="publishSection()"
       [disabled]="isLoading"
     >
       ✅ Publish
     </button>
     <button
       *ngIf="section.published"
-      (click)="confirmUnpublish()"
+      (click)="unpublishSection()"
       [disabled]="isLoading"
     >
       🚫 Unpublish

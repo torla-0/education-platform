@@ -101,10 +101,6 @@ export class SectionModeratorViewComponent {
     });
   }
 
-  confirmPublish() {
-    if (confirm('Publish this section?')) this.publishSection();
-  }
-
   publishSection() {
     this.isLoading = true;
     this.sectionService.publishSection(this.section.id).subscribe({
@@ -118,10 +114,6 @@ export class SectionModeratorViewComponent {
         this.isLoading = false;
       },
     });
-  }
-
-  confirmUnpublish() {
-    if (confirm('Unpublish this section?')) this.unpublishSection();
   }
 
   unpublishSection() {
