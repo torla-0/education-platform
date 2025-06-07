@@ -5,11 +5,16 @@ import { CommonModule, Location } from '@angular/common';
 import { EditSectionDialogComponent } from '../edit-section-dialog/edit-section-dialog.component';
 import { ToastService } from '../../../../../core/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationDialogComponent } from '../../../../../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-section-moderator-view',
   standalone: true,
-  imports: [CommonModule, EditSectionDialogComponent],
+  imports: [
+    CommonModule,
+    EditSectionDialogComponent,
+    ConfirmationDialogComponent,
+  ],
   templateUrl: './section-moderator-view.component.html',
   styleUrls: ['./section-moderator-view.component.css'],
 })
@@ -22,6 +27,11 @@ export class SectionModeratorViewComponent {
   statusMessage = '';
 
   editing = false;
+
+  // For delete/confirmation dialog
+  showConfirmDialog = false;
+  confirmMessage = '';
+  sectionIdToDelete: number | null = null;
 
   constructor(
     private sectionService: SectionService,
@@ -61,23 +71,31 @@ export class SectionModeratorViewComponent {
     });
   }
 
-  confirmDelete() {
-    if (confirm('Are you sure you want to delete this section?')) {
-      this.deleteSection();
-    }
+  openDeleteDialog(sectionId: number, title: string) {
+    this.sectionIdToDelete = sectionId;
+    this.confirmMessage = `Are you sure you want to delete "${title}"?`;
+    this.showConfirmDialog = true;
   }
 
-  deleteSection() {
+  handleDeleteConfirmation(confirmed: boolean) {
+    this.showConfirmDialog = false;
+
+    if (!confirmed || this.sectionIdToDelete === null) {
+      this.sectionIdToDelete = null;
+      return;
+    }
+
     this.isLoading = true;
-    this.sectionService.deleteSection(this.section.id).subscribe({
+    this.sectionService.deleteSection(this.sectionIdToDelete).subscribe({
       next: () => {
         this.toastService.showSuccess('Section deleted');
-
-        this.isLoading = false;
         this.router.navigate(['/learning-resources', this.resourceId]);
       },
       error: () => {
         this.toastService.showError('Failed to delete');
+      },
+      complete: () => {
+        this.sectionIdToDelete = null;
         this.isLoading = false;
       },
     });

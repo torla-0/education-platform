@@ -11,7 +11,12 @@
 
   <div class="actions">
     <button (click)="editSection()" [disabled]="isLoading">✏️ Edit</button>
-    <button (click)="confirmDelete()" [disabled]="isLoading">🗑️ Delete</button>
+    <button
+      (click)="openDeleteDialog(section.id, section.title)"
+      [disabled]="isLoading"
+    >
+      🗑️ Delete
+    </button>
     <button (click)="moveSectionUp()" [disabled]="isLoading">⬆️ Up</button>
     <button (click)="moveSectionDown()" [disabled]="isLoading">⬇️ Down</button>
 
@@ -41,3 +46,9 @@
   (cancel)="editing = false"
   (sectionUpdated)="loadSection()"
 ></app-edit-section-dialog>
+
+<app-confirmation-dialog
+  *ngIf="showConfirmDialog"
+  [message]="confirmMessage"
+  (confirmed)="handleDeleteConfirmation($event)"
+></app-confirmation-dialog>
