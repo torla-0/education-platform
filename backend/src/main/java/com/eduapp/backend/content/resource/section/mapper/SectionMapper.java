@@ -11,7 +11,6 @@ import com.eduapp.backend.content.resource.section.entity.Section;
 public class SectionMapper {
 
     public Section toSection(CreateSectionDto dto, LearningResource resource) {
-        System.out.println("Resource: " + resource.getId());
         return Section.builder()
                 .title(dto.getTitle())
                 .content(dto.getContent())
@@ -22,14 +21,14 @@ public class SectionMapper {
     }
 
     public SectionDto toSectionDto(Section entity) {
-        System.out.println("Resource: " + entity.getResource());
-
         return SectionDto.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .sectionOrder(entity.getSectionOrder())
-                .resourceId(entity.getResource().getId())
+                .resourceId(
+                        entity.getResource() != null ? entity.getResource().getId() : null
+                )
                 .published(entity.isPublished())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())

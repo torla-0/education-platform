@@ -29,7 +29,7 @@ export interface SectionDto {
   published: boolean;
   createdAt: string;
   updatedAt: string;
-  resource: number;
+  resourceId: number;
 }
 
 export interface UpdateSectionDto {

@@ -4,7 +4,7 @@ import { SectionDto, UpdateSectionDto } from '../../model/section.model';
 import { CommonModule, Location } from '@angular/common';
 import { EditSectionDialogComponent } from '../edit-section-dialog/edit-section-dialog.component';
 import { ToastService } from '../../../../../core/services/toast.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-section-moderator-view',
@@ -15,8 +15,8 @@ import { Router } from '@angular/router';
 })
 export class SectionModeratorViewComponent {
   @Input() section!: SectionDto;
+  @Input() resourceId!: number;
   @Output() sectionUpdated = new EventEmitter<void>();
-  @Output() sectionDeleted = new EventEmitter<number>();
 
   isLoading = false;
   statusMessage = '';
@@ -27,15 +27,9 @@ export class SectionModeratorViewComponent {
     private sectionService: SectionService,
     private toastService: ToastService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) {}
-
-  ngOnInit() {
-    console.log('Section order: ' + this.section.sectionOrder);
-    console.log('Section published: ' + this.section.published);
-    console.log('Section object:', this.section);
-    console.log('Section resource id: ' + this.section.resource);
-  }
 
   moveSectionUp() {
     this.isLoading = true;
@@ -78,10 +72,9 @@ export class SectionModeratorViewComponent {
     this.sectionService.deleteSection(this.section.id).subscribe({
       next: () => {
         this.toastService.showSuccess('Section deleted');
-        this.sectionDeleted.emit(this.section.id);
+
         this.isLoading = false;
-        // TODO: Need fixing, to go direclty to resource view - not back
-        this.location.back();
+        this.router.navigate(['/learning-resources', this.resourceId]);
       },
       error: () => {
         this.toastService.showError('Failed to delete');
