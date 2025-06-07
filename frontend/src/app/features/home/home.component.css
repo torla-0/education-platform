@@ -1,14 +1,17 @@
+/* Base layout */
 .home-container {
   background-color: #1e1e1e;
   color: #e0e0e0;
   padding: 2rem;
   border-radius: 8px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 /* Hero section */
 .hero {
   background: #2a2a2a;
-  padding: 2rem;
+  padding: 2rem 1rem;
   margin-bottom: 2rem;
   text-align: center;
   border-radius: 8px;
@@ -26,18 +29,23 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
+  padding: 0 1rem;
 }
 
 .card {
-  width: 250px;
+  flex: 1 1 240px;
+  max-width: 250px;
   background-color: #2e2e2e !important;
   color: #fff;
   cursor: pointer;
-  transition: transform 0.2s;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Highlight / quote section */
@@ -48,20 +56,28 @@
   text-align: center;
   margin-top: 2rem;
   font-style: italic;
+  font-size: 1.1rem;
 }
 
+/* CTA button */
 .cta-button {
   background-color: #00bcd4 !important;
   color: white !important;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .cta-button:hover {
   background-color: #0097a7 !important;
 }
+
 /* Featured section */
 .featured {
   margin-top: 3rem;
-  padding: 1.5rem;
+  padding: 1.5rem 1rem;
   border-radius: 8px;
   background: #2b2b2b;
   color: white;
@@ -71,27 +87,67 @@
 .feature-cards {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
-  flex-wrap: wrap; /* wraps nicely on smaller screens */
   margin-top: 1.5rem;
 }
 
 .feature-card {
   background-color: #3a3a3a !important;
   color: #fff;
-  width: 300px;
-  padding: 5px 0px;
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem;
+  border-radius: 8px;
 }
 
+/* How it works section */
 .how-it-works {
   margin-top: 2rem;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   background-color: #252525;
   border-radius: 8px;
-  text-align: left;
   color: #ddd;
+  text-align: left;
 }
 
 .how-it-works ol {
   padding-left: 1.5rem;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .cards,
+  .feature-cards {
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .card,
+  .feature-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .cta-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 1rem;
+  }
+
+  .hero,
+  .highlight,
+  .featured,
+  .how-it-works {
+    padding: 1rem;
+  }
+
+  .cta-button {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
 }

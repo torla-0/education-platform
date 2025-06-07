@@ -1,49 +1,27 @@
-<mat-toolbar color="primary" class="navbar">
+<header class="navbar">
   <a class="logo" routerLink="/home">LearnX</a>
+  <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
+    ☰
+  </button>
 
-  <span class="spacer"></span>
-
-  <!-- Main nav (hidden on small screen if logged in) -->
-  <nav class="desktop-menu" *ngIf="!menuOpen || !authService.isLoggedIn()">
-    <a mat-button routerLink="/home" routerLinkActive="active-link">Home</a>
-    <a
-      mat-button
-      routerLink="/learning-resources"
-      routerLinkActive="active-link"
+  <nav class="nav-links" [class.open]="menuOpen">
+    <a routerLink="/home" routerLinkActive="active-link">Home</a>
+    <a routerLink="/learning-resources" routerLinkActive="active-link"
       >Learning Resources</a
     >
+    <a routerLink="/quiz" routerLinkActive="active-link">Quiz</a>
+    <a routerLink="/blog" routerLinkActive="active-link">Blog</a>
 
-    <a mat-button routerLink="/quiz" routerLinkActive="active-link">Quiz</a>
-    <a mat-button routerLink="/blog" routerLinkActive="active-link">Blog</a>
+    <ng-container *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/login">Login</a>
+      <a routerLink="/signup">Sign Up</a>
+    </ng-container>
 
-    <a mat-button routerLink="/login" *ngIf="!authService.isLoggedIn()"
-      >Login</a
-    >
-    <a mat-button routerLink="/signup" *ngIf="!authService.isLoggedIn()"
-      >Sign Up</a
-    >
-    <!-- Hamburger icon only when logged in -->
-
-    <div class="dropdown-menu" *ngIf="authService.isLoggedIn()">
-      <button
-        mat-icon-button
-        [matMenuTriggerFor]="menu"
-        aria-label="Example icon-button with a menu"
-      >
-        <mat-icon>menu</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button *ngIf="isAdmin" mat-menu-item routerLink="/admin">
-          🛠️ Dashboard
-        </button>
-        <button *ngIf="isModerator" mat-menu-item routerLink="/moderator">
-          🛠️ Dashboard
-        </button>
-
-        <button mat-menu-item routerLink="/settings">👤 Settings</button>
-
-        <button mat-menu-item (click)="logout()">🚪 Logout</button>
-      </mat-menu>
-    </div>
+    <ng-container *ngIf="authService.isLoggedIn()">
+      <a *ngIf="isAdmin" routerLink="/admin">🛠️ Admin Dashboard</a>
+      <a *ngIf="isModerator" routerLink="/moderator">🛠️ Mod Dashboard</a>
+      <a routerLink="/settings">👤 Settings</a>
+      <a (click)="logout()">🚪 Logout</a>
+    </ng-container>
   </nav>
-</mat-toolbar>
+</header>
