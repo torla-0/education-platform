@@ -22,15 +22,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let res of resources">
+        <tr
+          *ngFor="let res of resources"
+          (click)="goToResource(res.id)"
+          class="clickable-row"
+        >
           <td>{{ res.title }}</td>
           <td>
             <span *ngFor="let tag of res.tags" class="tag">{{ tag }}</span>
           </td>
           <td>{{ res.authorFirstName }} {{ res.authorLastName }}</td>
-          <td>
-            <button (click)="goToResource(res.id)">Overview</button>
-          </td>
+          <td></td>
         </tr>
       </tbody>
     </table>

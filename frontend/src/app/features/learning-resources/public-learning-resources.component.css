@@ -29,6 +29,25 @@
   border-color: #ba68c8;
 }
 
+.back-btn {
+  background: transparent;
+  color: #ba68c8;
+  border: 2px solid #ba68c8;
+  border-radius: 1.1rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  box-shadow: 0 1px 4px 0 #0003;
+  margin-bottom: 1.5rem;
+}
+
+.back-btn:hover {
+  background: #311b41;
+  color: #fff;
+}
+
 table {
   width: 100%;
   border-collapse: separate;
@@ -55,8 +74,12 @@ tbody tr {
   transition: background 0.17s;
 }
 
-tbody tr:hover {
-  background: #24292e;
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background: #2b3138 !important;
 }
 
 .tag {
@@ -70,7 +93,16 @@ tbody tr:hover {
   margin-bottom: 2px;
 }
 
-button {
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.3rem;
+  margin: 2.2rem auto 0 auto;
+  padding: 0.8rem 0;
+}
+
+.pagination button {
   background: #00bcd4;
   color: #1e1e1e;
   border: none;
@@ -83,22 +115,13 @@ button {
   transition: background 0.2s;
 }
 
-button:disabled {
+.pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
+.pagination button:hover:not(:disabled) {
   background: #26c6da;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.3rem;
-  margin: 2.2rem auto 0 auto;
-  padding: 0.8rem 0;
 }
 
 .loading {
@@ -112,13 +135,25 @@ button:hover:not(:disabled) {
   .public-list-wrapper {
     padding: 1rem 0.3rem;
   }
+
   table,
   th,
   td {
     font-size: 0.99rem;
   }
+
   th,
   td {
     padding: 0.8rem 0.5rem;
+  }
+
+  .back-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 0.6rem;
   }
 }
