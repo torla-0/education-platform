@@ -20,43 +20,75 @@
       routerLink="/home"
       routerLinkActive="active-link"
       (click)="menuOpen = false"
-      >Home</a
     >
+      Home
+    </a>
     <a
       class="mobile-only"
       routerLink="/learning-resources"
       routerLinkActive="active-link"
       (click)="menuOpen = false"
-      >Learning Resources</a
     >
+      Learning Resources
+    </a>
     <a
       class="mobile-only"
       routerLink="/quiz"
       routerLinkActive="active-link"
       (click)="menuOpen = false"
-      >Quiz</a
     >
+      Quiz
+    </a>
     <a
       class="mobile-only"
       routerLink="/blog"
       routerLinkActive="active-link"
       (click)="menuOpen = false"
-      >Blog</a
     >
+      Blog
+    </a>
 
     <ng-container *ngIf="!authService.isLoggedIn()">
-      <a routerLink="/login" (click)="menuOpen = false">Login</a>
-      <a routerLink="/signup" (click)="menuOpen = false">Sign Up</a>
+      <a
+        routerLink="/login"
+        routerLinkActive="active-link"
+        (click)="menuOpen = false"
+      >
+        Login
+      </a>
+      <a
+        routerLink="/signup"
+        routerLinkActive="active-link"
+        (click)="menuOpen = false"
+      >
+        Sign Up
+      </a>
     </ng-container>
 
     <ng-container *ngIf="authService.isLoggedIn()">
-      <a *ngIf="isAdmin" routerLink="/admin" (click)="menuOpen = false"
-        >🛠️ Admin Dashboard</a
+      <a
+        *ngIf="isAdmin"
+        routerLink="/admin"
+        routerLinkActive="active-link"
+        (click)="menuOpen = false"
       >
-      <a *ngIf="isModerator" routerLink="/moderator" (click)="menuOpen = false"
-        >🛠️ Mod Dashboard</a
+        🛠️ Admin Dashboard
+      </a>
+      <a
+        *ngIf="isModerator"
+        routerLink="/moderator"
+        routerLinkActive="active-link"
+        (click)="menuOpen = false"
       >
-      <a routerLink="/settings" (click)="menuOpen = false">👤 Settings</a>
+        🛠️ Mod Dashboard
+      </a>
+      <a
+        routerLink="/settings"
+        routerLinkActive="active-link"
+        (click)="menuOpen = false"
+      >
+        👤 Settings
+      </a>
       <a (click)="logout(); menuOpen = false">🚪 Logout</a>
     </ng-container>
   </nav>
