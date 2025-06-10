@@ -89,4 +89,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.menuOpen = false;
     }
   }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  onEscapeKey(event: KeyboardEvent) {
+    if (this.menuOpen) {
+      this.menuOpen = false;
+    }
+  }
 }
