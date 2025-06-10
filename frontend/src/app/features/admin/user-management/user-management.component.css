@@ -6,3 +6,9 @@
   flex-direction: column;
   align-items: center;
 }
+
+@media (max-width: 768px) {
+  .user-management-wrapper {
+    padding: 1rem 0.5rem;
+  }
+}

@@ -253,16 +253,18 @@ body {
 
 @media (max-width: 768px) {
   .search-filter {
-    width: 90%;
-  }
-
-  .filter-buttons {
-    flex-direction: column;
     width: 100%;
-    align-items: center;
   }
 
   table {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 450px) {
+  .filter-buttons {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
   }
 }
