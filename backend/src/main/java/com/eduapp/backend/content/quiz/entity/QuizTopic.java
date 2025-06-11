@@ -12,7 +12,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "quiz_topic")
 public class QuizTopic {
@@ -28,28 +38,4 @@ public class QuizTopic {
     @JsonManagedReference
     private List<Question> questions;
 
-
-    public QuizTopic() {}
-
-    public QuizTopic(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
 }

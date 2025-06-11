@@ -2,13 +2,27 @@
 INSERT INTO quiz_topic (id, name) VALUES 
 (1, 'Angular'), 
 (2, 'Java'), 
-(3, 'React');
+(3, 'React'),
+(4, 'Python'),
+(5, 'C++'),
+(6, 'SQL'),
+(7, 'Spring Boot'),
+(8, 'HTML & CSS'),
+(9, 'Git & GitHub'),
+(10, 'Linux CLI');
 
 -- Quizzes
-INSERT INTO quiz (id, title, topic_id) VALUES
-(1, 'Angular Basics Quiz', 1),
-(2, 'Java Fundamentals Quiz', 2),
-(3, 'React Essentials Quiz', 3);
+INSERT INTO quiz (id, title, topic_id, published, created_at, updated_at) VALUES
+(1, 'Angular Basics Quiz', 1, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 'Java Fundamentals Quiz', 2, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 'React Essentials Quiz', 3, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 'Python Essentials Quiz', 4, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 'C++ Basics Quiz', 5, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 'SQL Fundamentals Quiz', 6, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 'Spring Boot Quiz', 7, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 'HTML & CSS Basics Quiz', 8, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 'Git & GitHub Quiz', 9, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 'Linux CLI Quiz', 10, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- Questions 
 INSERT INTO question (id, text, topic_id, quiz_id) VALUES
@@ -42,6 +56,33 @@ INSERT INTO question (id, text, topic_id, quiz_id) VALUES
 (28, 'How can you handle forms in React?', 3, 3),
 (29, 'What is the purpose of React Router?', 3, 3),
 (30, 'What is virtual DOM?', 3, 3);
+
+-- Python Questions
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES
+(31, 'What is the output of print(2 ** 3)?', 4, 4),
+(32, 'Which keyword is used to define a function in Python?', 4, 4),
+(33, 'What is the output of len(''Hello'')?', 4, 4),
+(34, 'What is a list in Python?', 4, 4),
+(35, 'How do you start a comment in Python?', 4, 4),
+(36, 'Which of these is a valid variable name?', 4, 4),
+(37, 'What does the \''in\'' keyword do?', 4, 4),
+(38, 'Which built-in function returns the type of a variable?', 4, 4),
+(39, 'What is the result of 10 // 3?', 4, 4),
+(40, 'What is the correct file extension for Python files?', 4, 4);
+
+-- SQL Questions
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES
+(51, 'Which SQL statement is used to retrieve data from a database?', 6, 6),
+(52, 'What does the WHERE clause do in SQL?', 6, 6),
+(53, 'Which SQL keyword is used to sort the result-set?', 6, 6),
+(54, 'What is the default sorting order of ORDER BY?', 6, 6),
+(55, 'Which SQL statement is used to insert new data?', 6, 6),
+(56, 'What is a primary key?', 6, 6),
+(57, 'Which SQL clause is used to group rows?', 6, 6),
+(58, 'What does COUNT(*) do?', 6, 6),
+(59, 'How do you remove duplicates in a SELECT statement?', 6, 6),
+(60, 'Which command removes all records but not the table?', 6, 6);
+
 
 -- Options for Angular Question
 INSERT INTO question_option (id, text, is_correct, question_id) VALUES
@@ -171,6 +212,62 @@ INSERT INTO question_option (id, text, is_correct, question_id) VALUES
 (118, 'A part of Node.js', FALSE, 30),
 (119, 'A feature of CSS-in-JS', FALSE, 30),
 (120, 'A JavaScript array', FALSE, 30);
+
+-- Python Options
+INSERT INTO question_option (id, text, is_correct, question_id) VALUES
+(121, "<class 'list'>", TRUE, 31),
+(122, "<class 'dict'>", FALSE, 31),
+(123, "<class 'set'>", FALSE, 31),
+(124, "<class 'tuple'>", FALSE, 31),
+
+(125, 'try', FALSE, 32),
+(126, 'except', TRUE, 32),
+(127, 'final', FALSE, 32),
+(128, 'catch', FALSE, 32),
+
+(129, 'float', TRUE, 33),
+(130, 'int', FALSE, 33),
+(131, 'complex', FALSE, 33),
+(132, 'str', FALSE, 33),
+
+(133, 'def my_function():', TRUE, 34),
+(134, 'function my_function():', FALSE, 34),
+(135, 'func my_function():', FALSE, 34),
+(136, 'define my_function():', FALSE, 34),
+
+(137, 'Returns the length of an object', TRUE, 35),
+(138, 'Calculates area', FALSE, 35),
+(139, 'Counts function calls', FALSE, 35),
+(140, 'Returns index', FALSE, 35),
+
+(141, '#', TRUE, 36),
+(142, '//', FALSE, 36),
+(143, '--', FALSE, 36),
+(144, '<!--', FALSE, 36),
+
+(145, "open('file.txt', 'r')", TRUE, 37),
+(146, "open('file.txt')", FALSE, 37),
+(147, "file('file.txt')", FALSE, 37),
+(148, "read('file.txt')", FALSE, 37),
+
+(149, 'list', TRUE, 38),
+(150, 'str', FALSE, 38),
+(151, 'tuple', FALSE, 38),
+(152, 'int', FALSE, 38),
+
+(153, '[1, 2, 3]', TRUE, 39),
+(154, '(1, 2, 3)', FALSE, 39),
+(155, '{1, 2, 3}', FALSE, 39),
+(156, '1, 2, 3', FALSE, 39),
+
+(157, '3', TRUE, 40),
+(158, '3.33', FALSE, 40),
+(159, '4', FALSE, 40),
+(160, '0', FALSE, 40);
+
+
+
+
 
 -- Dummy user
 INSERT INTO users (

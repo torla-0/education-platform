@@ -15,7 +15,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "question")
 public class Question {
@@ -37,48 +47,8 @@ public class Question {
     @JsonBackReference
     private QuizTopic topic;
 
-
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<QuestionOption> options;
-
-    public Question() {}
-
-    public Question(String text, QuizTopic topic) {
-        this.text = text;        
-        this.topic = topic;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getText() {
-        return text;
-    }
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public QuizTopic getTopic() {
-        return topic;
-    }
-    public void setTopic(QuizTopic topic) {
-        this.topic = topic;
-    }
-
-    public List<QuestionOption> getOptions() {
-        return options;
-    }
-    public void setOptions(List<QuestionOption> options) {
-        this.options = options;
-    }
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
-    }
 
 }

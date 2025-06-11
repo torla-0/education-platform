@@ -8,7 +8,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "question_option")
 public class QuestionOption {
@@ -21,42 +31,10 @@ public class QuestionOption {
     private String text;
 
     @Column(name = "is_correct", nullable = false)
-    private boolean isCorrect; 
+    private boolean isCorrect;
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
-    public QuestionOption() {}
-
-    public QuestionOption(String text, boolean isCorrect, Question question) {
-        this.text = text;
-        this.isCorrect = isCorrect;
-        this.question = question;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getText() {
-        return text;
-    }
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public boolean isCorrect() {
-        return isCorrect;
-    }
-    public void setIsCorrect(boolean isCorrect) {
-        this.isCorrect = isCorrect;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
 }
