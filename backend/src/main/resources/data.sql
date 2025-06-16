@@ -83,6 +83,67 @@ INSERT INTO question (id, text, topic_id, quiz_id) VALUES
 (59, 'How do you remove duplicates in a SELECT statement?', 6, 6),
 (60, 'Which command removes all records but not the table?', 6, 6);
 
+-- C++ Questions
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES
+(61, 'Which of the following is used to define a constant in C++?', 5, 5),
+(62, 'Which operator is used for dynamic memory allocation in C++?', 5, 5),
+(63, 'Which header file is needed to use cout?', 5, 5),
+(64, 'Which keyword is used to define a class in C++?', 5, 5),
+(65, 'What does the delete operator do?', 5, 5),
+(66, 'Which of these is a correct for loop syntax in C++?', 5, 5),
+(67, 'Which symbol is used for a single-line comment in C++?', 5, 5),
+(68, 'Which function is the entry point in a C++ program?', 5, 5),
+(69, 'What is the output type of sizeof() operator?', 5, 5),
+(70, 'Which keyword is used to inherit a class?', 5, 5);
+
+-- Spring Boot Questions
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (71, 'Which annotation is used to mark a Spring Boot application entry point?', 7, 7);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (72, 'What is the default embedded server in Spring Boot?', 7, 7);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (73, 'Which annotation is used for REST controllers?', 7, 7);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (74, 'What does @Autowired do in Spring Boot?', 7, 7);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (75, 'How do you define a bean in Spring Boot?', 7, 7);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (76, 'Which file is commonly used for Spring Boot configuration?', 7, 7);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (77, 'What is the use of application.properties?', 7, 7);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (78, 'What port does Spring Boot run on by default?', 7, 7);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (79, 'What is Spring Boot Starter?', 7, 7);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (80, 'Which annotation maps a method to a GET request?', 7, 7);
+
+-- HTML & CSS Questions 
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (81, 'Which tag defines a hyperlink in HTML?', 8, 8);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (82, 'How do you add a comment in HTML?', 8, 8);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (83, 'What does CSS stand for?', 8, 8);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (84, 'Which CSS property sets the background color?', 8, 8);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (85, 'How do you select all &lt;p&gt; tags in CSS?', 8, 8);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (86, 'Which tag defines a table row?', 8, 8);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (87, 'What is the default display property of a div?', 8, 8);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (88, 'How do you center a block element in CSS?', 8, 8);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (89, 'Which HTML tag is used for the largest heading?', 8, 8);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (90, 'How do you link an external CSS file?', 8, 8);
+
+-- Git & GitHub Questions
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (91, 'Which command initializes a Git repository?', 9, 9);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (92, 'Which command shows commit history?', 9, 9);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (93, 'What is a branch in Git?', 9, 9);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (94, 'Which command creates a new branch?', 9, 9);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (95, 'Which command is used to merge branches?', 9, 9);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (96, 'What does git clone do?', 9, 9);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (97, 'What is the command to stage changes?', 9, 9);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (98, 'What does .gitignore do?', 9, 9);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (99, 'What does git pull do?', 9, 9);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (100, 'What does git remote -v show?', 9, 9);
+
+-- Linux CLI Questions
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (101, 'Which command lists all files including hidden ones?', 10, 10);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (102, 'How do you change directory in Linux?', 10, 10);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (103, 'What is the command to create a new file?', 10, 10);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (104, 'Which command shows the current path?', 10, 10);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (105, 'How do you copy a file?', 10, 10);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (106, 'Which command is used to delete a file?', 10, 10);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (107, 'What does the "chmod" command do?', 10, 10);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (108, 'Which command shows running processes?', 10, 10);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (109, 'What is the superuser command in Linux?', 10, 10);
+INSERT INTO question (id, text, topic_id, quiz_id) VALUES (110, 'How do you clear the terminal screen?', 10, 10);
+
 
 -- Options for Angular Question
 INSERT INTO question_option (id, text, is_correct, question_id) VALUES
@@ -213,60 +274,360 @@ INSERT INTO question_option (id, text, is_correct, question_id) VALUES
 (119, 'A feature of CSS-in-JS', FALSE, 30),
 (120, 'A JavaScript array', FALSE, 30);
 
--- Python Options
+-- Options for Python Questions
 INSERT INTO question_option (id, text, is_correct, question_id) VALUES
-(121, "<class 'list'>", TRUE, 31),
-(122, "<class 'dict'>", FALSE, 31),
-(123, "<class 'set'>", FALSE, 31),
-(124, "<class 'tuple'>", FALSE, 31),
+(121, '6', FALSE, 31),
+(122, '8', TRUE, 31),
+(123, '9', FALSE, 31),
+(124, '2', FALSE, 31),
+(125, 'func', FALSE, 32),
+(126, 'define', FALSE, 32),
+(127, 'def', TRUE, 32),
+(128, 'function', FALSE, 32),
+(129, '5', TRUE, 33),
+(130, '4', FALSE, 33),
+(131, '6', FALSE, 33),
+(132, 'None', FALSE, 33),
+(133, 'A mutable sequence', TRUE, 34),
+(134, 'An immutable dictionary', FALSE, 34),
+(135, 'A type of loop', FALSE, 34),
+(136, 'A keyword', FALSE, 34),
+(137, '// comment', FALSE, 35),
+(138, '/* comment */', FALSE, 35),
+(139, '# comment', TRUE, 35),
+(140, '<!-- comment -->', FALSE, 35),
+(141, '2variable', FALSE, 36),
+(142, 'variable_name', TRUE, 36),
+(143, 'variable-name', FALSE, 36),
+(144, 'class', FALSE, 36),
+(145, 'Checks for membership', TRUE, 37),
+(146, 'Initializes a variable', FALSE, 37),
+(147, 'Imports a module', FALSE, 37),
+(148, 'Terminates a loop', FALSE, 37),
+(149, 'typeof()', FALSE, 38),
+(150, 'type()', TRUE, 38),
+(151, 'varType()', FALSE, 38),
+(152, 'getType()', FALSE, 38),
+(153, '3.33', FALSE, 39),
+(154, '3', TRUE, 39),
+(155, '4', FALSE, 39),
+(156, 'Error', FALSE, 39),
+(157, '.python', FALSE, 40),
+(158, '.py', TRUE, 40),
+(159, '.pt', FALSE, 40),
+(160, '.pyc', FALSE, 40);
 
-(125, 'try', FALSE, 32),
-(126, 'except', TRUE, 32),
-(127, 'final', FALSE, 32),
-(128, 'catch', FALSE, 32),
+-- Options for SQL Questions
+INSERT INTO question_option (id, text, is_correct, question_id) VALUES
+(161, 'SELECT', TRUE, 51),
+(162, 'GET', FALSE, 51),
+(163, 'EXTRACT', FALSE, 51),
+(164, 'FETCH', FALSE, 51),
+(165, 'Filters records', TRUE, 52),
+(166, 'Sorts records', FALSE, 52),
+(167, 'Deletes records', FALSE, 52),
+(168, 'Updates records', FALSE, 52),
+(169, 'ORDER BY', TRUE, 53),
+(170, 'SORT BY', FALSE, 53),
+(171, 'GROUP BY', FALSE, 53),
+(172, 'ARRANGE BY', FALSE, 53),
+(173, 'Ascending', TRUE, 54),
+(174, 'Descending', FALSE, 54),
+(175, 'Random', FALSE, 54),
+(176, 'Grouped', FALSE, 54),
+(177, 'INSERT INTO', TRUE, 55),
+(178, 'ADD', FALSE, 55),
+(179, 'UPDATE', FALSE, 55),
+(180, 'CREATE', FALSE, 55),
+(181, 'A unique identifier for each row', TRUE, 56),
+(182, 'A foreign key reference', FALSE, 56),
+(183, 'An index for fast access', FALSE, 56),
+(184, 'A duplicate column', FALSE, 56),
+(185, 'GROUP BY', TRUE, 57),
+(186, 'ORDER BY', FALSE, 57),
+(187, 'JOIN', FALSE, 57),
+(188, 'HAVING', FALSE, 57),
+(189, 'Counts all rows', TRUE, 58),
+(190, 'Counts only NULLs', FALSE, 58),
+(191, 'Counts distinct values', FALSE, 58),
+(192, 'Counts foreign keys', FALSE, 58),
+(193, 'DISTINCT', TRUE, 59),
+(194, 'UNIQUE', FALSE, 59),
+(195, 'NO DUPLICATES', FALSE, 59),
+(196, 'REMOVE DUPLICATES', FALSE, 59),
+(197, 'DELETE', FALSE, 60),
+(198, 'DROP', FALSE, 60),
+(199, 'TRUNCATE', TRUE, 60),
+(200, 'CLEAR', FALSE, 60);
 
-(129, 'float', TRUE, 33),
-(130, 'int', FALSE, 33),
-(131, 'complex', FALSE, 33),
-(132, 'str', FALSE, 33),
+-- C++ (Quiz 5)
+INSERT INTO question_option (id, text, is_correct, question_id) VALUES
+(201, '#define', TRUE, 61),
+(202, 'const()', FALSE, 61),
+(203, 'int const', FALSE, 61),
+(204, 'define()', FALSE, 61),
 
-(133, 'def my_function():', TRUE, 34),
-(134, 'function my_function():', FALSE, 34),
-(135, 'func my_function():', FALSE, 34),
-(136, 'define my_function():', FALSE, 34),
+(205, 'malloc', FALSE, 62),
+(206, 'new', TRUE, 62),
+(207, 'allocate()', FALSE, 62),
+(208, 'calloc', FALSE, 62),
 
-(137, 'Returns the length of an object', TRUE, 35),
-(138, 'Calculates area', FALSE, 35),
-(139, 'Counts function calls', FALSE, 35),
-(140, 'Returns index', FALSE, 35),
+(209, '<iostream>', TRUE, 63),
+(210, '<stdio.h>', FALSE, 63),
+(211, '<stdlib.h>', FALSE, 63),
+(212, '<string>', FALSE, 63),
 
-(141, '#', TRUE, 36),
-(142, '//', FALSE, 36),
-(143, '--', FALSE, 36),
-(144, '<!--', FALSE, 36),
+(213, 'class', TRUE, 64),
+(214, 'object', FALSE, 64),
+(215, 'define', FALSE, 64),
+(216, 'method', FALSE, 64),
 
-(145, "open('file.txt', 'r')", TRUE, 37),
-(146, "open('file.txt')", FALSE, 37),
-(147, "file('file.txt')", FALSE, 37),
-(148, "read('file.txt')", FALSE, 37),
+(217, 'Frees memory allocated by new', TRUE, 65),
+(218, 'Creates a pointer', FALSE, 65),
+(219, 'Initializes memory', FALSE, 65),
+(220, 'Deletes a class', FALSE, 65),
 
-(149, 'list', TRUE, 38),
-(150, 'str', FALSE, 38),
-(151, 'tuple', FALSE, 38),
-(152, 'int', FALSE, 38),
+(221, 'for(int i=0; i<10; i++)', TRUE, 66),
+(222, 'foreach i in range(10)', FALSE, 66),
+(223, 'loop i = 1 to 10', FALSE, 66),
+(224, 'repeat 10 times', FALSE, 66),
 
-(153, '[1, 2, 3]', TRUE, 39),
-(154, '(1, 2, 3)', FALSE, 39),
-(155, '{1, 2, 3}', FALSE, 39),
-(156, '1, 2, 3', FALSE, 39),
+(225, '//', TRUE, 67),
+(226, '##', FALSE, 67),
+(227, '#', FALSE, 67),
+(228, '--', FALSE, 67),
 
-(157, '3', TRUE, 40),
-(158, '3.33', FALSE, 40),
-(159, '4', FALSE, 40),
-(160, '0', FALSE, 40);
+(229, 'main()', TRUE, 68),
+(230, 'start()', FALSE, 68),
+(231, 'init()', FALSE, 68),
+(232, 'launch()', FALSE, 68),
 
+(233, 'size_t', TRUE, 69),
+(234, 'int', FALSE, 69),
+(235, 'bool', FALSE, 69),
+(236, 'float', FALSE, 69),
 
+(237, 'public', TRUE, 70),
+(238, 'inherits', FALSE, 70),
+(239, 'extends', FALSE, 70),
+(240, 'super', FALSE, 70);
 
+-- HTML & CSS (Quiz 8)
+INSERT INTO question_option (id, text, is_correct, question_id) VALUES
+(241, '<a>', TRUE, 81),
+(242, '<link>', FALSE, 81),
+(243, '<href>', FALSE, 81),
+(244, '<url>', FALSE, 81),
+
+(245, '<!-- comment -->', TRUE, 82),
+(246, '// comment', FALSE, 82),
+(247, '# comment', FALSE, 82),
+(248, '/* comment */', FALSE, 82),
+
+(249, 'Cascading Style Sheets', TRUE, 83),
+(250, 'Computer Style Syntax', FALSE, 83),
+(251, 'Creative Sheet System', FALSE, 83),
+(252, 'Color Style Syntax', FALSE, 83),
+
+(253, 'background-color', TRUE, 84),
+(254, 'bgcolor', FALSE, 84),
+(255, 'color-background', FALSE, 84),
+(256, 'bg-style', FALSE, 84),
+
+(257, 'p', TRUE, 85),
+(258, '*p', FALSE, 85),
+(259, 'paragraph', FALSE, 85),
+(260, '#p', FALSE, 85),
+
+(261, '<tr>', TRUE, 86),
+(262, '<td>', FALSE, 86),
+(263, '<table>', FALSE, 86),
+(264, '<row>', FALSE, 86),
+
+(265, 'block', TRUE, 87),
+(266, 'inline', FALSE, 87),
+(267, 'flex', FALSE, 87),
+(268, 'grid', FALSE, 87),
+
+(269, 'margin: 0 auto;', TRUE, 88),
+(270, 'align: center;', FALSE, 88),
+(271, 'text-align: middle;', FALSE, 88),
+(272, 'center: true;', FALSE, 88),
+
+(273, '<h1>', TRUE, 89),
+(274, '<heading>', FALSE, 89),
+(275, '<head>', FALSE, 89),
+(276, '<title>', FALSE, 89),
+
+(277, '<link rel="stylesheet" href="style.css">', TRUE, 90),
+(278, '<style src="style.css">', FALSE, 90),
+(279, '<css href="style.css">', FALSE, 90),
+(280, '<script src="style.css">', FALSE, 90);
+
+-- Git & GitHub (Quiz 9)
+INSERT INTO question_option (id, text, is_correct, question_id) VALUES
+(281, 'git init', TRUE, 91),
+(282, 'git start', FALSE, 91),
+(283, 'git begin', FALSE, 91),
+(284, 'git new', FALSE, 91),
+
+(285, 'git log', TRUE, 92),
+(286, 'git history', FALSE, 92),
+(287, 'git commits', FALSE, 92),
+(288, 'git status', FALSE, 92),
+
+(289, 'A pointer to a specific commit', TRUE, 93),
+(290, 'A backup of your repo', FALSE, 93),
+(291, 'A remote copy', FALSE, 93),
+(292, 'A merged state', FALSE, 93),
+
+(293, 'git branch <name>', TRUE, 94),
+(294, 'git new <branch>', FALSE, 94),
+(295, 'git create branch', FALSE, 94),
+(296, 'git init-branch', FALSE, 94),
+
+(297, 'git merge', TRUE, 95),
+(298, 'git combine', FALSE, 95),
+(299, 'git join', FALSE, 95),
+(300, 'git mix', FALSE, 95),
+
+(301, 'Clones a remote repo to your machine', TRUE, 96),
+(302, 'Deletes a branch', FALSE, 96),
+(303, 'Shows commit log', FALSE, 96),
+(304, 'Pushes changes to remote', FALSE, 96),
+
+(305, 'git add', TRUE, 97),
+(306, 'git stage', FALSE, 97),
+(307, 'git commit', FALSE, 97),
+(308, 'git push', FALSE, 97),
+
+(309, 'Specifies files to ignore in the repo', TRUE, 98),
+(310, 'Adds files to staging', FALSE, 98),
+(311, 'Sets remote URL', FALSE, 98),
+(312, 'Hides files from git log', FALSE, 98),
+
+(313, 'Downloads and merges remote changes', TRUE, 99),
+(314, 'Pushes changes to remote', FALSE, 99),
+(315, 'Creates a new branch', FALSE, 99),
+(316, 'Commits changes', FALSE, 99),
+
+(317, 'Shows configured remotes and URLs', TRUE, 100),
+(318, 'Lists all local branches', FALSE, 100),
+(319, 'Deletes remote branches', FALSE, 100),
+(320, 'Clones a remote repo', FALSE, 100);
+
+-- Linux CLI 
+INSERT INTO question_option (id, text, is_correct, question_id) VALUES
+(321, 'ls -a', TRUE, 101),
+(322, 'ls', FALSE, 101),
+(323, 'dir /hidden', FALSE, 101),
+(324, 'showall', FALSE, 101),
+
+(325, 'cd', TRUE, 102),
+(326, 'chdir', FALSE, 102),
+(327, 'goto', FALSE, 102),
+(328, 'dir', FALSE, 102),
+
+(329, 'touch', TRUE, 103),
+(330, 'newfile', FALSE, 103),
+(331, 'mkfile', FALSE, 103),
+(332, 'create', FALSE, 103),
+
+(333, 'pwd', TRUE, 104),
+(334, 'whereami', FALSE, 104),
+(335, 'path', FALSE, 104),
+(336, 'cwd', FALSE, 104),
+
+(337, 'cp', TRUE, 105),
+(338, 'copy', FALSE, 105),
+(339, 'duplicate', FALSE, 105),
+(340, 'clone', FALSE, 105),
+
+(341, 'rm', TRUE, 106),
+(342, 'del', FALSE, 106),
+(343, 'erase', FALSE, 106),
+(344, 'delete', FALSE, 106),
+
+(345, 'Changes file permissions', TRUE, 107),
+(346, 'Changes file ownership', FALSE, 107),
+(347, 'Changes file type', FALSE, 107),
+(348, 'Opens file viewer', FALSE, 107),
+
+(349, 'ps', TRUE, 108),
+(350, 'listproc', FALSE, 108),
+(351, 'jobs', FALSE, 108),
+(352, 'procshow', FALSE, 108),
+
+(353, 'sudo', TRUE, 109),
+(354, 'admin', FALSE, 109),
+(355, 'su', FALSE, 109),
+(356, 'root', FALSE, 109),
+
+(357, 'clear', TRUE, 110),
+(358, 'clr', FALSE, 110),
+(359, 'clean', FALSE, 110),
+(360, 'reset', FALSE, 110);
+
+-- Options for Question 71
+INSERT INTO question_option (id, text, is_correct, question_id) VALUES
+(361, '@SpringBootApplication', TRUE, 71),
+(362, '@EnableAutoConfiguration', FALSE, 71),
+(363, '@ComponentScan', FALSE, 71),
+(364, '@Configuration', FALSE, 71),
+
+-- Options for Question 72
+(365, 'Tomcat', TRUE, 72),
+(366, 'Jetty', FALSE, 72),
+(367, 'Undertow', FALSE, 72),
+(368, 'Netty', FALSE, 72),
+
+-- Options for Question 73
+(369, '@RestController', TRUE, 73),
+(370, '@Controller', FALSE, 73),
+(371, '@Service', FALSE, 73),
+(372, '@Component', FALSE, 73),
+
+-- Options for Question 74
+(373, 'Injects a bean automatically by type', TRUE, 74),
+(374, 'Starts the application', FALSE, 74),
+(375, 'Maps HTTP requests', FALSE, 74),
+(376, 'Configures application properties', FALSE, 74),
+
+-- Options for Question 75
+(377, 'Using @Bean annotation', TRUE, 75),
+(378, 'Using @Value annotation', FALSE, 75),
+(379, 'Using @ComponentScan', FALSE, 75),
+(380, 'Using @EnableAutoConfiguration', FALSE, 75),
+
+-- Options for Question 76
+(381, 'application.properties', TRUE, 76),
+(382, 'config.json', FALSE, 76),
+(383, 'settings.xml', FALSE, 76),
+(384, 'bootstrap.yml only', FALSE, 76),
+
+-- Options for Question 77
+(385, 'It defines application configuration properties', TRUE, 77),
+(386, 'It defines database schema', FALSE, 77),
+(387, 'It sets Java version', FALSE, 77),
+(388, 'It initializes Spring context', FALSE, 77),
+
+-- Options for Question 78
+(389, '8080', TRUE, 78),
+(390, '8000', FALSE, 78),
+(391, '9090', FALSE, 78),
+(392, '3306', FALSE, 78),
+
+-- Options for Question 79
+(393, 'A dependency that simplifies project setup', TRUE, 79),
+(394, 'A plugin for logging', FALSE, 79),
+(395, 'A built-in database', FALSE, 79),
+(396, 'An annotation processor', FALSE, 79),
+
+-- Options for Question 80
+(397, '@GetMapping', TRUE, 80),
+(398, '@RequestMapping(method = POST)', FALSE, 80),
+(399, '@PostMapping', FALSE, 80),
+(400, '@PutMapping', FALSE, 80);
 
 
 -- Dummy user
