@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,6 +60,10 @@ public class ModeratorQuizController {
         return quizService.updateQuiz(quizId, dto);
     }
 
-    // Next steps:
-    // - deleteQuiz
+    @DeleteMapping("/{quizId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteQuiz(@PathVariable Long quizId) {
+        quizService.deleteQuiz(quizId);
+    }
+
 }

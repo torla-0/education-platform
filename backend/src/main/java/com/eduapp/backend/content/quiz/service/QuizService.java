@@ -87,4 +87,14 @@ public class QuizService {
         return QuizDtoMapper.toQuizDto(quiz);
     }
 
+    @Transactional
+    /**
+     * Delete a quiz by its ID.
+     *
+     * @param quizId the ID of the quiz to delete
+     */
+    public void deleteQuiz(Long quizId) {
+        quizRepository.deleteById(quizId);
+    }
+
 }
