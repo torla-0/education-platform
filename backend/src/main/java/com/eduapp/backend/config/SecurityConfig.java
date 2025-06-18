@@ -18,7 +18,7 @@ import com.eduapp.backend.auth.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity 
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -27,29 +27,31 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .headers(headers -> headers.frameOptions(frame -> frame.disable()))
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) 
-            .authorizeHttpRequests(auth -> auth
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+                .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/api/auth/**",
-                    "/api/public/**",
-                    "/h2-console/**"                    
+                        "/api/auth/**",
+                        "/api/public/**",
+                        "/h2-console/**",
+                        "/api/quizzes/**",
+                        "api/topics/**"
                 ).permitAll()
                 .requestMatchers(
-                    "/api/sections/*/comments/**",
-                    "/api/sections/*/like/**",
-                    "/api/sections/*/bookmark/**",
-                    "/api/sections/*/note/**"
+                        "/api/sections/*/comments/**",
+                        "/api/sections/*/like/**",
+                        "/api/sections/*/bookmark/**",
+                        "/api/sections/*/note/**"
                 ).authenticated()
                 .requestMatchers("/api/moderator/**").hasRole("MODERATOR")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/users/**").authenticated()                
+                .requestMatchers("/api/users/**").authenticated()
                 .requestMatchers("/api/enrollments/**").authenticated()
                 .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // ⬅️ Important line
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // ⬅️ Important line
 
         return http.build();
     }

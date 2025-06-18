@@ -1,3 +1,13 @@
+<!-- Spinner -->
+<div *ngIf="isLoading" class="loading-spinner">
+  <p>Loading questions...</p>
+</div>
+
+<!-- Error Banner -->
+<div *ngIf="loadError" class="error-banner">
+  {{ loadError }}
+</div>
+
 <div class="quiz-container" *ngIf="!quizCompleted && currentQuestion">
   <div class="timer-bar-container">
     <div

@@ -29,6 +29,31 @@ public class QuizService {
     private final QuizTopicRepository topicRepository;
 
     /**
+     * Retrieve all published quizzes and convert to DTOs.
+     *
+     * @return list of published quizzes as DTOs
+     */
+    public List<QuizDto> findAllPublished() {
+        return quizRepository.findByPublishedTrue()
+                .stream()
+                .map(QuizDtoMapper::toQuizDto)
+                .collect(Collectors.toList());
+
+    }
+
+    /**
+     * Retrieve a published quiz by its ID and convert to DTO.
+     *
+     * @param id the ID of the quiz
+     * @return the published quiz as a DTO, or throws an exception if not found
+     */
+    public QuizDto findPublishedById(Long id) {
+        Quiz quiz = quizRepository.findByIdAndPublishedTrue(id)
+                .orElseThrow(() -> new RuntimeException("Quiz not found or not published"));
+        return QuizDtoMapper.toQuizDto(quiz);
+    }
+
+    /**
      * Retrieve all quizzes and convert to DTOs.
      */
     public List<QuizDto> findAll() {

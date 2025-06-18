@@ -13,19 +13,29 @@ import { QuizService } from '../quiz.service';
   styleUrls: ['./quiz-run.component.css'],
 })
 export class QuizRunComponent implements OnInit {
-  topicId!: number;
+  // Quiz metadata
+  quizId!: number;
+  questionCount = 10;
+
+  // Quiz data
   questions: Question[] = [];
   currentIndex = 0;
   selectedAnswer: QuestionOption | null = null;
-  quizCompleted = false;
-  correctCount = 0;
 
+  // Quiz state
+  quizCompleted = false;
+  quizFinished = false;
+  correctCount = 0;
+  correctAnswers = 0;
+
+  // Timer
   timer: number = 15;
   intervalId: any;
   totalTime: number = 15;
 
-  quizFinished = false;
-  correctAnswers = 0;
+  // Loading & error state
+  isLoading = false;
+  loadError = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -37,26 +47,46 @@ export class QuizRunComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {
-        this.topicId = +id;
-        this.loadQuestions();
+        this.quizId = +id;
+
+        // Optional query param: ?count=5
+        this.route.queryParamMap.subscribe((queryParams) => {
+          const count = queryParams.get('count');
+          const parsedCount = parseInt(count || '', 10);
+          if (!isNaN(parsedCount) && parsedCount > 0) {
+            this.questionCount = parsedCount;
+          }
+          this.loadQuestions();
+        });
       }
     });
   }
 
   loadQuestions() {
-    this.quizService.getQuestionsByQuizId(this.topicId).subscribe({
-      next: (data) => {
-        const shuffledQuestions = this.shuffleArray(data);
+    this.isLoading = true;
+    this.loadError = '';
 
-        this.questions = shuffledQuestions.map((q) => ({
-          ...q,
-          options: this.shuffleArray(q.options),
-        }));
-      },
-      error: (err) => console.error('Failed to load questions:', err),
-    });
+    this.quizService
+      .getQuestionsByQuizIdWithCount(this.quizId, this.questionCount)
+      .subscribe({
+        next: (data) => {
+          // Fallback if backend returns fewer questions than requested
+          const fallbackQuestions = data.slice(0, this.questionCount);
 
-    this.startTimer();
+          this.questions = this.shuffleArray(fallbackQuestions).map((q) => ({
+            ...q,
+            options: this.shuffleArray(q.options),
+          }));
+
+          this.isLoading = false;
+          this.startTimer();
+        },
+        error: (err) => {
+          console.error('Failed to load questions:', err);
+          this.loadError = 'Failed to load questions. Please try again later.';
+          this.isLoading = false;
+        },
+      });
   }
 
   get currentQuestion(): Question | null {
@@ -78,7 +108,6 @@ export class QuizRunComponent implements OnInit {
 
     this.selectedAnswer = null;
     this.currentIndex++;
-
     clearInterval(this.intervalId);
 
     if (this.currentIndex < this.questions.length) {
@@ -138,7 +167,6 @@ export class QuizRunComponent implements OnInit {
     this.correctAnswers = 0;
 
     clearInterval(this.intervalId);
-
     this.loadQuestions();
   }
 
@@ -146,3 +174,7 @@ export class QuizRunComponent implements OnInit {
     this.router.navigate(['/quiz']);
   }
 }
+// This component handles running a quiz, displaying questions, tracking answers, and managing the quiz state.
+// It includes a timer for each question and calculates the user's score at the end.
+// It also provides functionality to restart the quiz or navigate back to the quiz list.
+// It uses the QuizService to fetch questions and submit answers.

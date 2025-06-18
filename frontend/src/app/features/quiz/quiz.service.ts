@@ -27,6 +27,16 @@ export class QuizService {
   }
 
   /**
+   * Retrieve all published quizzes.
+   *
+   * @return an observable emitting a list of published quizzes
+   */
+
+  getAllPublishedQuizzes(): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(`${this.baseUrl}/quizzes`);
+  }
+
+  /**
    * Get all published quizzes under a given topic.
    */
   getQuizzesByTopicId(topicId: number): Observable<Quiz[]> {
@@ -34,11 +44,17 @@ export class QuizService {
   }
 
   /**
-   * Get all questions for a quiz by quizId.
+   * Get a list of random questions for a given quiz, up to the given count.
+   * @param quizId the ID of the quiz
+   * @param count the number of questions to return
+   * @return list of question DTOs
    */
-  getQuestionsByQuizId(quizId: number): Observable<Question[]> {
+  getQuestionsByQuizIdWithCount(
+    quizId: number,
+    count: number
+  ): Observable<Question[]> {
     return this.http.get<Question[]>(
-      `${this.baseUrl}/quizzes/${quizId}/questions`
+      `/api/quizzes/${quizId}/questions?count=${count}`
     );
   }
 

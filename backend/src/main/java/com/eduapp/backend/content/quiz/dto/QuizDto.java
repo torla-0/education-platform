@@ -1,29 +1,26 @@
 package com.eduapp.backend.content.quiz.dto;
 
-import java.util.List;
+import java.time.Instant;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class QuizDto {
-    private final Long id;
-    private final String title;
-    private final List<QuestionDto> questions;
 
-    public QuizDto(Long id, String title, List<QuestionDto> questions) {
-        this.id = id;
-        this.title = title;
-        this.questions = questions;
-    }
+    private Long id;
+    private String title;
+    private Long topicId;
+    private String topicName;
+    private boolean published;
+    private Instant createdAt;
+    private Instant updatedAt;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public List<QuestionDto> getQuestions() {
-        return questions;
-    }
-
-    
 }
