@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { QuizService } from '../../core/services/quiz.service';
+import { QuizService } from '../quiz.service';
 import { CommonModule } from '@angular/common';
 
 interface Topic {
@@ -12,10 +12,10 @@ interface Topic {
   selector: 'app-quiz',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.css'],
+  templateUrl: './quiz-list.component.html',
+  styleUrls: ['./quiz-list.component.css'],
 })
-export class QuizComponent implements OnInit {
+export class QuizListComponent implements OnInit {
   topics: Topic[] = [];
 
   constructor(private quizService: QuizService, private router: Router) {}

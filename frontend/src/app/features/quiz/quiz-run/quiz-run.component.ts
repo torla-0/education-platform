@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { QuizService } from '../../../../core/services/quiz.service';
-import { Question, QuestionOption } from '../../../../core/models/quiz.model';
+import { Question, QuestionOption } from '../../../core/models/quiz.model';
+import { QuizService } from '../quiz.service';
 
 @Component({
   selector: 'app-quiz-run',

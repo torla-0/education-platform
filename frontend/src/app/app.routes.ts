@@ -3,9 +3,8 @@ import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { HomeComponent } from './features/home/home.component';
 import { PublicLearningResourcesComponent } from './features/learning-resources/public-learning-resources.component';
-import { QuizComponent } from './features/quiz/quiz.component';
+import { QuizListComponent } from './features/quiz/quiz-list/quiz-list.component';
 
-import { QuizRunComponent } from './features/quiz/components/quiz-run/quiz-run.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { SignupComponent } from './features/auth/signup/signup.component';
 
@@ -24,6 +23,7 @@ import { ModeratorLearningResourcesComponent } from './features/moderator/learin
 import { PublicResourceDetailsComponent } from './features/learning-resources/public-resource-details/public-resource-details.component';
 import { SectionUserViewComponent } from './features/learning-resources/section/component/section-user-view/section-user-view.component';
 import { SectionOverviewComponent } from './features/learning-resources/section/component/section-overview/section-overview.component';
+import { QuizRunComponent } from './features/quiz/quiz-run/quiz-run.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -34,7 +34,7 @@ export const routes: Routes = [
     component: SectionOverviewComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'quiz', component: QuizComponent },
+  { path: 'quiz', component: QuizListComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'quiz/:id', component: QuizRunComponent },
   { path: 'login', component: LoginComponent },
