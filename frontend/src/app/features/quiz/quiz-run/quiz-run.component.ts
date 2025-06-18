@@ -44,7 +44,7 @@ export class QuizRunComponent implements OnInit {
   }
 
   loadQuestions() {
-    this.quizService.getQuestionsByTopicId(this.topicId).subscribe({
+    this.quizService.getQuestionsByQuizId(this.topicId).subscribe({
       next: (data) => {
         const shuffledQuestions = this.shuffleArray(data);
 

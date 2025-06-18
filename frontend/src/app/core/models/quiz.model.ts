@@ -20,6 +20,46 @@ export interface QuizTopic {
 export interface Quiz {
   id: number;
   title: string;
-  topic: QuizTopic;
-  questions: Question[];
+  topicId: number;
+  topicName: string;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Create
+export interface CreateQuiz {
+  title: string;
+  topicId: number;
+  published: boolean;
+}
+
+export interface CreateQuestion {
+  text: string;
+  quizId: number;
+  options: CreateQuestionOption[];
+}
+
+export interface CreateQuestionOption {
+  text: string;
+  correct: boolean;
+}
+
+// Update
+
+export interface UpdateQuiz {
+  title?: string;
+  topicId?: number;
+  published?: boolean;
+}
+
+export interface UpdateQuestion {
+  text?: string;
+  options?: UpdateQuestionOption[];
+}
+
+export interface UpdateQuestionOption {
+  id: number;
+  text?: string;
+  correct?: boolean;
 }

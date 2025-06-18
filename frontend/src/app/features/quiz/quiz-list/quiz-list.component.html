@@ -1,14 +1,22 @@
-<div class="quiz-container">
-  <h2>Choose quiz theme</h2>
+<div class="quiz-topic-list">
+  <h1>📚 Quiz Topics</h1>
 
-  <div class="topic-buttons">
-    <button
-      *ngFor="let topic of topics"
-      (click)="startQuiz(topic.id)"
-      class="cta-button"
-      mat-raised-button
+  <div class="search-filter">
+    <input
+      type="text"
+      placeholder="Search topics..."
+      [(ngModel)]="searchTerm"
+      (input)="applyFilter()"
+    />
+  </div>
+
+  <div class="topics-grid">
+    <div
+      *ngFor="let topic of filteredTopics"
+      class="topic-card"
+      (click)="goToTopic(topic.id)"
     >
-      {{ topic.name }}
-    </button>
+      <h3>{{ topic.name }}</h3>
+    </div>
   </div>
 </div>
