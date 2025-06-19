@@ -14,13 +14,15 @@
     <div
       *ngFor="let topic of filteredTopics"
       class="topic-card"
+      [class.active]="selectedTopicId === topic.id"
       (click)="goToTopic(topic.id)"
     >
       <h3>{{ topic.name }}</h3>
     </div>
   </div>
 
-  <h2 *ngIf="allQuizzes.length">🧪 All Quizzes</h2>
+  <h2 *ngIf="filteredQuizzes.length">🧪 Quizzes</h2>
+
   <div class="quiz-search-filter">
     <input
       type="text"
@@ -33,14 +35,14 @@
   <div class="quiz-grid">
     <div *ngFor="let quiz of filteredQuizzes" class="quiz-card">
       <h3>{{ quiz.title }}</h3>
-      <p class="quiz-topic">{{ quiz.topicName }}</p>
-      <button (click)="selectQuiz(quiz)">▶ Start Quiz</button>
+      <p class="quiz-topic">Topic: {{ quiz.topicName }}</p>
+      <button (click)="selectQuiz(quiz)">▶ Play</button>
     </div>
   </div>
 
   <div *ngIf="selectedQuiz" class="quiz-count-modal">
     <div class="modal-content">
-      <h3>Select Number of Questions</h3>
+      <h3>Choose number of questions</h3>
       <select [(ngModel)]="selectedCount">
         <option *ngFor="let n of [5, 10, 15, 20]" [value]="n">{{ n }}</option>
       </select>

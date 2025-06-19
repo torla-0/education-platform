@@ -13,17 +13,18 @@ import { Quiz, QuizTopic } from '../../../core/models/quiz.model';
   styleUrls: ['./quiz-list.component.css'],
 })
 export class QuizListComponent implements OnInit {
-  // Topics
+  // Topic-related
   topics: QuizTopic[] = [];
   filteredTopics: QuizTopic[] = [];
   searchTerm = '';
 
-  // Quizzes
+  // Quiz-related
   allQuizzes: Quiz[] = [];
   filteredQuizzes: Quiz[] = [];
   quizSearchTerm = '';
 
-  // Selection
+  // Selection & Start
+  selectedTopicId: number | null = null;
   selectedQuiz: Quiz | null = null;
   selectedCount: number = 10;
 
@@ -34,7 +35,6 @@ export class QuizListComponent implements OnInit {
     this.loadAllQuizzes();
   }
 
-  // Load all topics
   loadTopics(): void {
     this.quizService.getAllTopics().subscribe({
       next: (data) => {
@@ -45,9 +45,7 @@ export class QuizListComponent implements OnInit {
     });
   }
 
-  // Load all quizzes across topics
   loadAllQuizzes(): void {
-    // This assumes your backend returns all published quizzes; adjust as needed
     this.quizService.getAllPublishedQuizzes().subscribe({
       next: (data) => {
         this.allQuizzes = data.filter((q) => q.published);
@@ -74,7 +72,12 @@ export class QuizListComponent implements OnInit {
   }
 
   goToTopic(topicId: number): void {
-    this.router.navigate(['/quiz/topic', topicId]);
+    this.selectedTopicId = topicId;
+    this.filteredQuizzes = this.allQuizzes.filter(
+      (q) => q.topicId === topicId && q.published
+    );
+    this.selectedQuiz = null;
+    this.quizSearchTerm = '';
   }
 
   selectQuiz(quiz: Quiz): void {
@@ -84,11 +87,12 @@ export class QuizListComponent implements OnInit {
 
   startQuizWithCount(): void {
     if (!this.selectedQuiz) return;
-    this.router.navigate([`/quiz`, this.selectedQuiz.id], {
+    this.router.navigate(['/quiz', this.selectedQuiz.id], {
       queryParams: { count: this.selectedCount },
     });
   }
 }
+
 // This component lists all quiz topics and allows users to filter and select quizzes.
 // It also provides functionality to start a quiz with a specified number of questions.
 // The component uses the QuizService to fetch topics and quizzes, and it allows users to navigate to a quiz run page with selected parameters.
