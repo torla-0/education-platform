@@ -17,6 +17,7 @@ export class QuizListComponent implements OnInit {
   topics: QuizTopic[] = [];
   filteredTopics: QuizTopic[] = [];
   searchTerm = '';
+  selectedTopicId: number | null = null;
 
   // Quiz-related
   allQuizzes: Quiz[] = [];
@@ -24,9 +25,12 @@ export class QuizListComponent implements OnInit {
   quizSearchTerm = '';
 
   // Selection & Start
-  selectedTopicId: number | null = null;
   selectedQuiz: Quiz | null = null;
   selectedCount: number = 10;
+
+  // Loading and error
+  isLoading = false;
+  loadError = false;
 
   constructor(private quizService: QuizService, private router: Router) {}
 
@@ -46,13 +50,25 @@ export class QuizListComponent implements OnInit {
   }
 
   loadAllQuizzes(): void {
+    this.isLoading = true;
+    this.loadError = false;
+
     this.quizService.getAllPublishedQuizzes().subscribe({
       next: (data) => {
         this.allQuizzes = data.filter((q) => q.published);
         this.filteredQuizzes = [...this.allQuizzes];
+        this.isLoading = false;
       },
-      error: (err) => console.error('Failed to load quizzes:', err),
+      error: (err) => {
+        console.error('Failed to load quizzes:', err);
+        this.loadError = true;
+        this.isLoading = false;
+      },
     });
+  }
+
+  get sortedTopics(): QuizTopic[] {
+    return this.topics.slice().sort((a, b) => a.name.localeCompare(b.name));
   }
 
   applyFilter(): void {
@@ -72,12 +88,19 @@ export class QuizListComponent implements OnInit {
   }
 
   goToTopic(topicId: number): void {
-    this.selectedTopicId = topicId;
-    this.filteredQuizzes = this.allQuizzes.filter(
-      (q) => q.topicId === topicId && q.published
-    );
-    this.selectedQuiz = null;
-    this.quizSearchTerm = '';
+    this.selectedTopicId = this.selectedTopicId === topicId ? null : topicId;
+    this.applyTopicFilter();
+  }
+
+  applyTopicFilter(): void {
+    this.filteredQuizzes = this.allQuizzes.filter((q) => {
+      const matchesTopic =
+        this.selectedTopicId === null || q.topicId === this.selectedTopicId;
+      const matchesSearch = q.title
+        .toLowerCase()
+        .includes(this.quizSearchTerm.toLowerCase());
+      return matchesTopic && matchesSearch;
+    });
   }
 
   selectQuiz(quiz: Quiz): void {

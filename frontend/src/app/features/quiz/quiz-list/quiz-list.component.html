@@ -1,6 +1,7 @@
 <div class="quiz-topic-list">
   <h1>📚 Quiz Topics</h1>
 
+  <!-- Topic Search -->
   <div class="search-filter">
     <input
       type="text"
@@ -10,19 +11,31 @@
     />
   </div>
 
-  <div class="topics-grid">
-    <div
-      *ngFor="let topic of filteredTopics"
-      class="topic-card"
-      [class.active]="selectedTopicId === topic.id"
-      (click)="goToTopic(topic.id)"
-    >
-      <h3>{{ topic.name }}</h3>
+  <!-- Horizontal Scrollable Pills -->
+  <div class="topics-bar-container">
+    <div class="topics-scroll-bar">
+      <div
+        class="topic-pill"
+        *ngFor="let topic of sortedTopics"
+        [class.active]="selectedTopicId === topic.id"
+        (click)="goToTopic(topic.id)"
+      >
+        {{ topic.name }}
+      </div>
+      <div
+        class="topic-pill clear-pill"
+        *ngIf="selectedTopicId !== null"
+        (click)="goToTopic(selectedTopicId)"
+      >
+        ❌ Clear
+      </div>
     </div>
   </div>
 
+  <!-- Quiz Section -->
   <h2 *ngIf="filteredQuizzes.length">🧪 Quizzes</h2>
 
+  <!-- Quiz Search -->
   <div class="quiz-search-filter">
     <input
       type="text"
@@ -32,7 +45,25 @@
     />
   </div>
 
+  <!-- Quiz States -->
   <div class="quiz-grid">
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="spinner">Loading quizzes...</div>
+
+    <!-- Error -->
+    <div *ngIf="loadError" class="error-message">
+      ❌ Failed to load quizzes. Please try again later.
+    </div>
+
+    <!-- Empty State -->
+    <div
+      *ngIf="!isLoading && !loadError && filteredQuizzes.length === 0"
+      class="empty-state"
+    >
+      <p>No quizzes found for this filter.</p>
+    </div>
+
+    <!-- Quiz Cards -->
     <div *ngFor="let quiz of filteredQuizzes" class="quiz-card">
       <h3>{{ quiz.title }}</h3>
       <p class="quiz-topic">Topic: {{ quiz.topicName }}</p>
@@ -40,6 +71,7 @@
     </div>
   </div>
 
+  <!-- Modal for selecting question count -->
   <div *ngIf="selectedQuiz" class="quiz-count-modal">
     <div class="modal-content">
       <h3>Choose number of questions</h3>
