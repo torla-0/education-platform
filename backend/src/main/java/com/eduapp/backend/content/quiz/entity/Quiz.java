@@ -38,6 +38,8 @@ public class Quiz {
 
     private boolean published = false;
 
+    private long totalQuestions;
+
     @Column(updatable = false)
     private Instant createdAt;
 
@@ -61,4 +63,5 @@ public class Quiz {
     protected void onUpdate() {
         this.updatedAt = Instant.now();
     }
+
 }

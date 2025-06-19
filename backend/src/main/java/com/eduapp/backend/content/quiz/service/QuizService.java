@@ -13,13 +13,16 @@ import com.eduapp.backend.content.quiz.dto.UpdateQuizDto;
 import com.eduapp.backend.content.quiz.entity.Quiz;
 import com.eduapp.backend.content.quiz.entity.QuizTopic;
 import com.eduapp.backend.content.quiz.mapper.QuizDtoMapper;
+import com.eduapp.backend.content.quiz.repository.QuestionRepository;
 import com.eduapp.backend.content.quiz.repository.QuizRepository;
 import com.eduapp.backend.content.quiz.repository.QuizTopicRepository;
 
 import lombok.AllArgsConstructor;
 
 /**
- * Service for retrieving and mapping Quiz entities to DTOs.
+ * Service for managing quizzes. Provides methods to create, update, delete, and
+ * retrieve quizzes. Also includes methods to retrieve quizzes by their
+ * published status.
  */
 @AllArgsConstructor
 @Service
@@ -27,6 +30,7 @@ public class QuizService {
 
     private final QuizRepository quizRepository;
     private final QuizTopicRepository topicRepository;
+    private final QuestionRepository questionRepository;
 
     /**
      * Retrieve all published quizzes and convert to DTOs.
@@ -89,6 +93,7 @@ public class QuizService {
         quiz.setTitle(dto.getTitle());
         quiz.setTopic(topic);
         quiz.setQuestions(new ArrayList<>());
+        quiz.setTotalQuestions(0);
 
         Quiz saved = quizRepository.save(quiz);
         return QuizDtoMapper.toQuizDto(saved);
@@ -122,4 +127,17 @@ public class QuizService {
         quizRepository.deleteById(quizId);
     }
 
+    /**
+     * Updates the total number of questions for the quiz.
+     *
+     * @param quizId the ID of the quiz to update
+     */
+    @Transactional
+    public void updateTotalQuestions(Long quizId) {
+        long count = questionRepository.countByQuizId(quizId);
+        quizRepository.findById(quizId).ifPresent(quiz -> {
+            quiz.setTotalQuestions(count);
+            quizRepository.save(quiz);
+        });
+    }
 }

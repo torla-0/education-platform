@@ -67,6 +67,7 @@
     <div *ngFor="let quiz of filteredQuizzes" class="quiz-card">
       <h3>{{ quiz.title }}</h3>
       <p class="quiz-topic">Topic: {{ quiz.topicName }}</p>
+      <p class="quiz-meta">Questions: {{ quiz.totalQuestions }}</p>
       <button (click)="selectQuiz(quiz)">▶ Play</button>
     </div>
   </div>

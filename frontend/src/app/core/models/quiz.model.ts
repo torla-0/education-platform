@@ -23,6 +23,7 @@ export interface Quiz {
   topicId: number;
   topicName: string;
   published: boolean;
+  totalQuestions: number;
   createdAt: string;
   updatedAt: string;
 }

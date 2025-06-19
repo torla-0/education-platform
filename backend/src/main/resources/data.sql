@@ -12,17 +12,17 @@ INSERT INTO quiz_topic (id, name) VALUES
 (10, 'Linux CLI');
 
 -- Quizzes
-INSERT INTO quiz (id, title, topic_id, published, created_at, updated_at) VALUES
-(1, 'Angular Basics Quiz', 1, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 'Java Fundamentals Quiz', 2, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 'React Essentials Quiz', 3, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 'Python Essentials Quiz', 4, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 'C++ Basics Quiz', 5, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(6, 'SQL Fundamentals Quiz', 6, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 'Spring Boot Quiz', 7, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(8, 'HTML & CSS Basics Quiz', 8, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 'Git & GitHub Quiz', 9, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10, 'Linux CLI Quiz', 10, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO quiz (id, title, topic_id, published, total_questions, created_at, updated_at) VALUES
+(1, 'Angular Basics Quiz', 1, true, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 'Java Fundamentals Quiz', 2, false, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 'React Essentials Quiz', 3, true, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 'Python Essentials Quiz', 4, true, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 'C++ Basics Quiz', 5, false, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 'SQL Fundamentals Quiz', 6, true, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 'Spring Boot Quiz', 7, true, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 'HTML & CSS Basics Quiz', 8, false, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 'Git & GitHub Quiz', 9, true, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 'Linux CLI Quiz', 10, false, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- Questions 
 INSERT INTO question (id, text, topic_id, quiz_id) VALUES
@@ -628,6 +628,9 @@ INSERT INTO question_option (id, text, is_correct, question_id) VALUES
 (398, '@RequestMapping(method = POST)', FALSE, 80),
 (399, '@PostMapping', FALSE, 80),
 (400, '@PutMapping', FALSE, 80);
+
+ALTER TABLE question ALTER COLUMN id RESTART WITH 111;
+ALTER TABLE question_option ALTER COLUMN id RESTART WITH 401;
 
 
 -- Dummy user

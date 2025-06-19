@@ -20,6 +20,7 @@ public class QuizDto {
     private Long topicId;
     private String topicName;
     private boolean published;
+    private long totalQuestions;
     private Instant createdAt;
     private Instant updatedAt;
 
